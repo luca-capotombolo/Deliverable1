@@ -1,4 +1,4 @@
-package org.example.jira;
+package org.capotombolo.jira;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,11 +42,7 @@ public class Jira {
         do {
             //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
             j = i + 1000;
-            String url = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
-                    + projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
-                    + "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22AND%22"
-                    + "affectedVersion%22=%223.4.5%22&fields=key,resolutiondate,versions,created&startAt="			//KEY = ID
-                    + i + "&maxResults=" + j;
+            String url = "https://issues.apache.org/jira/rest/api/2/project/ZOOKEEPER/versions";
             JSONObject json = readJsonFromUrl(url);
             JSONArray issues = json.getJSONArray("issues");
             total = json.getInt("total");

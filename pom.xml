@@ -59,6 +59,7 @@
       <artifactId>org.eclipse.jgit</artifactId>
       <version>6.1.0.202203080745-r</version>
     </dependency>
+
     <!--<dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>

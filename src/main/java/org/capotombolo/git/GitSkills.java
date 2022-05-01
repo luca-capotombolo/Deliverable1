@@ -1,4 +1,4 @@
-package org.example.git;
+package org.capotombolo.git;
 
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;

@@ -1,4 +1,4 @@
-package org.example;
+package org.capotombolo;
 
 import static org.junit.Assert.assertTrue;
 
