@@ -1,4 +1,4 @@
-package org.example.filesystem;
+package org.capotombolo.filesystem;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class FoundAllJavaFiles {
      */
     public File [] listFiles(File dir){
 
-        File [] files = null;
+        File [] files = null;           //Lista dei files contenuti in dir
 
         if(!dir.isDirectory())
         {
@@ -68,9 +68,9 @@ public class FoundAllJavaFiles {
 
         File[] files;
         File dir;
-        List<String> filenames = new ArrayList<>();
+        List<String> filenames = new ArrayList<>();     //Lista dei filename corrispondenti ai file .java
         String filename;
-        Stack<File> stack = new Stack<>();
+        Stack<File> stack = new Stack<>();              //Contiene le directory che devono essere ancora esplorate
 
         if(!this.directory.isDirectory()){
             System.out.println("Il file passato non è una directory...");
@@ -88,15 +88,22 @@ public class FoundAllJavaFiles {
             }else {
                 filename = file.getAbsolutePath();
                 if (filename.contains(".java")) {
-                    System.out.println(filename);
-                      filenames.add(filename);
+                    //System.out.println(filename);
+                    filenames.add(filename);
                 }
             }
         }
 
-        while(!stack.empty()){
+        /**
+         * Ho inserito tutti i file .java che si trovavano
+         * all'interno della root Directory
+         * Adesso vado ad esaminamire i file contenuti
+         * all'interno delle Directory che si trovano
+         * nella root directory
+         */
+        while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
             dir = stack.pop();
-            System.out.println("Dir parent: " +dir.getName());
+            //System.out.println("Dir parent: " +dir.getName());
             if(dir.getName().equals("target")) continue;
             files = this.listFiles(dir);
             if (files.length == 0) continue;
@@ -113,6 +120,7 @@ public class FoundAllJavaFiles {
         }
 
         if(!filenames.isEmpty()){
+            System.out.println("Numero di file .java trovati: " + filenames.size());
             for(String name: filenames){
                 System.out.println(name);
             }
