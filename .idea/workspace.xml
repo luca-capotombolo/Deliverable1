@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Ho inserito in un unico progetto Excel, Git, Jira e la ricerca dei file del progetto">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Ho aggiunto la classe Release.java e creato un Entry Point">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Commit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/capotombolo/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.FoundAllJavaFiles">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.capotombolo.App" />
       <module name="Deliverable1" />
@@ -60,12 +59,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FoundAllJavaFiles" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.filesystem.FoundAllJavaFiles" />
+    <configuration name="Commit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.utils.Commit" />
       <module name="Deliverable1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.capotombolo.filesystem.*" />
+          <option name="PATTERN" value="org.capotombolo.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -114,8 +113,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FoundAllJavaFiles" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.GitSkills" />
+        <item itemvalue="Application.Commit" />
+        <item itemvalue="Application.Jira" />
         <item itemvalue="Application.org.capotombolo.excel.ExcelTools" />
       </list>
     </recent_temporary>
@@ -143,7 +144,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650837772137</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Ho controllato la FoundAllJavaFiles.java e sembra funzionare correttamente">
+      <created>1651398609017</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651398609017</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Ho aggiunto la classe Release.java e creato un Entry Point">
+      <created>1651398738791</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651398738791</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -160,6 +175,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Adesso funziona sia la creazione dell'Excel sia&#10;La ricerca dei file java nel progetto" />
     <MESSAGE value="Ho inserito in un unico progetto Excel, Git, Jira e la ricerca dei file del progetto" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ho inserito in un unico progetto Excel, Git, Jira e la ricerca dei file del progetto" />
+    <MESSAGE value="Ho controllato la FoundAllJavaFiles.java e sembra funzionare correttamente" />
+    <MESSAGE value="Ho aggiunto la classe Release.java e creato un Entry Point" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ho aggiunto la classe Release.java e creato un Entry Point" />
   </component>
 </project>
