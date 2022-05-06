@@ -1,10 +1,12 @@
 package org.capotombolo.utils;
 
+import java.sql.Date;
+
 public class Release {
     public String release;
-    public String date;
+    public Date date;
 
-    public Release(String release, String date){
+    public Release(String release, Date date){
         this.release = release;
         this.date = date;
     }
@@ -13,7 +15,7 @@ public class Release {
         return this.release;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return this.date;
     }
 }

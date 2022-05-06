@@ -1,16 +1,14 @@
 package org.capotombolo;
 
-import org.capotombolo.excel.ExcelTools;
 import org.capotombolo.filesystem.FoundAllJavaFiles;
 import org.capotombolo.git.GitSkills;
 import org.capotombolo.jira.Jira;
 import org.capotombolo.utils.Commit;
 import org.capotombolo.utils.Issue;
+import org.capotombolo.utils.MyFile;
 import org.capotombolo.utils.Release;
 import org.eclipse.jgit.api.errors.GitAPIException;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class App
 
         final String project = "BOOKKEEPER";
         final String path = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
-
 
         //Get All Releases from JIRA
         List<Release> releaseList = Jira.getReleases(project);
@@ -39,6 +36,25 @@ public class App
 
         //Get All Bugs from JIRA
         List<Issue> issueList = Jira.getBugs(project);
+
+        //Per vedere le FVs delle release
+        /*
+        int i = 0;
+        for (Issue issue: issueList){
+            System.out.println("ISSUE: "+issue.key);
+            System.out.println("IV: "+issue.iv);
+            if(issue.fvs.size()==0){
+                i++;
+                continue;
+            }
+            System.out.println("FVs:");
+            for(Release release: issue.fvs){
+                System.out.println(release.getRelease());
+            }
+        }
+        System.out.println(i);*/
+
+
         /*
         int i = 0;
         for(Issue issue: issueList){
@@ -53,51 +69,73 @@ public class App
         }
         System.out.println(i);*/
 
-        //fino a qua funziona
-
-
         GitSkills gitSkills = new GitSkills(path);
         FoundAllJavaFiles foundAllJavaFiles;
-        //ExcelTools excelTools;
-        //excelTools = new ExcelTools("ISW2", project, "Release", "Name of the class", "Bugginess");
-        //excelTools.createTable();
-        boolean ret;
         int count = 0;
-        List<Commit> totCommitWithKeys = new ArrayList<>();             //Commit with a Key issues within comment
-        List<String> filenames;
-        HashMap<Release, List<String>> hashMap = new HashMap<>();
+        List<MyFile> filenames;
+        HashMap<Release, List<MyFile>> hashMapReleaseFiles = new HashMap<>();           //{Release1: [file1, ..., fileN], Release2: [file1, ..., fileM], ...}
+        HashMap<Issue, List<Commit>> hashMapIssueCommits;             //{Issue1: [commit1, ..., commitN], Issue2: [commit1, ..., commitM], ...}
 
-        //Foreach release, insert data into excel
         for (Release release : releaseList) {
-            //Mi posiziono sulla release corretta
             gitSkills.setBranch(release.getRelease());
-            //costruisco il file excel
             if (count <= nRelease) {
                 foundAllJavaFiles = new FoundAllJavaFiles(path);
-                filenames = foundAllJavaFiles.foundAllFiles();             //all java files in the project
-                hashMap.put(release, filenames);
-                //ret = excelTools.writeData(filenames, release.getRelease());
-                //if(!ret){
-                //    System.out.println("Si è verificato un errore nella scrittura sul file Excel...");
-                //    return;
-                //}
+                filenames = foundAllJavaFiles.foundAllFiles();                          //all java files in the release project
+                hashMapReleaseFiles.put(release, filenames);
             }
-            //cerco i commit relativi ai bug
-            //for(String key: keys){
-            for (Issue issue : issueList)
-                totCommitWithKeys.addAll(gitSkills.searchCommitByKeyBug(issue.key, release));
+            count++;
         }
-        count++;
+
+        hashMapIssueCommits = gitSkills.classifyCommitsIssue(issueList, releaseList);
 
 
-        for (Commit commit : totCommitWithKeys) {
-            System.out.println("Commento: " + commit.comment);
-            System.out.println("SHA: " + commit.sha);
-            System.out.println("Release a cui il commit apprtiene: " + commit.release.getRelease());
-            System.out.println("Data del commit: " + commit.date);
-            System.out.println("Data della release: " + commit.release.getDate());
-            System.out.println("File modificati: " + commit.files);
+        System.out.println(hashMapIssueCommits.size());
+        int i = 0, j = 0;
+        for(Issue issue: issueList){
+            i++;
+            List<Commit> commits = hashMapIssueCommits.get(issue);
+            if(commits.size()==0){
+                continue;
+            }
+            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("ISSUE = "+issue.key);
+            for(Commit commit: commits){
+                j++;
+                System.out.println("****************************************************");
+                System.out.println("Data commit: " + commit.date);
+                if(commit.release != null) {
+                    System.out.println("Release: " + commit.release.getRelease());
+                    System.out.println("Date release: " + commit.release.date);
+                }
+                else
+                    System.out.println("Date release: null");
+                System.out.println("****************************************************");
+            }
         }
+
+
+        /*
+        List<Commit> commits;
+        List<MyFile> myFiles;
+        for(Release release: releaseList){
+            for(Issue issue: issueList){
+                if((release.getDate().compareTo(issue.iv.getDate()) >= 0) && (release.getDate().compareTo(issue.fv.getDate()) < 0)){
+                    commits = hashMapIssueCommits.get(issue);
+                    for(Commit commit: commits){
+                        if(commit.date.compareTo(release.getDate()) > 0){
+                            myFiles = hashMapReleaseFiles.get(release);
+                            for(MyFile myFile: myFiles){
+                                if(commit.files.contains(myFile.path)){
+                                    myFile.state = MyFile.StateFile.BUG;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }*/
+
+        //Scrittura dei dati su Excel
 
 
     }

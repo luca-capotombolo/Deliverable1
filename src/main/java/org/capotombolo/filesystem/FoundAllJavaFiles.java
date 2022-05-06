@@ -1,5 +1,7 @@
 package org.capotombolo.filesystem;
 
+import org.capotombolo.utils.MyFile;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +69,11 @@ public class FoundAllJavaFiles {
      * @return La lista di tutti i file contenuti nella directory
      */
 
-    public List<String> foundAllFiles(){
+    public List<MyFile> foundAllFiles(){
 
         File[] files;
         File dir;
-        List<String> filenames = new ArrayList<>();     //Lista dei filename corrispondenti ai file .java
+        List<MyFile> filenames = new ArrayList<>();     //Lista dei filename corrispondenti ai file .java
         String filename;
         Stack<File> stack = new Stack<>();              //Contiene le directory che devono essere ancora esplorate
 
@@ -92,7 +94,7 @@ public class FoundAllJavaFiles {
                 filename = file.getAbsolutePath();
                 if (filename.contains(".java")) {
                     //System.out.println(filename);
-                    filenames.add(filename);
+                    filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG));
                 }
             }
         }
@@ -116,18 +118,19 @@ public class FoundAllJavaFiles {
                 }else {
                     filename = file.getAbsolutePath();
                     if (filename.contains(".java")) {
-                        filenames.add(filename);
+                        filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG));
                     }
                 }
             }
         }
 
+        /*
         if(!filenames.isEmpty()){
             System.out.println("Numero di file .java trovati: " + filenames.size());
             for(String name: filenames){
                 System.out.println(name);
             }
-        }
+        }*/
 
         return filenames;
     }

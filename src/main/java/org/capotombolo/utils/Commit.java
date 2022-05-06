@@ -1,15 +1,8 @@
 package org.capotombolo.utils;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
-import static org.capotombolo.jira.Jira.readJsonFromUrl;
 
 public class Commit {
     public final String sha;
