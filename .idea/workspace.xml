@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="...">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/sonarCloud.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/sonar.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Eliminato il file sonar.yml e sostituito con sonarCloud.yml">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/sonarCloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/sonarCloud.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651947740947</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Eliminato il file sonar.yml e sostituito con sonarCloud.yml">
+      <created>1651948674933</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1651948674933</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -243,6 +248,7 @@
     <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
     <MESSAGE value="Prova rimozione codesmell su sonar&#10;Ho eliminato il commento nel file pom.xml" />
     <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
+    <MESSAGE value="Eliminato il file sonar.yml e sostituito con sonarCloud.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Eliminato il file sonar.yml e sostituito con sonarCloud.yml" />
   </component>
 </project>
