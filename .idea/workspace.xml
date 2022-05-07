@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Modifica file sonar.yml del setup JDK 17" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="...">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/sonarCloud.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/sonar.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -191,7 +195,28 @@
       <option name="project" value="LOCAL" />
       <updated>1651945306697</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Prova rimozione codesmell su sonar&#10;Ho eliminato il commento nel file pom.xml">
+      <created>1651945569724</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1651945569724</updated>
+    </task>
+    <task id="LOCAL-00012" summary="...">
+      <created>1651947648538</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1651947648538</updated>
+    </task>
+    <task id="LOCAL-00013" summary="...">
+      <created>1651947740947</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1651947740947</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,6 +241,8 @@
     <MESSAGE value="Ho aggiunto il file javaCI.yml" />
     <MESSAGE value="Ho aggiunto il file sonar.yml" />
     <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modifica file sonar.yml del setup JDK 17" />
+    <MESSAGE value="Prova rimozione codesmell su sonar&#10;Ho eliminato il commento nel file pom.xml" />
+    <MESSAGE value="..." />
+    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>
