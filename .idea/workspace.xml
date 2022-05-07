@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Ho aggiunto il file javaCI.yml">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/sonar.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Modifica file sonar.yml del setup JDK 17" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -180,7 +177,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651944533031</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Ho aggiunto il file sonar.yml">
+      <created>1651945156410</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1651945156410</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Modifica file sonar.yml del setup JDK 17">
+      <created>1651945306697</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1651945306697</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -203,6 +214,8 @@
     <MESSAGE value="Prova Github" />
     <MESSAGE value="Ho costruito tutte le strutture dati e implementato l'algoritmo per determinare se un file è B oppure no" />
     <MESSAGE value="Ho aggiunto il file javaCI.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ho aggiunto il file javaCI.yml" />
+    <MESSAGE value="Ho aggiunto il file sonar.yml" />
+    <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modifica file sonar.yml del setup JDK 17" />
   </component>
 </project>
