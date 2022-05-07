@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Eliminato il file sonar.yml e sostituito con sonarCloud.yml">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/sonarCloud.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/sonarCloud.yml" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="...">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651948674933</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="...">
+      <created>1651949268186</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1651949268186</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,8 +254,8 @@
     <MESSAGE value="Ho aggiunto il file sonar.yml" />
     <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
     <MESSAGE value="Prova rimozione codesmell su sonar&#10;Ho eliminato il commento nel file pom.xml" />
-    <MESSAGE value="..." />
     <MESSAGE value="Eliminato il file sonar.yml e sostituito con sonarCloud.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eliminato il file sonar.yml e sostituito con sonarCloud.yml" />
+    <MESSAGE value="..." />
+    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>

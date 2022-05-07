@@ -90,9 +90,8 @@ public class App
 
 
         System.out.println(hashMapIssueCommits.size());
-        int i = 0, j = 0;
         for(Issue issue: issueList){
-            i++;
+
             List<Commit> commits = hashMapIssueCommits.get(issue);
             if(commits.size()==0){
                 continue;
@@ -100,7 +99,7 @@ public class App
             System.out.println("--------------------------------------------------------------------------------------");
             System.out.println("ISSUE = "+issue.key);
             for(Commit commit: commits){
-                j++;
+
                 System.out.println("****************************************************");
                 System.out.println("Data commit: " + commit.date);
                 if(commit.release != null) {
