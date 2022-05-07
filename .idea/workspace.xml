@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="...">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +228,28 @@
       <option name="project" value="LOCAL" />
       <updated>1651949268186</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Ho rimosso la i e la j nel file App.java per togliere i due code smell. Inoltre ho modificato il setting su SC e adesso provo a lanciarlo">
+      <created>1651949706540</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1651949706540</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Ho rimosso la i e la j nel file App.java per togliere i due code smell. Inoltre ho modificato il setting su SC e adesso provo a lanciarlo...... parte 2">
+      <created>1651949793997</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1651949793997</updated>
+    </task>
+    <task id="LOCAL-00018" summary="...">
+      <created>1651951174044</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1651951174044</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,6 +276,8 @@
     <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
     <MESSAGE value="Prova rimozione codesmell su sonar&#10;Ho eliminato il commento nel file pom.xml" />
     <MESSAGE value="Eliminato il file sonar.yml e sostituito con sonarCloud.yml" />
+    <MESSAGE value="Ho rimosso la i e la j nel file App.java per togliere i due code smell. Inoltre ho modificato il setting su SC e adesso provo a lanciarlo" />
+    <MESSAGE value="Ho rimosso la i e la j nel file App.java per togliere i due code smell. Inoltre ho modificato il setting su SC e adesso provo a lanciarlo...... parte 2" />
     <MESSAGE value="..." />
     <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
