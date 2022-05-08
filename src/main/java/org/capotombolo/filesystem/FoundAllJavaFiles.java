@@ -13,13 +13,6 @@ import java.util.Stack;
 
 public class FoundAllJavaFiles {
 
-    public static void main(String[] args) {
-        FoundAllJavaFiles foundAllJavaFiles = new FoundAllJavaFiles("C:\\Users\\lucac\\maven\\Zookkeeper\\zookeeper");
-        System.out.println("File contenuti nella cartella: " + foundAllJavaFiles.localPath);
-        foundAllJavaFiles.foundAllFiles();
-
-    }
-
     public final String localPath;
     public final File directory;
 
@@ -93,25 +86,18 @@ public class FoundAllJavaFiles {
             }else {
                 filename = file.getAbsolutePath();
                 if (filename.contains(".java")) {
-                    //System.out.println(filename);
                     filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG));
                 }
             }
         }
 
-        /**
-         * Ho inserito tutti i file .java che si trovavano
-         * all'interno della root Directory
-         * Adesso vado ad esaminamire i file contenuti
-         * all'interno delle Directory che si trovano
-         * nella root directory
-         */
+
         while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
             dir = stack.pop();
-            //System.out.println("Dir parent: " +dir.getName());
+            //skippare anche i file test
             if(dir.getName().equals("target")) continue;
             files = this.listFiles(dir);
-            if (files.length == 0) continue;
+            if (files.length == 0) continue;                    //empty directory
             for(File file: files){
                 if(file.isDirectory()){
                     stack.push(file);
@@ -123,14 +109,6 @@ public class FoundAllJavaFiles {
                 }
             }
         }
-
-        /*
-        if(!filenames.isEmpty()){
-            System.out.println("Numero di file .java trovati: " + filenames.size());
-            for(String name: filenames){
-                System.out.println(name);
-            }
-        }*/
 
         return filenames;
     }
