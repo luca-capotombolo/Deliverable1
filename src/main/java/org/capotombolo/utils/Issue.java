@@ -17,7 +17,7 @@ public class Issue {
         this.getYoungerFixVersion();
     }
 
-    public void getYoungerFixVersion()
+    private void getYoungerFixVersion()
     {
         if(fvs.size() == 0){
             this.fv = null;

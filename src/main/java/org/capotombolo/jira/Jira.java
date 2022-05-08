@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class Jira {
     private static String readAll(Reader rd) throws IOException {
@@ -65,7 +66,6 @@ public class Jira {
                         fixVersions.add(new Release(fixVersionsJSONArray.getJSONObject(h).getString("name"),Date.valueOf(fixVersionsJSONArray.getJSONObject(h).getString("releaseDate"))));
                     }catch (Exception e){
                         //no release date
-                        System.out.println(fixVersionsJSONArray.getJSONObject(h).getString("name"));
                     }
                 }
                 if(!fixVersions.isEmpty())

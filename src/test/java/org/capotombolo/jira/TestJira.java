@@ -68,7 +68,7 @@ public class TestJira  {
         Assert.assertTrue(check);
     }
 
-    /*
+
     @Test
     public void checkFVsOfIssue() throws IOException {
         boolean check = true;
@@ -80,6 +80,22 @@ public class TestJira  {
             }
         }
         Assert.assertTrue(check);
-    }*/
+    }
+
+    @Test
+    public void checkFV() throws IOException {
+        boolean check = true;
+        List<Issue> issueList = Jira.getBugs(this.project);
+        for(Issue issue:issueList){
+            for(Release release: issue.fvs){
+                if(issue.fv.getDate().compareTo(release.getDate()) < 0)
+                {
+                    check = false;
+                    break;
+                }
+            }
+        }
+        Assert.assertTrue(check);
+    }
 
 }
