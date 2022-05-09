@@ -6,6 +6,7 @@ import org.capotombolo.utils.Release;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.lib.ObjectId;
@@ -24,10 +25,12 @@ import java.util.List;
 
 public class GitSkills {
 
-    private final Git git;
+    public final Git git;
+    private final String localPath;
 
     public GitSkills(String localPath) throws IOException {
-        Repository localRepo = new RepositoryBuilder().setGitDir(new File(localPath + "/.git"))
+        this.localPath = localPath;
+        Repository localRepo = new RepositoryBuilder().setGitDir(new File(this.localPath + "/.git"))
                 .readEnvironment()
                 .findGitDir()
                 .build();
@@ -39,7 +42,13 @@ public class GitSkills {
             CheckoutCommand checkoutCommand = this.git.checkout();
             checkoutCommand.setName("release-"+branch).call();
         }catch (CheckoutConflictException e){
-            e.printStackTrace();
+            if(this.localPath.contains("zookeeper")) {
+                this.git.add().addFilepattern(".").call();
+                this.git.commit().setMessage("...").call();
+                CheckoutCommand checkoutCommand = this.git.checkout();
+                checkoutCommand.setName("release-" + branch).call();
+                e.printStackTrace();
+            }
         }
     }
 

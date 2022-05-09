@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Fixati i bugs relativi a getBugs">
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Fixati i bugs relativi a GitSkills.java">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/capotombolo/filesystem/TestFoundAllJavaFiles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/capotombolo/git/TestGitSkills.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/capotombolo/jira/TestJira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/capotombolo/jira/TestJira.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +61,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestGitSkill.checkCommitIssue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Proportion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.proportion.Proportion" />
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.proportion.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestFoundAllJavaFiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.filesystem.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.capotombolo.filesystem" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.filesystem.TestFoundAllJavaFiles" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestGitSkills" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Deliverable1" />
       <extension name="coverage">
         <pattern>
@@ -64,23 +98,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.capotombolo.git" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.git.TestGitSkill" />
-      <option name="METHOD_NAME" value="checkCommitIssue" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestJira" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.jira.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.git.TestGitSkills" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -102,29 +120,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestJira.checkFV" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.jira.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
-      <option name="METHOD_NAME" value="checkFV" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
-        <item itemvalue="JUnit.TestGitSkill.checkCommitIssue" />
-        <item itemvalue="JUnit.TestJira" />
+        <item itemvalue="Application.Proportion" />
         <item itemvalue="JUnit.TestJira.checkDateRelease" />
-        <item itemvalue="JUnit.TestJira.checkFV" />
+        <item itemvalue="JUnit.TestFoundAllJavaFiles" />
+        <item itemvalue="JUnit.TestGitSkills" />
       </list>
     </recent_temporary>
   </component>
@@ -284,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652019249574</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixati i bugs relativi a GitSkills.java">
+      <created>1652022922526</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1652022922526</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -317,6 +326,7 @@
     <MESSAGE value="Modifica file sonarCloud.yml per integrare SonarCloud" />
     <MESSAGE value="Fixati i bugs relativi a getRelease" />
     <MESSAGE value="Fixati i bugs relativi a getBugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixati i bugs relativi a getBugs" />
+    <MESSAGE value="Fixati i bugs relativi a GitSkills.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixati i bugs relativi a GitSkills.java" />
   </component>
 </project>
