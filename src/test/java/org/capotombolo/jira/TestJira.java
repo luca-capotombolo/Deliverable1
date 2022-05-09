@@ -1,35 +1,81 @@
 package org.capotombolo.jira;
 
+
 import org.capotombolo.utils.Issue;
 import org.capotombolo.utils.Release;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @RunWith(Parameterized.class)
 public class TestJira  {
 
     private final String project;
+    private final String path;
 
 
     @Parameterized.Parameters
     public static Collection<Object[]> setParameters() {
 
         return Arrays.asList(new Object[][]{
-                {"BOOKKEEPER"},
-                {"ZOOKEEPER"}
+                {"BOOKKEEPER", "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper"},
+                {"ZOOKEEPER", "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper"}
         });
     }
 
-    public TestJira(String project){
+    public TestJira(String project, String path){
         this.project = project;
+        this.path = path;
+    }
+
+    @Test
+    public void checkOV() throws IOException {
+        boolean check = true;
+        List<Release> releaseList = Jira.getReleases(this.project);
+        List<Issue> issueList = Jira.getBugs(this.project, releaseList);
+        for(Issue issue: issueList){
+            if(issue.ov==null){
+                check=false;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
+    }
+
+    @Test
+    public void checkIVFV() throws IOException {
+        boolean check = true;
+        List<Release> releaseList = Jira.getReleases(this.project);
+        List<Issue> issueList = Jira.getBugs(this.project, releaseList);
+        for(Issue issue: issueList){
+            if(!issue.av.isEmpty()) {
+                if (issue.iv != null){
+                    if (issue.iv.getDate().compareTo(issue.fv.getDate()) >= 0) {
+                        check = false;
+                        break;
+                    }
+                }
+            }
+        }
+        Assert.assertTrue(check);
+    }
+
+    @Test
+    public void checkOVFV() throws IOException {
+        boolean check = true;
+        List<Release> releaseList = Jira.getReleases(this.project);
+        List<Issue> issueList = Jira.getBugs(this.project, releaseList);
+        for(Issue issue: issueList){
+            if (issue.ov.getDate().compareTo(issue.fv.getDate()) > 0) {
+                check = false;
+                break;
+            }
+        }
+        Assert.assertTrue(check);
     }
 
     @Test
@@ -70,29 +116,14 @@ public class TestJira  {
 
 
     @Test
-    public void checkFVsOfIssue() throws IOException {
+    public void checkFVOfIssue() throws IOException {
         boolean check = true;
-        List<Issue> issueList = Jira.getBugs(this.project);
+        List<Release> releaseList = Jira.getReleases(this.project);
+        List<Issue> issueList = Jira.getBugs(this.project, releaseList);
         for(Issue issue: issueList){
-            if(issue.fvs==null){
+            if(issue.fv==null){
                 check = false;
                 break;
-            }
-        }
-        Assert.assertTrue(check);
-    }
-
-    @Test
-    public void checkFV() throws IOException {
-        boolean check = true;
-        List<Issue> issueList = Jira.getBugs(this.project);
-        for(Issue issue:issueList){
-            for(Release release: issue.fvs){
-                if(issue.fv.getDate().compareTo(release.getDate()) < 0)
-                {
-                    check = false;
-                    break;
-                }
             }
         }
         Assert.assertTrue(check);
