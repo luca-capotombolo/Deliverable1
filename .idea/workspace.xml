@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Eliminato i tests">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,14 +36,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/lucac/MyJava/Deliverable1/src/test/java/org/capotombolo/filesystem"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.TestFoundAllJavaFiles">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lucac\MyJava\Deliverable1\src\test\java\org\capotombolo\filesystem" />
+      <recent name="C:\Users\lucac\MyJava\Deliverable1\src\test\java\org\capotombolo\git" />
+      <recent name="C:\Users\lucac\MyJava\Deliverable1\src\test\java\org\capotombolo\jira" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.capotombolo.App" />
       <module name="Deliverable1" />
@@ -65,32 +80,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestGitSkills" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Deliverable1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.capotombolo.git.*" />
+          <option name="PATTERN" value="org.capotombolo.filesystem.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.capotombolo.git" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.git.TestGitSkills" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestGitSkills.checkDateCommitDateRelease" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.git.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.capotombolo.git" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.git.TestGitSkills" />
-      <option name="METHOD_NAME" value="checkDateCommitDateRelease" />
+      <option name="PACKAGE_NAME" value="org.capotombolo.filesystem" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.filesystem.TestFoundAllJavaFiles" />
+      <option name="METHOD_NAME" value="checkNumberJavaFilesOfRelease" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -111,13 +111,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestJira.checkOrderReleaseList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.jira.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
+      <option name="METHOD_NAME" value="checkOrderReleaseList" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" />
+        <item itemvalue="JUnit.TestJira.checkOrderReleaseList" />
         <item itemvalue="JUnit.TestFoundAllJavaFiles" />
         <item itemvalue="JUnit.TestJira" />
-        <item itemvalue="JUnit.TestGitSkills.checkDateCommitDateRelease" />
-        <item itemvalue="JUnit.TestGitSkills" />
-        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -326,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652193233923</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Eliminato i tests">
+      <created>1652193467568</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1652193467568</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,7 +364,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adesso funziona sia la creazione dell'Excel sia&#10;La ricerca dei file java nel progetto" />
     <MESSAGE value="Ho inserito in un unico progetto Excel, Git, Jira e la ricerca dei file del progetto" />
     <MESSAGE value="Ho controllato la FoundAllJavaFiles.java e sembra funzionare correttamente" />
     <MESSAGE value="Ho aggiunto la classe Release.java e creato un Entry Point" />
@@ -366,6 +388,7 @@
     <MESSAGE value="Risoluzione CI" />
     <MESSAGE value="Risoluzione CI: tolgo i due import relativi alle metriche per mandare in esecuzione la pipeline CI" />
     <MESSAGE value="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
+    <MESSAGE value="Eliminato i tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Eliminato i tests" />
   </component>
 </project>
