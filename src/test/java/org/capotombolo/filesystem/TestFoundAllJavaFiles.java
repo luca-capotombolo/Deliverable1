@@ -39,7 +39,7 @@ public class TestFoundAllJavaFiles {
     }
 
 
-    @Test
+    //@Test
     public void checkNumberJavaFilesOfRelease() throws IOException {
         boolean check=true;
         List<Release> releaseList = Jira.getReleases(project);                          //get all releases
