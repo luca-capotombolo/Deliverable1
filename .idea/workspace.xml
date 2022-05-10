@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Risoluzione CI">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-    </list>
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +36,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.TestJira">
+  <component name="RunManager" selected="JUnit.TestFoundAllJavaFiles">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.capotombolo.App" />
       <module name="Deliverable1" />
@@ -115,10 +113,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestFoundAllJavaFiles" />
         <item itemvalue="JUnit.TestJira" />
         <item itemvalue="JUnit.TestGitSkills.checkDateCommitDateRelease" />
         <item itemvalue="JUnit.TestGitSkills" />
-        <item itemvalue="JUnit.TestFoundAllJavaFiles" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -314,7 +312,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652192901782</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Risoluzione CI: tolgo i due import relativi alle metriche per mandare in esecuzione la pipeline CI">
+      <created>1652193012492</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1652193012492</updated>
+    </task>
+    <task id="LOCAL-00028" summary="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI">
+      <created>1652193233923</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1652193233923</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -352,6 +364,8 @@
     <MESSAGE value="Ho aggiunto i testi per le funzionalità di Jira, Git e ricerca di files" />
     <MESSAGE value="Ho fixato i bugs per quanto riguarda le funzionalità di Jira.java:&#10;&#10;Creazione dell'Issue avvenuta con successo e i test relativi hanno avuto esito positivo 12/12&#10;&#10;Le release vengono recuperate e ordinate in modo corretto" />
     <MESSAGE value="Risoluzione CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Risoluzione CI" />
+    <MESSAGE value="Risoluzione CI: tolgo i due import relativi alle metriche per mandare in esecuzione la pipeline CI" />
+    <MESSAGE value="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
   </component>
 </project>
