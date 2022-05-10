@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Eliminato i tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="App.java fino alla creazione dell'excel con le metriche escluse.">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
@@ -36,14 +33,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/lucac/MyJava/Deliverable1/src/test/java/org/capotombolo/filesystem"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lucac/MyJava/Deliverable1/src/test/java/org/capotombolo/filesystem&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\lucac\MyJava\Deliverable1\src\test\java\org\capotombolo\filesystem" />
@@ -96,16 +93,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestJira" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGitSkills" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Deliverable1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.capotombolo.jira.*" />
+          <option name="PATTERN" value="org.capotombolo.git.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
+      <option name="PACKAGE_NAME" value="org.capotombolo.git" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.git.TestGitSkills" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -130,10 +127,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.TestGitSkills" />
         <item itemvalue="JUnit.TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" />
         <item itemvalue="JUnit.TestJira.checkOrderReleaseList" />
         <item itemvalue="JUnit.TestFoundAllJavaFiles" />
-        <item itemvalue="JUnit.TestJira" />
       </list>
     </recent_temporary>
   </component>
@@ -349,7 +346,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652193467568</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Costruzione Excel con labeling delle classi per Bookkeeper e Zookeeper SENZA LE METRICHE">
+      <created>1652218113182</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1652218113182</updated>
+    </task>
+    <task id="LOCAL-00031" summary="App.java fino alla creazione dell'excel con le metriche escluse.">
+      <created>1652218321377</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1652218321377</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -364,8 +375,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ho inserito in un unico progetto Excel, Git, Jira e la ricerca dei file del progetto" />
-    <MESSAGE value="Ho controllato la FoundAllJavaFiles.java e sembra funzionare correttamente" />
     <MESSAGE value="Ho aggiunto la classe Release.java e creato un Entry Point" />
     <MESSAGE value="Ho trovato le releases, i bugs e i commit con i file cambiati" />
     <MESSAGE value="Prova Github" />
@@ -389,6 +398,8 @@
     <MESSAGE value="Risoluzione CI: tolgo i due import relativi alle metriche per mandare in esecuzione la pipeline CI" />
     <MESSAGE value="tolgo il test TestFoundAllJavaFiles.java per fare eseguire la pipeline CI" />
     <MESSAGE value="Eliminato i tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eliminato i tests" />
+    <MESSAGE value="Costruzione Excel con labeling delle classi per Bookkeeper e Zookeeper SENZA LE METRICHE" />
+    <MESSAGE value="App.java fino alla creazione dell'excel con le metriche escluse." />
+    <option name="LAST_COMMIT_MESSAGE" value="App.java fino alla creazione dell'excel con le metriche escluse." />
   </component>
 </project>

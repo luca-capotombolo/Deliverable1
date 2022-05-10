@@ -15,9 +15,11 @@ public class FoundAllJavaFiles {
 
     public final String localPath;
     public final File directory;
+    public final int length;
 
     public FoundAllJavaFiles(String localPath) {
         this.localPath = localPath;
+        this.length = localPath.length();
         this.directory = new File(localPath);
     }
 

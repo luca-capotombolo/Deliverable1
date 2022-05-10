@@ -43,6 +43,7 @@ public class GitSkills {
             checkoutCommand.setName("release-"+branch).call();
         }catch (CheckoutConflictException e){
             if(this.localPath.contains("zookeeper")) {
+                System.out.println(branch);
                 this.git.add().addFilepattern(".").call();
                 this.git.commit().setMessage("...").call();
                 CheckoutCommand checkoutCommand = this.git.checkout();
@@ -89,7 +90,9 @@ public class GitSkills {
                     List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
                     for (DiffEntry entry : entries) {
                         if(entry.getChangeType()== DiffEntry.ChangeType.DELETE || entry.getChangeType()== DiffEntry.ChangeType.MODIFY) {
-                            changedFiles.add(entry.getNewPath());                               //this file was changed by the commit
+                            String newPath = entry.getNewPath().replaceAll("/", "\\\\");
+                            //this file was changed by the commit
+                            changedFiles.add(newPath);
                         }
                     }
 
