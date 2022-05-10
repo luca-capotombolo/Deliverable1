@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 public class Jira {
     private static String readAll(Reader rd) throws IOException {
@@ -40,37 +39,94 @@ public class Jira {
         }
     }
 
-    public  static List<Issue> getBugs(String project) throws IOException {
-        Integer j, i = 0, total, h;
+    public  static List<Issue> getBugs(String project, List<Release> releaseList) throws IOException {
+        int j, i = 0, total;
         List<Issue> issueList = new ArrayList<>();
         String key;
-        List<Release> fixVersions;
-        JSONArray fixVersionsJSONArray, issues;
+        List<Release> affectedVersions;
+        JSONArray issues, affectedVersionsJSONArray;
         JSONObject json;
+        Date createdIssue, resolutionDate;
+        Release ovRelease, fixVersion;
+        String resolutionDateString;
+        String ovString;
+        boolean released;
+
         do {
             //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
             j = i + 1000;
             String url = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
                     + project + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
                     + "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,fixVersions,versions,created&startAt="
-                    + i.toString() + "&maxResults=" + j.toString();
+                    + i + "&maxResults=" + j;
             json = readJsonFromUrl(url);
             issues = json.getJSONArray("issues");
-            total = json.getInt("total");                               //Number of Issues
+            total = json.getInt("total");                       //Number of Issues
+            Issue issue;
             for (; i < total && i < j; i++) {
-                fixVersions = new ArrayList<>();
+                //Opening version
+                ovRelease=null;
+                //Fix version on JIRA
+                fixVersion = null;
+                //Affected version on JIRA
+                affectedVersions = new ArrayList<>();
                 key = issues.getJSONObject(i%1000).get("key").toString();
-                fixVersionsJSONArray = issues.getJSONObject(i%1000).getJSONObject("fields").getJSONArray("fixVersions");
-                for(h = 0;h<fixVersionsJSONArray.length();h++){
-                    try{
-                        fixVersions.add(new Release(fixVersionsJSONArray.getJSONObject(h).getString("name"),Date.valueOf(fixVersionsJSONArray.getJSONObject(h).getString("releaseDate"))));
-                    }catch (Exception e){
-                        //no release date
+                resolutionDateString = issues.getJSONObject(i % 1000).getJSONObject("fields").getString("resolutiondate");
+                resolutionDateString = resolutionDateString.substring(0,10);
+                resolutionDate = Date.valueOf(resolutionDateString);
+                for(Release release: releaseList){
+                    if(release.getDate().compareTo(resolutionDate) > 0){
+                        fixVersion = release;
+                        break;
                     }
                 }
-                if(!fixVersions.isEmpty())
-                    issueList.add(new Issue(key, null, fixVersions));
+                if(fixVersion!=null){
+                    //create issue object
+                    //Opening version
+                    ovString = issues.getJSONObject(i % 1000).getJSONObject("fields").getString("created");
+                    ovString = ovString.substring(0, 10);                                                                    //get date string
+                    createdIssue = Date.valueOf(ovString);                                                                       //created date of issue
+                    for (Release release : releaseList) {
+                        if (release.getDate().compareTo(createdIssue) > 0) {
+                            ovRelease = release;
+                            break;
+                        }
+                    }
+                    if(ovRelease==null)
+                        continue;                               //There is not Opening version
+                    //Affected version
+                    affectedVersionsJSONArray = issues.getJSONObject(i % 1000).getJSONObject("fields").getJSONArray("versions");
+                    for (int u = 0; u < affectedVersionsJSONArray.length(); u++) {
+                        released = affectedVersionsJSONArray.getJSONObject(u).getBoolean("released");
+                        if (released) {
+                            try {
+                                affectedVersions.add(new Release(affectedVersionsJSONArray.getJSONObject(u).getString("name"),
+                                        Date.valueOf(affectedVersionsJSONArray.getJSONObject(u).getString("releaseDate"))));
+                            } catch (Exception e) {
+                                //no releaseDate
+                            }
+                        }
+                    }
+
+                    issue = new Issue(key, null, fixVersion, ovRelease, affectedVersions, resolutionDate);
+
+                    //OV and FV are on JIRA I can not calculate them
+                    if(issue.ov.getDate().compareTo(issue.fv.getDate())>0){
+                        //OV > FV
+                        continue;
+                    }
+
+                    //Exclude defects that are not post-release
+                    if(issue.iv!=null && issue.iv.getDate().compareTo(issue.fv.getDate())==0
+                            && issue.iv.getDate().compareTo(issue.ov.getDate())==0)
+                    {
+                        continue;
+                    }
+
+                    issueList.add(issue);
+                }
             }
+
         } while (i < total);
 
         return issueList;
@@ -88,7 +144,7 @@ public class Jira {
         JSONArray json = readJsonArrayFromUrl(url);
         int len = json.length();
         for(int count = 0; count<len; count++){
-            already=false;
+            already=false;                                       //I suppose that release is not in list
             JSONObject jsonObject = json.getJSONObject(count);
             released = jsonObject.getBoolean("released");
             if(released){

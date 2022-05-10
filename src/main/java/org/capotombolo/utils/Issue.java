@@ -1,38 +1,54 @@
 package org.capotombolo.utils;
 
+import java.sql.Date;
 import java.util.List;
 
 public class Issue {
 
     public final String key;
-    public final Release iv;
-    public final List<Release> fvs;
-    public Release fv;
+    public Release iv;
+    public final Release ov;
+    public final List<Release> av;
+    public final Release fv;
+    public final Date fixDate;
 
-    public Issue(String key, Release iv, List<Release> fvs)
+    public Issue(String key, Release iv, Release fv, Release ov, List<Release> av, Date fixDate)
     {
         this.key = key;
         this.iv = iv;
-        this.fvs = fvs;
-        this.getYoungerFixVersion();
+        this.fv = fv;
+        this.ov = ov;
+        this.av = av;
+        this.fixDate = fixDate;
+        this.getIVByAffectedVersion();
+        this.consistencyCheck();
     }
 
-    private void getYoungerFixVersion()
-    {
-        if(fvs.size() == 0){
-            this.fv = null;
-            return;
+    private void consistencyCheck() {
+        if(this.iv != null && this.iv.getDate().compareTo(this.ov.getDate()) > 0){
+            //IV > OV           inconsistent data
+            this.iv = null;
         }
+        if(this.iv!= null && this.iv.getDate().compareTo(this.fv.getDate()) > 0){
+            //IV > FV           inconsistent data
+            this.iv = null;
+        }
+    }
 
-        Release youngerRelease = fvs.get(0);
+    private void getIVByAffectedVersion(){
 
-        for(Release release: fvs){
-            if(youngerRelease.getDate().compareTo(release.getDate()) < 0)
-            {
-                youngerRelease = release;
+        if(av.isEmpty()){
+            //no affected version on JIRA
+            //I will use Proportion
+            iv = null;
+        }else{
+            Release olderRelease = av.get(0);
+            for(Release release: av){
+                if(olderRelease.getDate().compareTo(release.getDate())>0){
+                    olderRelease = release;
+                }
             }
+            iv = olderRelease;
         }
-
-        this.fv = youngerRelease;
     }
 }
