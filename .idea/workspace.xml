@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Ho aggiunto i testi per le funzionalità di Jira, Git e ricerca di files">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Risoluzione CI">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,7 +300,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652119102895</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Ho fixato i bugs per quanto riguarda le funzionalità di Jira.java:&#10;&#10;Creazione dell'Issue avvenuta con successo e i test relativi hanno avuto esito positivo 12/12&#10;&#10;Le release vengono recuperate e ordinate in modo corretto">
+      <created>1652192728761</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1652192728761</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Risoluzione CI">
+      <created>1652192901782</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1652192901782</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,6 +350,8 @@
     <MESSAGE value="Fixati i bugs relativi a GitSkills.java" />
     <MESSAGE value="Fixati i bugs relativi a GitSkills.java per quanto riguarda il branch di Zook" />
     <MESSAGE value="Ho aggiunto i testi per le funzionalità di Jira, Git e ricerca di files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ho aggiunto i testi per le funzionalità di Jira, Git e ricerca di files" />
+    <MESSAGE value="Ho fixato i bugs per quanto riguarda le funzionalità di Jira.java:&#10;&#10;Creazione dell'Issue avvenuta con successo e i test relativi hanno avuto esito positivo 12/12&#10;&#10;Le release vengono recuperate e ordinate in modo corretto" />
+    <MESSAGE value="Risoluzione CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Risoluzione CI" />
   </component>
 </project>
