@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="App.java fino alla creazione dell'excel con le metriche escluse.">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Corretto il bug relativo al path dei files modifcati dai commits nella classe GitSkills.java">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -360,7 +358,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652218321377</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Corretto il bug relativo al path dei files modifcati dai commits nella classe GitSkills.java">
+      <created>1652218587552</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1652218587552</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -375,7 +380,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ho aggiunto la classe Release.java e creato un Entry Point" />
     <MESSAGE value="Ho trovato le releases, i bugs e i commit con i file cambiati" />
     <MESSAGE value="Prova Github" />
     <MESSAGE value="Ho costruito tutte le strutture dati e implementato l'algoritmo per determinare se un file è B oppure no" />
@@ -400,6 +404,7 @@
     <MESSAGE value="Eliminato i tests" />
     <MESSAGE value="Costruzione Excel con labeling delle classi per Bookkeeper e Zookeeper SENZA LE METRICHE" />
     <MESSAGE value="App.java fino alla creazione dell'excel con le metriche escluse." />
-    <option name="LAST_COMMIT_MESSAGE" value="App.java fino alla creazione dell'excel con le metriche escluse." />
+    <MESSAGE value="Corretto il bug relativo al path dei files modifcati dai commits nella classe GitSkills.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corretto il bug relativo al path dei files modifcati dai commits nella classe GitSkills.java" />
   </component>
 </project>
