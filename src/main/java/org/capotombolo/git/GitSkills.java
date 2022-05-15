@@ -6,7 +6,6 @@ import org.capotombolo.utils.Release;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.lib.ObjectId;
@@ -105,7 +104,7 @@ public class GitSkills {
                         }
                     }
 
-                    //check!
+                    //the commit belong a version that is not released
                     if (commitWithKey.release == null)
                         continue;
 

@@ -51,6 +51,7 @@ public class Jira {
         String resolutionDateString;
         String ovString;
         boolean released;
+        int k=0;
 
         do {
             //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
@@ -64,6 +65,7 @@ public class Jira {
             total = json.getInt("total");                       //Number of Issues
             Issue issue;
             for (; i < total && i < j; i++) {
+                //Get new Issue
                 //Opening version
                 ovRelease=null;
                 //Fix version on JIRA
@@ -111,10 +113,11 @@ public class Jira {
                     issue = new Issue(key, null, fixVersion, ovRelease, affectedVersions, resolutionDate);
 
                     //OV and FV are on JIRA I can not calculate them
-                    if(issue.ov.getDate().compareTo(issue.fv.getDate())>0){
-                        //OV > FV
+                    if(issue.ov.getDate().compareTo(issue.fv.getDate())>=0){
+                        //OV >= FV
                         continue;
                     }
+
 
                     //Exclude defects that are not post-release
                     if(issue.iv!=null && issue.iv.getDate().compareTo(issue.fv.getDate())==0

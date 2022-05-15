@@ -1,8 +1,9 @@
 package org.capotombolo.filesystem;
 
+import org.capotombolo.metrics.Size;
 import org.capotombolo.utils.MyFile;
-
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -64,7 +65,7 @@ public class FoundAllJavaFiles {
      * @return La lista di tutti i file contenuti nella directory
      */
 
-    public List<MyFile> foundAllFiles(){
+    public List<MyFile> foundAllFiles() throws IOException {
 
         File[] files;
         File dir;
@@ -78,6 +79,8 @@ public class FoundAllJavaFiles {
         }
 
         //this.directory è un file directory
+        Size size;
+        int lines;
 
         //tutti i file contenuti nella directory root
         files = this.listFiles(this.directory);
@@ -88,11 +91,12 @@ public class FoundAllJavaFiles {
             }else {
                 filename = file.getAbsolutePath();
                 if (filename.contains(".java")) {
-                    filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG));
+                    size = new Size(filename);
+                    lines = size.getLOC();
+                    filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG, lines));
                 }
             }
         }
-
 
         while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
             dir = stack.pop();
@@ -106,7 +110,9 @@ public class FoundAllJavaFiles {
                 }else {
                     filename = file.getAbsolutePath();
                     if (filename.contains(".java")) {
-                        filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG));
+                        size = new Size(filename);
+                        lines = size.getLOC();
+                        filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG, lines));
                     }
                 }
             }
