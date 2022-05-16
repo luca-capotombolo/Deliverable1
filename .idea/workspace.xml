@@ -4,25 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Implementazione Proportion Increment">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/ChgSetSize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/CommitProjectProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/NumberOfAuthors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/NumberOfRevisionRelease.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/NumberOfRevisionTotal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/Size.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/CommitMetric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/FileCommitMetric.java" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Costruzione EXCEL completa&#10;Implementazione features completa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,19 +94,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="org.capotombolo.metrics.Size" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.metrics.Size" />
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.metrics.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Deliverable1" />
       <extension name="coverage">
@@ -132,13 +110,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestJira" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.jira.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.TestJira" />
         <item itemvalue="Application.ExcelTools" />
         <item itemvalue="Application.CommitProjectProducer" />
         <item itemvalue="JUnit.TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" />
-        <item itemvalue="Application.org.capotombolo.metrics.Size" />
       </list>
     </recent_temporary>
   </component>
@@ -382,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652218798452</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Costruzione EXCEL completa&#10;Implementazione features completa">
+      <created>1652652329816</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1652652329816</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -397,7 +397,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Prova Github" />
     <MESSAGE value="Ho costruito tutte le strutture dati e implementato l'algoritmo per determinare se un file è B oppure no" />
     <MESSAGE value="Ho aggiunto il file javaCI.yml" />
     <MESSAGE value="Ho aggiunto il file sonar.yml" />
@@ -422,6 +421,7 @@
     <MESSAGE value="App.java fino alla creazione dell'excel con le metriche escluse." />
     <MESSAGE value="Corretto il bug relativo al path dei files modifcati dai commits nella classe GitSkills.java" />
     <MESSAGE value="Implementazione Proportion Increment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementazione Proportion Increment" />
+    <MESSAGE value="Costruzione EXCEL completa&#10;Implementazione features completa" />
+    <option name="LAST_COMMIT_MESSAGE" value="Costruzione EXCEL completa&#10;Implementazione features completa" />
   </component>
 </project>

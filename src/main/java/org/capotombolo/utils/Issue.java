@@ -20,7 +20,6 @@ public class Issue {
         this.ov = ov;
         this.av = av;
         this.fixDate = fixDate;
-        this.getIVByAffectedVersion();
         this.consistencyCheck();
     }
 
@@ -32,23 +31,6 @@ public class Issue {
         if(this.iv!= null && this.iv.getDate().compareTo(this.fv.getDate()) > 0){
             //IV > FV           inconsistent data
             this.iv = null;
-        }
-    }
-
-    private void getIVByAffectedVersion(){
-
-        if(av.isEmpty()){
-            //no affected version on JIRA
-            //I will use Proportion
-            iv = null;
-        }else{
-            Release olderRelease = av.get(0);
-            for(Release release: av){
-                if(olderRelease.getDate().compareTo(release.getDate())>0){
-                    olderRelease = release;
-                }
-            }
-            iv = olderRelease;
         }
     }
 }

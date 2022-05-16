@@ -47,11 +47,10 @@ public class Jira {
         JSONArray issues, affectedVersionsJSONArray;
         JSONObject json;
         Date createdIssue, resolutionDate;
-        Release ovRelease, fixVersion;
+        Release ovRelease, fixVersion, ivVersion;
         String resolutionDateString;
         String ovString;
         boolean released;
-        int k=0;
 
         do {
             //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
@@ -70,6 +69,7 @@ public class Jira {
                 ovRelease=null;
                 //Fix version on JIRA
                 fixVersion = null;
+                ivVersion = null;
                 //Affected version on JIRA
                 affectedVersions = new ArrayList<>();
                 key = issues.getJSONObject(i%1000).get("key").toString();
@@ -110,7 +110,23 @@ public class Jira {
                         }
                     }
 
-                    issue = new Issue(key, null, fixVersion, ovRelease, affectedVersions, resolutionDate);
+                    //Get IV of issue if AV is consistent
+                    if(!affectedVersions.isEmpty()){
+                        Release olderRelease = affectedVersions.get(0);
+                        for(Release release: affectedVersions){
+                            if(olderRelease.getDate().compareTo(release.getDate())>0){
+                                olderRelease = release;
+                            }
+                        }
+                        for(Release release: releaseList){
+                            if(release.getDate().compareTo(olderRelease.getDate())==0){
+                                ivVersion = release;
+                                break;
+                            }
+                        }
+                    }
+
+                    issue = new Issue(key, ivVersion, fixVersion, ovRelease, affectedVersions, resolutionDate);
 
                     //OV and FV are on JIRA I can not calculate them
                     if(issue.ov.getDate().compareTo(issue.fv.getDate())>=0){
@@ -173,6 +189,13 @@ public class Jira {
 
         //sorting
         releaseList.sort(Comparator.comparing(o -> o.getDate().toString()));
+
+        //Set index of release
+        int count = 0;
+        for(Release release1: releaseList){
+            release1.index = count;
+            count ++;
+        }
 
         return releaseList;
     }

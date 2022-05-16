@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Release {
     public String release;
     public Date date;
+    public int index;
 
     public Release(String release, Date date){
         this.release = release;
