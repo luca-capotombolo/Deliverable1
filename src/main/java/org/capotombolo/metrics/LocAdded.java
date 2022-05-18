@@ -71,17 +71,7 @@ public class LocAdded {
                             }
                         }
                         myFile.numberLocAddedTotal +=linesAdded;
-                        if(linesAdded > myFile.maxNumberLocAdded) {
-                            myFile.maxNumberLocAdded = linesAdded;
-                        }
                     }
-                }
-                try {
-                    myFile.averageNumberLocAdded = myFile.numberLocAddedTotal / myFile.numberRevisionTotal;
-                }catch (Exception e){
-                    System.out.println("---------------------------------------------------------------------------");
-                    System.out.println(myFile.path);
-                    System.out.println("---------------------------------------------------------------------------");
                 }
             }
         }

@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Costruzione EXCEL completa&#10;Implementazione features completa">
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Implementazione di Proportion e fix bug IV">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/ArffFileCreator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/WalkForward.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +41,17 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/lucac/MyJava/Deliverable1/src/test/java/org/capotombolo/filesystem&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lucac/MyJava/Deliverable1/src/test/java/org/capotombolo/filesystem&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -68,33 +75,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CommitProjectProducer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.metrics.CommitProjectProducer" />
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.metrics.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExcelTools" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.excel.ExcelTools" />
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.excel.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestFoundAllJavaFiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Deliverable1" />
       <extension name="coverage">
         <pattern>
@@ -104,8 +85,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.capotombolo.filesystem" />
       <option name="MAIN_CLASS_NAME" value="org.capotombolo.filesystem.TestFoundAllJavaFiles" />
-      <option name="METHOD_NAME" value="checkNumberJavaFilesOfRelease" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestGitSkills" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.git.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.capotombolo.git" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.git.TestGitSkills" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,13 +120,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestJira.checkIVFV" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.jira.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
+      <option name="METHOD_NAME" value="checkIVFV" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.TestJira.checkIVFV" />
+        <item itemvalue="JUnit.TestFoundAllJavaFiles" />
+        <item itemvalue="JUnit.TestGitSkills" />
         <item itemvalue="JUnit.TestJira" />
-        <item itemvalue="Application.ExcelTools" />
-        <item itemvalue="Application.CommitProjectProducer" />
-        <item itemvalue="JUnit.TestFoundAllJavaFiles.checkNumberJavaFilesOfRelease" />
       </list>
     </recent_temporary>
   </component>
@@ -382,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652652329816</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Implementazione di Proportion e fix bug IV">
+      <created>1652705567763</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1652705567763</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -397,7 +415,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ho costruito tutte le strutture dati e implementato l'algoritmo per determinare se un file è B oppure no" />
     <MESSAGE value="Ho aggiunto il file javaCI.yml" />
     <MESSAGE value="Ho aggiunto il file sonar.yml" />
     <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
@@ -422,6 +439,7 @@
     <MESSAGE value="Corretto il bug relativo al path dei files modifcati dai commits nella classe GitSkills.java" />
     <MESSAGE value="Implementazione Proportion Increment" />
     <MESSAGE value="Costruzione EXCEL completa&#10;Implementazione features completa" />
-    <option name="LAST_COMMIT_MESSAGE" value="Costruzione EXCEL completa&#10;Implementazione features completa" />
+    <MESSAGE value="Implementazione di Proportion e fix bug IV" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementazione di Proportion e fix bug IV" />
   </component>
 </project>

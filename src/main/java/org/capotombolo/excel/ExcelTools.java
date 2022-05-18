@@ -26,9 +26,11 @@ public class ExcelTools {
     private final String cell10;
     private final String cell11;
     private final String cell12;
+    private final String cell13;
     private  Workbook wb;
+    private final String title;
 
-    public ExcelTools(String sheetName, String cell1) {
+    public ExcelTools(String sheetName, String cell1, String title) {
         this.sheetName = sheetName;
         this.cell1 = cell1;                         //project
         this.cell2 = "RELEASE";
@@ -41,13 +43,15 @@ public class ExcelTools {
         this.cell9 = "CHGSETSIZE";
         this.cell10 = "AVG CHGSETSIZE";
         this.cell11 = "MAX CHGSETSIZE";
-        this.cell12 = "BUGGINESS";
+        this.cell12 = "AUTHORS";
+        this.cell13 = "BUGGINESS";
+        this.title = title;
     }
 
     public boolean createTable() {
         this.wb = new HSSFWorkbook();
 
-        try (OutputStream fileOut = Files.newOutputStream(Paths.get("ISW2_" + this.cell1 + ".csv"))) {
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + "ISW2_" + this.cell1 +  ".csv"))) {
             Sheet sheet = wb.createSheet(this.sheetName);
             Row titleRow = sheet.createRow(0);
             Cell cell = titleRow.createCell(0);
@@ -74,6 +78,8 @@ public class ExcelTools {
             cell.setCellValue(this.cell11);
             cell = titleRow.createCell(11);
             cell.setCellValue(this.cell12);
+            cell = titleRow.createCell(12);
+            cell.setCellValue(this.cell13);
             sheet.setColumnWidth(0, 4000);
             sheet.setColumnWidth(1, 4000);
             sheet.setColumnWidth(2, 35000);
@@ -85,13 +91,62 @@ public class ExcelTools {
             sheet.setColumnWidth(8, 4000);
             sheet.setColumnWidth(9, 5000);
             sheet.setColumnWidth(10, 5000);
-            sheet.setColumnWidth(11, 3000);
+            sheet.setColumnWidth(11, 5000);
+            sheet.setColumnWidth(12, 3000);
             this.wb.write(fileOut);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
 
+        return true;
+    }
+
+    public boolean writeSingleRelease(List<MyFile> files){
+        if(files.size() == 0) {
+            return false;
+        }
+
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + "ISW2_" + this.cell1 +  ".csv"))) {
+            Sheet sheet = this.wb.getSheet(this.sheetName);
+            int start = sheet.getLastRowNum();
+            Row row;
+            Cell cell;
+            for(MyFile file: files){
+                row = sheet.createRow(start + 1);
+                cell = row.createCell(0);
+                cell.setCellValue(this.cell1);
+                cell = row.createCell(1);
+                cell.setCellValue(this.title);
+                cell = row.createCell(2);
+                cell.setCellValue(file.path);
+                cell = row.createCell(3);
+                cell.setCellValue(file.numberRevisionRelease);
+                cell = row.createCell(4);
+                cell.setCellValue(file.numberLocAddedRelease);
+                cell = row.createCell(5);
+                cell.setCellValue(file.averageNumberLocAdded);
+                cell = row.createCell(6);
+                cell.setCellValue(file.maxNumberLocAdded);
+                cell = row.createCell(7);
+                cell.setCellValue(file.lines);
+                cell = row.createCell(8);
+                cell.setCellValue(file.setTouchedFileWithCRelease.size());
+                cell = row.createCell(9);
+                cell.setCellValue(file.avgNumberTouchedFile);
+                cell = row.createCell(10);
+                cell.setCellValue(file.maxNumberTouchedFile);
+                cell = row.createCell(11);
+                cell.setCellValue(file.authors.size());
+                cell = row.createCell(12);
+                cell.setCellValue(file.state.toString());
+                start += 1;
+            }
+            this.wb.write(fileOut);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
         return true;
     }
 
@@ -111,8 +166,6 @@ public class ExcelTools {
             for (int count = 0; count <= releaseList.size()/2; count++) {
                 //get all files of release
                 myFilesForRelease = releaseListHashMap.get(releaseList.get(count));
-                System.out.println(releaseList.get(count).getRelease());
-                System.out.println(releaseList.get(count).getDate());
                 for(MyFile myFile: myFilesForRelease){
                     row = sheet.createRow(start + 1);
                     cell = row.createCell(0);
@@ -138,6 +191,8 @@ public class ExcelTools {
                     cell = row.createCell(10);
                     cell.setCellValue(myFile.maxNumberTouchedFile);
                     cell = row.createCell(11);
+                    cell.setCellValue(myFile.authors.size());
+                    cell = row.createCell(12);
                     cell.setCellValue(myFile.state.toString());
                     start += 1;
                 }

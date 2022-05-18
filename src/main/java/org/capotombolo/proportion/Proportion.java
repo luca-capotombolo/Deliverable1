@@ -3,7 +3,6 @@ package org.capotombolo.proportion;
 import org.capotombolo.jira.Jira;
 import org.capotombolo.utils.Issue;
 import org.capotombolo.utils.Release;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,10 +26,7 @@ public class Proportion {
         float p_global = 0;
         float p_issue;
         int total = 0, fv, iv, ov;
-        System.out.println("---------------------PROPORTION----------------------");
-        for(Release release: releaseList){
-            System.out.println(release.index + ": " + release.getRelease());
-        }
+
         for(Issue issue: issueList){
             if(issue.iv==null){
                 //inconsistent AV on JIRA
@@ -42,33 +38,24 @@ public class Proportion {
             fv = issue.fv.index;
             ov = issue.ov.index;
             p_issue = (fv - iv)/(float)(fv - ov);
-            System.out.println("IV: " + issue.iv.release + "    " + issue.iv.index + "    " + issue.iv.date);
-            System.out.println("OV: " + issue.ov.release + "    " + issue.ov.index + "    " + issue.ov.date);
-            System.out.println("FV: " + issue.fv.release + "    " + issue.fv.index + "    " + issue.fv.date);
-            System.out.println("P_ISSUE: " + p_issue);
             p_global += p_issue;
             total ++;
         }
         p_global = p_global / (float) total;
-        System.out.println("GLOBAL PROPORTION: " + p_global);
-        System.out.println("--------------------FINE PROPORTION--------------------");
         return p_global;
     }
 
     public List<Float> increment_iteration() throws IOException {
         List<Float> p_releases_increment_iteration = new ArrayList<>();
         float p_release, p_issue;
-        boolean coldStartDone = false;
         float p_cold_start = 0;
         int total, fv, iv, ov;
         List<Issue> issueFixedInPrevVersions;
         int count = 0;
 
-        System.out.println("-------------------- INCREMENT ITERATION ----------------------");
+        //System.out.println("-------------------- INCREMENT ITERATION ----------------------");
         for(Release release: releaseList){
             p_release = 0;
-            System.out.println(release.release);
-            System.out.println(release.date);
             if(count==0){
                 //I can not compute P0 in increment iteration. I discard all no post release defects
                 count++;
@@ -91,7 +78,6 @@ public class Proportion {
             }
 
             if(issueFixedInPrevVersions.size()<5){
-                System.out.println("COLD START NUMBER OF ISSUE: " + issueFixedInPrevVersions.size());
                 p_release = p_cold_start;
                 p_releases_increment_iteration.add(p_release);
                 count++;
@@ -99,7 +85,6 @@ public class Proportion {
             }
             total = 0;
             for(Issue issue: issueFixedInPrevVersions){
-                System.out.println("ISSUE FIX DATE: " + issue.fixDate);
                 iv = issue.iv.index;
                 fv = issue.fv.index;
                 ov = issue.ov.index;
@@ -108,12 +93,9 @@ public class Proportion {
                 total ++;
             }
             p_release = p_release /(float) total;
-            System.out.println("P_RELEASE: " + p_release);
             p_releases_increment_iteration.add(p_release);
             count++;
         }
-
-        System.out.println("---------------- FINE INCREMENT ITERATION -------------------");
 
         return p_releases_increment_iteration;
     }
@@ -128,8 +110,8 @@ public class Proportion {
         Release release;
         List<Issue> issueWithFVInTrainingSet;
 
-        System.out.println("------------- INCREMENT TRAINING SET -----------");
 
+        // releaseList.size()/2 == number of releases wrote on Excel
         for(count = 0; count <= releaseList.size()/2; count ++){
             if(count == 0 || count == 1){
                 //[1] - [1;2]
@@ -142,7 +124,6 @@ public class Proportion {
             //Bookkeeper --> [1,2;3] - [1,2,3;4] - [1,2,3,4;5] - [1,2,3,4,5;6]
             //Get the younger release in the training set
             release = releaseList.get(count-1);
-            System.out.println("BOUNDARY RELEASE: " + release.release);
             for(Issue issue: issueListWithAVConsistent){
                 if(issue.fv.getDate().compareTo(release.getDate())<=0){
                     issueWithFVInTrainingSet.add(issue);
@@ -151,8 +132,6 @@ public class Proportion {
 
             if(issueWithFVInTrainingSet.size()<5){
                 //I can not compute P of this training set, so I have to use Cold Start
-                System.out.println("COLD START AT COUNT = " + count);
-                System.out.println(issueWithFVInTrainingSet.size());
                 if(!coldStartDone){
                     p_cold_start = coldStart();
                     coldStartDone = true;
@@ -171,10 +150,8 @@ public class Proportion {
                 total ++;
             }
             p_subGlobal = p_subGlobal / (float) total;
-            System.out.println("SUB GLOBAL: " + p_subGlobal);
             p_sub_globals.add(p_subGlobal);
         }
-        System.out.println("----------- FINE INCREMENT TRAINING SET ---------");
 
         return p_sub_globals;
     }
@@ -197,8 +174,6 @@ public class Proportion {
             p_cold_start_project = 0;
             releaseList1 = Jira.getReleases(project);
             issues = Jira.getBugs(project, releaseList1);
-            System.out.println("NUMERO RELEASES " + project + ": " + releaseList1.size());
-            System.out.println("NUMERO ISSUE " + project + ": " + issues.size());
             for(Issue issue: issues){
                 if(issue.iv!=null){
                     //issue with consistent AV on JIRA
@@ -218,15 +193,12 @@ public class Proportion {
 
         int n = p_projects.size();
         p_projects.sort(Comparator.comparing(o -> o));
-        for(Float f: p_projects){
-            System.out.println(f);
-        }
+
         if(n%2 == 0){
             p_cold_start = p_projects.get((n+1)/2);
         }else{
             p_cold_start = (p_projects.get(n/2) + p_projects.get((n/2) + 1))/2;
         }
-        System.out.println(p_cold_start);
         return p_cold_start;
     }
 }

@@ -84,9 +84,7 @@ public class LocAddedRelease {
                 try {
                     myFile.averageNumberLocAdded = myFile.numberLocAddedRelease / myFile.numberRevisionRelease;
                 }catch (Exception e){
-                    System.out.println("---------------------------------------------------------------------------");
-                    System.out.println(myFile.path);
-                    System.out.println("---------------------------------------------------------------------------");
+                    //No revision in this release
                 }
             }
         }

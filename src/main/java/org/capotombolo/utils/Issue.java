@@ -11,6 +11,7 @@ public class Issue {
     public final List<Release> av;
     public final Release fv;
     public final Date fixDate;
+    public boolean changedIV = false;
 
     public Issue(String key, Release iv, Release fv, Release ov, List<Release> av, Date fixDate)
     {
@@ -20,6 +21,8 @@ public class Issue {
         this.ov = ov;
         this.av = av;
         this.fixDate = fixDate;
+        if(iv==null)
+            changedIV=true;
         this.consistencyCheck();
     }
 
