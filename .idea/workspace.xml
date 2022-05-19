@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Implementazione di Proportion e fix bug IV">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/ArffFileCreator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/WalkForward.java" afterDir="false" />
+    <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Implementazione walk forward">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAdded.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Issue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,8 +132,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
-        <item itemvalue="JUnit.TestJira.checkIVFV" />
         <item itemvalue="JUnit.TestFoundAllJavaFiles" />
+        <item itemvalue="JUnit.TestJira.checkIVFV" />
         <item itemvalue="JUnit.TestGitSkills" />
         <item itemvalue="JUnit.TestJira" />
       </list>
@@ -400,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652705567763</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Implementazione walk forward">
+      <created>1652884448008</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1652884448008</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -415,7 +415,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ho aggiunto il file javaCI.yml" />
     <MESSAGE value="Ho aggiunto il file sonar.yml" />
     <MESSAGE value="Modifica file sonar.yml del setup JDK 17" />
     <MESSAGE value="Prova rimozione codesmell su sonar&#10;Ho eliminato il commento nel file pom.xml" />
@@ -440,6 +439,7 @@
     <MESSAGE value="Implementazione Proportion Increment" />
     <MESSAGE value="Costruzione EXCEL completa&#10;Implementazione features completa" />
     <MESSAGE value="Implementazione di Proportion e fix bug IV" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementazione di Proportion e fix bug IV" />
+    <MESSAGE value="Implementazione walk forward" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementazione walk forward" />
   </component>
 </project>
