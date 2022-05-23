@@ -17,10 +17,10 @@ public class App
 
     public static void main(String[] args) throws Exception {
 
-        //final String project = "ZOOKEEPER";
-        //final String path = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
-        final String project = "BOOKKEEPER";
-        final String path = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
+        final String project = "ZOOKEEPER";
+        final String path = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
+        //final String project = "BOOKKEEPER";
+        //final String path = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
 
         //Get All Releases from JIRA
         List<Release> releaseList = Jira.getReleases(project);
