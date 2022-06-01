@@ -30,7 +30,7 @@ public class ChgSetSize {
                 maxNumberTouchedFile = 0;
                 for (CommitMetric commitMetric : commitMetrics) {
                     //for each commit
-                    if (commitMetric.release.getDate().compareTo(release.getDate()) == 0) {
+                    if (commitMetric.getRelease().getDate().compareTo(release.getDate()) == 0) {
                         //all files that has been touched with iterated file
                         filesTouchedWithC = new HashSet<>();
                         //I suppose that file is not touched by the commit

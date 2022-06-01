@@ -44,7 +44,7 @@ public class LocAddedRelease {
                 for (CommitMetric commitMetric : commitMetrics) {
                     //for each commit
                     linesAdded = 0;
-                    if (commitMetric.release.getDate().compareTo(release.getDate()) == 0) {
+                    if (commitMetric.getRelease().getDate().compareTo(release.getDate()) == 0) {
                         //commit.release == release
                         for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
                             if(myFile.path.contains(fileCommitMetric.filename) && (DiffEntry.ChangeType.ADD==fileCommitMetric.fileCommitState

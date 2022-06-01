@@ -9,7 +9,16 @@ public class Commit {
     public final Date date;
     public final String comment;
     public final List<String> files;
-    public Release release;
+
+    public Release getRelease() {
+        return release;
+    }
+
+    public void setRelease(Release release) {
+        this.release = release;
+    }
+
+    private Release release;
 
     public Commit(Date date, String comment, List<String> files, Release release, String sha) {
         this.date = date;

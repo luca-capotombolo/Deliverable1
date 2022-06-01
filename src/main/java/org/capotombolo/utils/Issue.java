@@ -6,12 +6,30 @@ import java.util.List;
 public class Issue {
 
     public final String key;
-    public Release iv;
+
+    public Release getIv() {
+        return iv;
+    }
+
+    public void setIv(Release iv) {
+        this.iv = iv;
+    }
+
+    private Release iv;
     public final Release ov;
     public final List<Release> av;
     public final Release fv;
     public final Date fixDate;
-    public boolean changedIV = false;
+
+    public boolean isChangedIV() {
+        return changedIV;
+    }
+
+    public void setChangedIV(boolean changedIV) {
+        this.changedIV = changedIV;
+    }
+
+    private boolean changedIV = false;
 
     public Issue(String key, Release iv, Release fv, Release ov, List<Release> av, Date fixDate)
     {

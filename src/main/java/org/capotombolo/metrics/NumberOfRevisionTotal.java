@@ -28,7 +28,7 @@ public class NumberOfRevisionTotal {
                 //I suppose zero revision for this file
                 count = 0;
                 for(CommitMetric commitMetric: commitMetrics){
-                    if(commitMetric.release.getDate().compareTo(release.getDate()) <=0){
+                    if(commitMetric.getRelease().getDate().compareTo(release.getDate()) <=0){
                         for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
                             if(myFile.path.contains(fileCommitMetric.filename)){
                                 count++;

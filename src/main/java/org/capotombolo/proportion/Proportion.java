@@ -12,8 +12,8 @@ public class Proportion {
 
     public final List<Release> releaseList;
     public final List<Issue> issueList;
-    public List<Issue> issueListWithAVInconsistent;
-    public List<Issue> issueListWithAVConsistent;
+    public final List<Issue> issueListWithAVInconsistent;
+    private final List<Issue> issueListWithAVConsistent;
 
     public Proportion(List<Release> releaseList, List<Issue> issueList){
         this.releaseList = releaseList;
@@ -31,13 +31,13 @@ public class Proportion {
         int ov;
 
         for(Issue issue: issueList){
-            if(issue.iv==null){
+            if(issue.getIv() ==null){
                 //inconsistent AV on JIRA
                 issueListWithAVInconsistent.add(issue);
                 continue;
             }
             issueListWithAVConsistent.add(issue);
-            iv = issue.iv.index;
+            iv = issue.getIv().index;
             fv = issue.fv.index;
             ov = issue.ov.index;
             pIssue = (fv - iv)/(float)(fv - ov);
@@ -95,7 +95,7 @@ public class Proportion {
             }
             total = 0;
             for(Issue issue: issueFixedInPrevVersions){
-                iv = issue.iv.index;
+                iv = issue.getIv().index;
                 fv = issue.fv.index;
                 ov = issue.ov.index;
                 pIssue = (fv - iv)/(float)(fv - ov);
@@ -161,7 +161,7 @@ public class Proportion {
             }
 
             for(Issue issue: issueWithFVInTrainingSet){
-                iv = issue.iv.index;
+                iv = issue.getIv().index;
                 fv = issue.fv.index;
                 ov = issue.ov.index;
                 pIssue = (fv - iv)/(fv - ov);
@@ -193,7 +193,7 @@ public class Proportion {
         projects.add("STORM");
         projects.add("SYNCOPE");
         projects.add("TAJO");
-        List<Float> p_projects = new ArrayList<>();
+        List<Float> pProjects = new ArrayList<>();
         List<Release> releaseList1;
         List<Issue> issues;
 
@@ -203,9 +203,9 @@ public class Proportion {
             releaseList1 = Jira.getReleases(project);
             issues = Jira.getBugs(project, releaseList1);
             for(Issue issue: issues){
-                if(issue.iv!=null){
+                if(issue.getIv() !=null){
                     //issue with consistent AV on JIRA
-                    iv = issue.iv.index;
+                    iv = issue.getIv().index;
                     fv = issue.fv.index;
                     ov = issue.ov.index;
                     pIssue = (fv - iv)/(fv - ov);
@@ -219,17 +219,17 @@ public class Proportion {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                p_projects.add(pColdStartProject);
+                pProjects.add(pColdStartProject);
             }
         }
 
-        int n = p_projects.size();
-        p_projects.sort(Comparator.comparing(o -> o));
+        int n = pProjects.size();
+        pProjects.sort(Comparator.comparing(o -> o));
 
         if(n%2 == 0){
-            pColdStart = p_projects.get((n+1)/2);
+            pColdStart = pProjects.get((n+1)/2);
         }else{
-            pColdStart = (p_projects.get(n/2) + p_projects.get((n/2) + 1))/2;
+            pColdStart = (pProjects.get(n/2) + pProjects.get((n/2) + 1))/2;
         }
         return pColdStart;
     }

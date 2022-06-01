@@ -15,8 +15,8 @@ import java.util.*;
 public class App 
 {
 
-    static final String PROJECT = "BOOKKEEPER";
-    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
+    static final String PROJECT = "ZOOKEEPER";
+    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
     static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {
@@ -63,7 +63,6 @@ public class App
         //Get all commits of Project
         CommitProjectProducer commitProjectProducer = new CommitProjectProducer(releaseList, PATH);
         List<CommitMetric> commitMetrics = commitProjectProducer.getAllCommitOfProject();
-        System.out.println(commitMetrics.size());
         //Get all revision for each file in all releases
         NumberOfRevisionTotal numberOfRevisionTotal = new NumberOfRevisionTotal(hashMapReleaseFiles, commitMetrics);
         hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) numberOfRevisionTotal.getNumberOfRevisionTotal();
@@ -95,16 +94,16 @@ public class App
         float ov;
         int index;
         for(Issue issue: issueList){
-            if(issue.iv==null){
+            if(issue.getIv() ==null){
                 fv = issue.fv.index;
                 ov = issue.ov.index;
                 index = (int) (fv - (fv - ov)*pGlobal);
                 if(index<=0)
-                    issue.iv = releaseList.get(0);
+                    issue.setIv(releaseList.get(0));
                 else if (index >= releaseList.size()) {
-                    issue.iv = releaseList.get(releaseList.size()-1);
+                    issue.setIv(releaseList.get(releaseList.size() - 1));
                 }else{
-                    issue.iv = releaseList.get(index);
+                    issue.setIv(releaseList.get(index));
                 }
             }
         }
@@ -124,7 +123,7 @@ public class App
             myFiles = hashMapReleaseFiles.get(release);
             for (Issue issue : issueList) {
                 //I use all information to labeling java classes
-                if ((release.getDate().compareTo(issue.iv.getDate()) >= 0) && (release.getDate().compareTo(issue.fv.getDate()) < 0)) {
+                if ((release.getDate().compareTo(issue.getIv().getDate()) >= 0) && (release.getDate().compareTo(issue.fv.getDate()) < 0)) {
                     commits = hashMapIssueCommits.get(issue);
                     for (Commit commit : commits) {
                         if (commit.date.compareTo(release.getDate()) > 0) {
@@ -168,8 +167,8 @@ public class App
 
         //I delete the IV value for all issues that have an inconsistent AV because I will have to do the labeling again
         for(Issue issue: issueList){
-            if(issue.changedIV)
-                issue.iv = null;
+            if(issue.isChangedIV())
+                issue.setIv(null);
         }
 
         //I reset the state of java files in all releases
@@ -214,16 +213,16 @@ public class App
 
             //Compute IV of issue that has no consistent AV on JIRA fixed in the training set
             for(Issue issue: issueList){
-                if(issue.fv.date.compareTo(youngerRelease.date)<=0 && issue.iv==null){
+                if(issue.fv.date.compareTo(youngerRelease.date)<=0 && issue.getIv() ==null){
                     fv = issue.fv.index;
                     ov = issue.ov.index;
                     index = (int) (fv - (fv - ov)*pSubGlobal);
                     if(index<=0)
-                        issue.iv = releaseList.get(0);
+                        issue.setIv(releaseList.get(0));
                     else if (index >= count1 - 1) {
-                        issue.iv = releaseList.get(count1 - 1);
+                        issue.setIv(releaseList.get(count1 - 1));
                     }else{
-                        issue.iv = releaseList.get(index);
+                        issue.setIv(releaseList.get(index));
                     }
                 }
             }
@@ -236,7 +235,7 @@ public class App
                 myFiles = hashMapReleaseFiles.get(release);
                 for(Issue issue: issueList){
                     //I don't use future issue
-                    if(issue.fv.date.compareTo(youngerRelease.date)<=0 && (release.getDate().compareTo(issue.iv.getDate()) >= 0)
+                    if(issue.fv.date.compareTo(youngerRelease.date)<=0 && (release.getDate().compareTo(issue.getIv().getDate()) >= 0)
                             && (release.getDate().compareTo(issue.fv.getDate()) < 0)){
                         commits = hashMapIssueCommits.get(issue);
                         for (Commit commit : commits) {
@@ -276,8 +275,8 @@ public class App
 
             //I will label with another sub global P because the training set changes, and I have new issues
             for(Issue issue: issueList){
-                if(issue.changedIV)
-                    issue.iv = null;
+                if(issue.isChangedIV())
+                    issue.setIv(null);
             }
 
             int k = 0;

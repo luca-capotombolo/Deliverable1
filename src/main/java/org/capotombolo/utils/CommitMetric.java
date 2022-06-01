@@ -8,7 +8,16 @@ public class CommitMetric {
 
     public final List<FileCommitMetric> fileCommits;
     public final Date date;
-    public Release release;
+
+    public Release getRelease() {
+        return release;
+    }
+
+    public void setRelease(Release release) {
+        this.release = release;
+    }
+
+    private Release release;
     public final String authorName;
     public final RevCommit revCommit;
 

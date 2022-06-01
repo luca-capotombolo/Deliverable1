@@ -29,7 +29,7 @@ public class NumberOfAuthors {
                 //For each file of release
                 for(CommitMetric commitMetric: commitMetrics){
                     //for each commit
-                    if(commitMetric.release.getDate().compareTo(release.getDate())<=0){
+                    if(commitMetric.getRelease().getDate().compareTo(release.getDate())<=0){
                         for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
                             //for each changed files
                             if(myFile.path.contains(fileCommitMetric.filename)){

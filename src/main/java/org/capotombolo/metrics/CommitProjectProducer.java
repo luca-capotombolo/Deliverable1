@@ -61,13 +61,13 @@ public class CommitProjectProducer {
 
             for (Release release : releaseList) {
                 if (release.date.compareTo(commitMetric.date) >= 0) {
-                    commitMetric.release = release;                                    //first release with date greater than date of commit
+                    commitMetric.setRelease(release);                                    //first release with date greater than date of commit
                     break;                                                              //sorted releases
                 }
             }
 
             //the commit belong a version that is not released
-            if (commitMetric.release == null)
+            if (commitMetric.getRelease() == null)
                 continue;
 
             commitMetrics.add(commitMetric);

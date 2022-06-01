@@ -99,13 +99,13 @@ public class GitSkills {
                     commitWithKey = new Commit(new Date(commit.getCommitTime()*1000L), commit.getFullMessage(), changedFiles, null, commit.getName());
                     for(Release release: releaseList){
                         if(release.date.compareTo(commitWithKey.date)>0){
-                            commitWithKey.release = release;                                    //first release with date greater than date of commit
+                            commitWithKey.setRelease(release);                                    //first release with date greater than date of commit
                             break;                                                              //sorted releases
                         }
                     }
 
                     //the commit belong a version that is not released
-                    if (commitWithKey.release == null)
+                    if (commitWithKey.getRelease() == null)
                         continue;
 
                     commitWithIssueKeyList.add(commitWithKey);

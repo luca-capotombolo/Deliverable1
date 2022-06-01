@@ -149,8 +149,8 @@ public class Jira {
 
 
                     //Exclude defects that are not post-release
-                    if(issue.iv!=null && issue.iv.getDate().compareTo(issue.fv.getDate())==0
-                            && issue.iv.getDate().compareTo(issue.ov.getDate())==0)
+                    if(issue.getIv() !=null && issue.getIv().getDate().compareTo(issue.fv.getDate())==0
+                            && issue.getIv().getDate().compareTo(issue.ov.getDate())==0)
                     {
                         continue;
                     }
