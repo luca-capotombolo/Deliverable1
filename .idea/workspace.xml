@@ -6,20 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Prova workflow">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/excel/ExcelTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/filesystem/FoundAllJavaFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/git/GitSkills.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/jira/Jira.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/CommitProjectProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/CommitProjectProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/Size.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/Size.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/proportion/Proportion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/CommitMetric.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/CommitMetric.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/FileCommitMetric.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/FileCommitMetric.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/MyFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/utils/Release.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/ArffFileCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/ArffFileCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/WalkForward.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/weka/WalkForward.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
