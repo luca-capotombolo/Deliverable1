@@ -8,8 +8,8 @@ import java.util.*;
 
 public class ArffFileCreator {
     List<String> attributes;
-    private final static String MACRO = "class";
-    private final static String MACRO1 = "@ATTRIBUTE ";
+    private static final String MACRO = "class";
+    private static final String MACRO1 = "@ATTRIBUTE ";
 
     public ArffFileCreator(){
         this.attributes = new ArrayList<>();

@@ -73,20 +73,28 @@ public class WalkForward {
             eval = new Evaluation(testing);
             eval.evaluateModel(classifierRandomWalker, testing);
 
-            logger.log(Level.INFO, String.format("RANDOM FOREST PRECISION: %s" , eval.precision(0)));
-            logger.log(Level.INFO , String.format("RANDOM FOREST RECALL: %s" , eval.recall(0)));
-            logger.log(Level.INFO, String.format("RANDOM FOREST AUC = %s", eval.areaUnderROC(0)));
-            logger.log(Level.INFO, String.format("RANDOM FOREST kappa = %s",eval.kappa()));
+            out = "RANDOM FOREST PRECISION: " + eval.precision(0);
+            logger.log(Level.INFO, out);
+            out = "RANDOM FOREST RECALL: " + eval.recall(0);
+            logger.log(Level.INFO , out);
+            out = "RANDOM FOREST AUC = " + eval.areaUnderROC(0);
+            logger.log(Level.INFO, out);
+            out = "RANDOM FOREST kappa = " + eval.kappa();
+            logger.log(Level.INFO, out);
 
             classifierIBK = new IBk();
             classifierIBK.buildClassifier(training);
             eval = new Evaluation(testing);
             eval.evaluateModel(classifierIBK, testing);
 
-            logger.log(Level.INFO, String.format("IBK PRECISION: %s" , eval.precision(0)));
-            logger.log(Level.INFO, String.format("IBK RECALL: %s" , eval.recall(0)));
-            logger.log(Level.INFO, String.format("IBK AUC = %s",eval.areaUnderROC(0)));
-            logger.log(Level.INFO, String.format("IBK kappa =%s",eval.kappa()));
+            out = "IBK PRECISION: " + eval.precision(0);
+            logger.log(Level.INFO, out);
+            out = "IBK RECALL: " +  eval.recall(0);
+            logger.log(Level.INFO, out);
+            out = "IBK AUC = " + eval.areaUnderROC(0);
+            logger.log(Level.INFO, out);
+            out = "IBK kappa = " + eval.kappa();
+            logger.log(Level.INFO, out);
 
         }
 

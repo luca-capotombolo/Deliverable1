@@ -4,10 +4,7 @@ import org.capotombolo.metrics.Size;
 import org.capotombolo.utils.MyFile;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author Luca Capotombolo
@@ -71,7 +68,8 @@ public class FoundAllJavaFiles {
         File dir;
         List<MyFile> filenames = new ArrayList<>();     //Lista dei filename corrispondenti ai file .java
         String filename;
-        Stack<File> stack = new Stack<>();              //Contiene le directory che devono essere ancora esplorate
+        //Stack<File> stack = new Stack<>();              //Contiene le directory che devono essere ancora esplorate
+        Deque<File> stack = new ArrayDeque<>();
 
         if(!this.directory.isDirectory()){
             return Collections.emptyList();
@@ -97,7 +95,8 @@ public class FoundAllJavaFiles {
             }
         }
 
-        while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
+        //while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
+        while(!stack.isEmpty()){
             dir = stack.pop();
             files = this.listFiles(dir);
             if(dir.getName().equals("target") || dir.getName().equals("test") || files.length == 0) continue;

@@ -77,7 +77,6 @@ public class LocAddedRelease {
                         }
                         tot = myFile.getNumberLocAddedRelease();
                         myFile.setNumberLocAddedRelease(tot + linesAdded);
-                        //myFile.numberLocAddedRelease +=linesAdded;
                         if(linesAdded > myFile.getMaxNumberLocAdded()) {
                             myFile.setMaxNumberLocAdded(linesAdded);
                         }
