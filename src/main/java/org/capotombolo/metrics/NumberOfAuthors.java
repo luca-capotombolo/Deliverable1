@@ -33,7 +33,7 @@ public class NumberOfAuthors {
                         for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
                             //for each changed files
                             if(myFile.path.contains(fileCommitMetric.filename)){
-                                myFile.authors.add(commitMetric.authorName);
+                                myFile.getAuthors().add(commitMetric.authorName);
                             }
                         }
                     }

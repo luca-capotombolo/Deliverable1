@@ -15,8 +15,8 @@ import java.util.*;
 public class App 
 {
 
-    static final String PROJECT = "ZOOKEEPER";
-    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
+    static final String PROJECT = "BOOKKEEPER";
+    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
     static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {
@@ -95,8 +95,8 @@ public class App
         int index;
         for(Issue issue: issueList){
             if(issue.getIv() ==null){
-                fv = issue.fv.index;
-                ov = issue.ov.index;
+                fv = issue.fv.getIndex();
+                ov = issue.ov.getIndex();
                 index = (int) (fv - (fv - ov)*pGlobal);
                 if(index<=0)
                     issue.setIv(releaseList.get(0));
@@ -129,8 +129,8 @@ public class App
                         if (commit.date.compareTo(release.getDate()) > 0) {
                             for (MyFile myFile : myFiles) {
                                 for(String file: commit.files){
-                                    if(myFile.path.contains(file) && myFile.state!= MyFile.StateFile.BUG){
-                                            myFile.state = MyFile.StateFile.BUG;
+                                    if(myFile.path.contains(file) && myFile.getState() != MyFile.StateFile.BUG){
+                                            myFile.setState(MyFile.StateFile.BUG);
                                             break;
                                     }
                                 }
@@ -177,8 +177,8 @@ public class App
             if(h>nRelease)
                 break;
             for(MyFile myFile: hashMapReleaseFiles.get(release)){
-                if(myFile.state== MyFile.StateFile.BUG)
-                    myFile.state = MyFile.StateFile.NO_BUG;
+                if(myFile.getState() == MyFile.StateFile.BUG)
+                    myFile.setState(MyFile.StateFile.NO_BUG);
             }
             h++;
         }
@@ -214,8 +214,8 @@ public class App
             //Compute IV of issue that has no consistent AV on JIRA fixed in the training set
             for(Issue issue: issueList){
                 if(issue.fv.date.compareTo(youngerRelease.date)<=0 && issue.getIv() ==null){
-                    fv = issue.fv.index;
-                    ov = issue.ov.index;
+                    fv = issue.fv.getIndex();
+                    ov = issue.ov.getIndex();
                     index = (int) (fv - (fv - ov)*pSubGlobal);
                     if(index<=0)
                         issue.setIv(releaseList.get(0));
@@ -242,9 +242,9 @@ public class App
                             if (commit.date.compareTo(release.getDate()) > 0) {
                                 for (MyFile myFile : myFiles) {
                                     for(String file: commit.files){
-                                        if(myFile.path.contains(file) && myFile.state!= MyFile.StateFile.BUG){
+                                        if(myFile.path.contains(file) && myFile.getState() != MyFile.StateFile.BUG){
 
-                                            myFile.state = MyFile.StateFile.BUG;
+                                            myFile.setState(MyFile.StateFile.BUG);
                                             break;
 
                                         }
@@ -284,8 +284,8 @@ public class App
                 if(k>nRelease)
                     break;
                 for(MyFile myFile: hashMapReleaseFiles.get(release)){
-                    if(myFile.state== MyFile.StateFile.BUG)
-                        myFile.state = MyFile.StateFile.NO_BUG;
+                    if(myFile.getState() == MyFile.StateFile.BUG)
+                        myFile.setState(MyFile.StateFile.NO_BUG);
                 }
                 k++;
             }

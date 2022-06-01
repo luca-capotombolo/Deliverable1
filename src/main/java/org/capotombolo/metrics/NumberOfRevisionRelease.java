@@ -38,7 +38,7 @@ public class NumberOfRevisionRelease {
                         }
                     }
                 }
-                myFile.numberRevisionRelease = count;
+                myFile.setNumberRevisionRelease(count);
             }
         }
         return this.hashMap;

@@ -34,6 +34,7 @@ public class LocAddedRelease {
         Release release;
         List<MyFile> myFiles;
         int linesAdded;
+        int tot;
         GitSkills gitSkills = new GitSkills(this.path);
 
         for (Map.Entry<Release, List<MyFile>> entry : this.hashMap.entrySet()) {
@@ -74,15 +75,17 @@ public class LocAddedRelease {
                                 }
                             }
                         }
-                        myFile.numberLocAddedRelease +=linesAdded;
-                        if(linesAdded > myFile.maxNumberLocAdded) {
-                            myFile.maxNumberLocAdded = linesAdded;
+                        tot = myFile.getNumberLocAddedRelease();
+                        myFile.setNumberLocAddedRelease(tot + linesAdded);
+                        //myFile.numberLocAddedRelease +=linesAdded;
+                        if(linesAdded > myFile.getMaxNumberLocAdded()) {
+                            myFile.setMaxNumberLocAdded(linesAdded);
                         }
                     }
 
                 }
                 try {
-                    myFile.averageNumberLocAdded = myFile.numberLocAddedRelease / myFile.numberRevisionRelease;
+                    myFile.setAverageNumberLocAdded(myFile.getNumberLocAddedRelease() / myFile.getNumberRevisionRelease());
                 }catch (Exception e){
                     //No revision in this release
                 }

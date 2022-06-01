@@ -36,7 +36,7 @@ public class NumberOfRevisionTotal {
                         }
                     }
                 }
-                myFile.numberRevisionTotal = count;
+                myFile.setNumberRevisionTotal(count);
             }
         }
         return this.hashMap;

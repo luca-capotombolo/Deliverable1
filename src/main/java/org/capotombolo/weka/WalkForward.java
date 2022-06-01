@@ -23,6 +23,7 @@ public class WalkForward {
         RandomForest classifierRandomWalker;
         IBk classifierIBK;
         Evaluation eval;
+        String out;
         Release youngerRelease;
         float precisionMean = 0;
         float kappaMean = 0;
@@ -37,8 +38,10 @@ public class WalkForward {
                 continue;
             youngerRelease = releaseList.get(count1-1);
             testingRelease = releaseList.get(count1);
-            logger.log(Level.INFO, String.format("TESTING RELEASE: %s", testingRelease.name));
-            logger.log(Level.INFO, "YOUNGER RELEASE: " + youngerRelease.name);
+            out = "TESTING RELEASE: " + testingRelease.name;
+            logger.log(Level.INFO, out);
+            out ="YOUNGER RELEASE: " + youngerRelease.name;
+            logger.log(Level.INFO, out);
 
             source1 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\training_"+project+"_"+youngerRelease.name + ".arff");
             training = source1.getDataSet();
@@ -48,17 +51,22 @@ public class WalkForward {
             int numAttr = training.numAttributes();
             training.setClassIndex(numAttr - 1);
             testing.setClassIndex(numAttr - 1);
-            logger.log(Level.INFO, String.format("NUMBER ATTR: %s", numAttr));
+            out = "NUMBER ATTR: " + numAttr;
+            logger.log(Level.INFO, out);
 
             classifierBayes = new NaiveBayes();
             classifierBayes.buildClassifier(training);
             eval = new Evaluation(testing);
             eval.evaluateModel(classifierBayes, testing);
 
-            logger.log(Level.INFO, String.format("NAIVE BAYES PRECISION: %s" , eval.precision(0)));
-            logger.log(Level.INFO, String.format("NAIVE BAYES RECALL: %s",eval.recall(0)));
-            logger.log(Level.INFO, String.format("NAIVE BAYES AUC = %s",eval.areaUnderROC(0)));
-            logger.log(Level.INFO, String.format("NAIVE BAYES kappa = %s",eval.kappa()));
+            out = "NAIVE BAYES PRECISION: " + eval.precision(0);
+            logger.log(Level.INFO, out);
+            out = "NAIVE BAYES RECALL: " + eval.recall(0);
+            logger.log(Level.INFO, out);
+            out = "NAIVE BAYES AUC = " + eval.areaUnderROC(0);
+            logger.log(Level.INFO, out);
+            out = "NAIVE BAYES kappa = " + eval.kappa();
+            logger.log(Level.INFO, out);
 
             classifierRandomWalker = new RandomForest();
             classifierRandomWalker.buildClassifier(training);

@@ -45,14 +45,14 @@ public class ChgSetSize {
                             //myFile is in the set so I must delete it
                             if(maxNumberTouchedFile < (filesTouchedWithC.size() - 1))
                                 maxNumberTouchedFile = filesTouchedWithC.size() - 1;
-                            myFile.setTouchedFileWithCRelease.addAll(filesTouchedWithC);
+                            myFile.getSetTouchedFileWithCRelease().addAll(filesTouchedWithC);
                         }
                     }
                 }
                 //at least zero
-                myFile.maxNumberTouchedFile = maxNumberTouchedFile;
+                myFile.setMaxNumberTouchedFile(maxNumberTouchedFile);
                 try {
-                    myFile.avgNumberTouchedFile = myFile.setTouchedFileWithCRelease.size()/(float)myFile.numberRevisionRelease;
+                    myFile.setAvgNumberTouchedFile(myFile.getSetTouchedFileWithCRelease().size() / (float) myFile.getNumberRevisionRelease());
                 }catch (Exception e){
                     //there are no revision for this file in the release
                 }

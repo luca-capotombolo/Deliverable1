@@ -37,9 +37,9 @@ public class Proportion {
                 continue;
             }
             issueListWithAVConsistent.add(issue);
-            iv = issue.getIv().index;
-            fv = issue.fv.index;
-            ov = issue.ov.index;
+            iv = issue.getIv().getIndex();
+            fv = issue.fv.getIndex();
+            ov = issue.ov.getIndex();
             pIssue = (fv - iv)/(float)(fv - ov);
             pGlobal += pIssue;
             total ++;
@@ -95,9 +95,9 @@ public class Proportion {
             }
             total = 0;
             for(Issue issue: issueFixedInPrevVersions){
-                iv = issue.getIv().index;
-                fv = issue.fv.index;
-                ov = issue.ov.index;
+                iv = issue.getIv().getIndex();
+                fv = issue.fv.getIndex();
+                ov = issue.ov.getIndex();
                 pIssue = (fv - iv)/(float)(fv - ov);
                 pRelease += pIssue;
                 total ++;
@@ -161,9 +161,9 @@ public class Proportion {
             }
 
             for(Issue issue: issueWithFVInTrainingSet){
-                iv = issue.getIv().index;
-                fv = issue.fv.index;
-                ov = issue.ov.index;
+                iv = issue.getIv().getIndex();
+                fv = issue.fv.getIndex();
+                ov = issue.ov.getIndex();
                 pIssue = (fv - iv)/(fv - ov);
                 pSubGlobal += pIssue;
                 total ++;
@@ -205,9 +205,9 @@ public class Proportion {
             for(Issue issue: issues){
                 if(issue.getIv() !=null){
                     //issue with consistent AV on JIRA
-                    iv = issue.getIv().index;
-                    fv = issue.fv.index;
-                    ov = issue.ov.index;
+                    iv = issue.getIv().getIndex();
+                    fv = issue.fv.getIndex();
+                    ov = issue.ov.getIndex();
                     pIssue = (fv - iv)/(fv - ov);
                     pColdStartProject += pIssue;
                     total ++;

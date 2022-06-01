@@ -2,16 +2,14 @@ package org.capotombolo.weka;
 
 import org.capotombolo.utils.MyFile;
 import org.capotombolo.utils.Release;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ArffFileCreator {
     List<String> attributes;
+    private final static String MACRO = "class";
+    private final static String MACRO1 = "@ATTRIBUTE ";
 
     public ArffFileCreator(){
         this.attributes = new ArrayList<>();
@@ -25,10 +23,10 @@ public class ArffFileCreator {
         this.attributes.add("avgChgSetSize");
         this.attributes.add("maxChgSetSize");
         this.attributes.add("authors");
-        this.attributes.add("class");
+        this.attributes.add(MACRO);
     }
 
-    public boolean createArffFileTrainingSet(HashMap<Release, List<MyFile>> hashMap, List<Release> releaseList, String relation, Release youngerRelease){
+    public boolean createArffFileTrainingSet(Map<Release, List<MyFile>> hashMap, List<Release> releaseList, String relation, Release youngerRelease){
         List<MyFile> myFiles;
         try{
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(relation+"_"+youngerRelease.name +".arff"));
@@ -37,14 +35,14 @@ public class ArffFileCreator {
             bufferedWriter.newLine();
             bufferedWriter.flush();
             for(String attribute: this.attributes){
-                if(Objects.equals(attribute, "class"))
+                if(Objects.equals(attribute, MACRO))
                 {
-                    bufferedWriter.write("@ATTRIBUTE " + attribute + " {BUG,NO_BUG}");
+                    bufferedWriter.write(MACRO1 + attribute + " {BUG,NO_BUG}");
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                     continue;
                 }
-                bufferedWriter.write("@ATTRIBUTE " + attribute + " NUMERIC");
+                bufferedWriter.write(MACRO1 + attribute + " NUMERIC");
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
@@ -57,19 +55,19 @@ public class ArffFileCreator {
                 if(release.date.compareTo(youngerRelease.date) <=0){
                     myFiles = hashMap.get(release);
                     for(MyFile myFile: myFiles){
-                        bufferedWriter.write(myFile.numberRevisionRelease+",");
-                        bufferedWriter.write(myFile.numberLocAddedRelease + ",");
-                        bufferedWriter.write(myFile.averageNumberLocAdded + ",");
-                        bufferedWriter.write(myFile.maxNumberLocAdded + ",");
-                        bufferedWriter.write(myFile.lines+ ",");
-                        bufferedWriter.write(myFile.setTouchedFileWithCRelease.size()+",");
-                        if(Float.isNaN(myFile.avgNumberTouchedFile))
+                        bufferedWriter.write(myFile.getNumberRevisionRelease() +",");
+                        bufferedWriter.write(myFile.getNumberLocAddedRelease() + ",");
+                        bufferedWriter.write(myFile.getAverageNumberLocAdded() + ",");
+                        bufferedWriter.write(myFile.getMaxNumberLocAdded() + ",");
+                        bufferedWriter.write(myFile.getLines() + ",");
+                        bufferedWriter.write(myFile.getSetTouchedFileWithCRelease().size()+",");
+                        if(Float.isNaN(myFile.getAvgNumberTouchedFile()))
                             bufferedWriter.write("?,");
                         else
-                            bufferedWriter.write(myFile.avgNumberTouchedFile+",");
-                        bufferedWriter.write(myFile.maxNumberTouchedFile+",");
-                        bufferedWriter.write(myFile.authors.size()+",");
-                        bufferedWriter.write(myFile.state.toString());
+                            bufferedWriter.write(myFile.getAvgNumberTouchedFile() +",");
+                        bufferedWriter.write(myFile.getMaxNumberTouchedFile() +",");
+                        bufferedWriter.write(myFile.getAuthors().size()+",");
+                        bufferedWriter.write(myFile.getState().toString());
                         bufferedWriter.newLine();
                         bufferedWriter.flush();
                     }
@@ -85,7 +83,7 @@ public class ArffFileCreator {
         return true;
     }
 
-    public boolean createArffFileTestingSet(HashMap<Release, List<MyFile>> hashMap, List<Release> releaseList, String relation){
+    public boolean createArffFileTestingSet(Map<Release, List<MyFile>> hashMap, List<Release> releaseList, String relation){
 
         List<MyFile> myFiles;
         int count = 0;
@@ -105,13 +103,13 @@ public class ArffFileCreator {
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                     for (String attribute : this.attributes) {
-                        if (Objects.equals(attribute, "class")) {
-                            bufferedWriter.write("@ATTRIBUTE " + attribute + " {BUG,NO_BUG}");
+                        if (Objects.equals(attribute, MACRO)) {
+                            bufferedWriter.write(MACRO1 + attribute + " {BUG,NO_BUG}");
                             bufferedWriter.newLine();
                             bufferedWriter.flush();
                             continue;
                         }
-                        bufferedWriter.write("@ATTRIBUTE " + attribute + " NUMERIC");
+                        bufferedWriter.write(MACRO1 + attribute + " NUMERIC");
                         bufferedWriter.newLine();
                         bufferedWriter.flush();
                     }
@@ -120,19 +118,19 @@ public class ArffFileCreator {
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                     for(MyFile myFile: myFiles){
-                        bufferedWriter.write(myFile.numberRevisionRelease+",");
-                        bufferedWriter.write(myFile.numberLocAddedRelease + ",");
-                        bufferedWriter.write(myFile.averageNumberLocAdded + ",");
-                        bufferedWriter.write(myFile.maxNumberLocAdded + ",");
-                        bufferedWriter.write(myFile.lines+ ",");
-                        bufferedWriter.write(myFile.setTouchedFileWithCRelease.size()+",");
-                        if(Float.isNaN(myFile.avgNumberTouchedFile))
+                        bufferedWriter.write(myFile.getNumberRevisionRelease() +",");
+                        bufferedWriter.write(myFile.getNumberLocAddedRelease() + ",");
+                        bufferedWriter.write(myFile.getAverageNumberLocAdded() + ",");
+                        bufferedWriter.write(myFile.getMaxNumberLocAdded() + ",");
+                        bufferedWriter.write(myFile.getLines() + ",");
+                        bufferedWriter.write(myFile.getSetTouchedFileWithCRelease().size()+",");
+                        if(Float.isNaN(myFile.getAvgNumberTouchedFile()))
                             bufferedWriter.write("?,");
                         else
-                            bufferedWriter.write(myFile.avgNumberTouchedFile+",");
-                        bufferedWriter.write(myFile.maxNumberTouchedFile+",");
-                        bufferedWriter.write(myFile.authors.size()+",");
-                        bufferedWriter.write(myFile.state.toString());
+                            bufferedWriter.write(myFile.getAvgNumberTouchedFile() +",");
+                        bufferedWriter.write(myFile.getMaxNumberTouchedFile() +",");
+                        bufferedWriter.write(myFile.getAuthors().size()+",");
+                        bufferedWriter.write(myFile.getState().toString());
                         bufferedWriter.newLine();
                         bufferedWriter.flush();
                     }

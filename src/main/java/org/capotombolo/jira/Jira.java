@@ -206,7 +206,7 @@ public class Jira {
         //Set index of release
         int count = 0;
         for(Release release1: releaseList){
-            release1.index = count;
+            release1.setIndex(count);
             count ++;
         }
 
