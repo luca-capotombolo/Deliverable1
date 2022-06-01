@@ -15,24 +15,28 @@ import java.util.*;
 public class App 
 {
 
+    static final String PROJECT = "BOOKKEEPER";
+    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
+    static final String MACRO1 = "training_";
+
     public static void main(String[] args) throws Exception {
 
         //final String project = "ZOOKEEPER";
         //final String path = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
-        final String project = "BOOKKEEPER";
-        final String path = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
+        // String project = "BOOKKEEPER";
+        //final String path = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
 
         //Get All Releases from JIRA
-        List<Release> releaseList = Jira.getReleases(project);
+        List<Release> releaseList = Jira.getReleases(PROJECT);
 
         //number of Excel release
         int nRelease = releaseList.size() / 2;
 
         //Get All Bugs from JIRA
-        List<Issue> issueList = Jira.getBugs(project, releaseList);
+        List<Issue> issueList = Jira.getBugs(PROJECT, releaseList);
 
         //Get all files for each release
-        GitSkills gitSkills = new GitSkills(path);
+        GitSkills gitSkills = new GitSkills(PATH);
         FoundAllJavaFiles foundAllJavaFiles;
         int count = 0;
         List<MyFile> filenames;
@@ -46,7 +50,7 @@ public class App
                 continue;
             }
             if (count <= nRelease) {
-                foundAllJavaFiles = new FoundAllJavaFiles(path);
+                foundAllJavaFiles = new FoundAllJavaFiles(PATH);
                 //all java files in the release
                 filenames = foundAllJavaFiles.foundAllFiles();
                 hashMapReleaseFiles.put(release, filenames);
@@ -57,7 +61,7 @@ public class App
 
         //Set the value of the metrics for all files in all releases
         //Get all commits of Project
-        CommitProjectProducer commitProjectProducer = new CommitProjectProducer(releaseList, path);
+        CommitProjectProducer commitProjectProducer = new CommitProjectProducer(releaseList, PATH);
         List<CommitMetric> commitMetrics = commitProjectProducer.getAllCommitOfProject();
         //Get all revision for each file in all releases
         NumberOfRevisionTotal numberOfRevisionTotal = new NumberOfRevisionTotal(hashMapReleaseFiles, commitMetrics);
@@ -69,10 +73,10 @@ public class App
         NumberOfAuthors numberOfAuthors = new NumberOfAuthors(hashMapReleaseFiles, commitMetrics);
         hashMapReleaseFiles = numberOfAuthors.getNumberOfAuthors();
         //Get LOC ADDED for each file in all releases
-        LocAdded locAdded = new LocAdded(hashMapReleaseFiles, commitMetrics, path);
+        LocAdded locAdded = new LocAdded(hashMapReleaseFiles, commitMetrics, PATH);
         hashMapReleaseFiles = locAdded.computeLocAdded();
         //Get LOC ADDED (with maximum and average) for each file in its release
-        LocAddedRelease locAddedRelease = new LocAddedRelease(hashMapReleaseFiles, commitMetrics, path);
+        LocAddedRelease locAddedRelease = new LocAddedRelease(hashMapReleaseFiles, commitMetrics, PATH);
         hashMapReleaseFiles = locAddedRelease.computeLocAddedRelease();
         //Get ChgSetSize (with maximum and average)
         ChgSetSize chgSetSize = new ChgSetSize(hashMapReleaseFiles, commitMetrics);
@@ -117,7 +121,7 @@ public class App
         int n = 0;
         for (Release release : releaseList) {
             if (n > nRelease)
-                break;
+                continue;
             myFiles = hashMapReleaseFiles.get(release);
             for (Issue issue : issueList) {
                 //I use all information to labeling java classes
@@ -145,7 +149,7 @@ public class App
                 continue;
             }
             //Create Excel
-            excelTools = new ExcelTools("ISW2", project, "testing_" + release.name);
+            excelTools = new ExcelTools("ISW2", PROJECT, "testing_" + release.name);
             ret = excelTools.createTable();
             if(!ret)
                 System.exit(-3);
@@ -156,11 +160,11 @@ public class App
         }
 
         //I have labeled all the java classes of testing releases (even release zero)
-        ret = arffFileCreator.createArffFileTestingSet(hashMapReleaseFiles, releaseList, "testing_" + project);
+        ret = arffFileCreator.createArffFileTestingSet(hashMapReleaseFiles, releaseList, "testing_" + PROJECT);
         if(!ret)
             System.exit(-5);
 
-        excelTools = new ExcelTools("ISW2", project, "");
+        excelTools = new ExcelTools("ISW2", PROJECT, "");
         ret = excelTools.createTable();
         if(!ret)
             System.exit(-14);
@@ -194,21 +198,21 @@ public class App
         Release youngerRelease;
         int countPSubGlobal = 0;
 
-        for(count1=0; count1<=nRelease; count1++){
+        for(count1=1; count1<=nRelease; count1++){
             // New iteration in the walk-forward
-            if(count1==0)
-                continue;
+            //if(count1==0)
+            //    continue;
             if(count1==1){
                 youngerRelease = releaseList.get(0);
                 //Get the younger release in the training set
-                excelTools = new ExcelTools("ISW2", project, count1 + "training_" + youngerRelease.name);
+                excelTools = new ExcelTools("ISW2", PROJECT, count1 + MACRO1 + youngerRelease.name);
                 ret = excelTools.createTable();
                 if(!ret)
                     System.exit(-6);
                 ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(youngerRelease));
                 if(!ret)
                     System.exit(-7);
-                arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles,releaseList,"training_" + project ,youngerRelease);
+                arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles,releaseList,MACRO1 + PROJECT ,youngerRelease);
                 continue;
             }
 
@@ -263,7 +267,7 @@ public class App
             }
 
             //all java classes in the training set releases have been labeled
-            excelTools = new ExcelTools("ISW2", project, count1 + "training_" + youngerRelease.name);
+            excelTools = new ExcelTools("ISW2", PROJECT, count1 + MACRO1 + youngerRelease.name);
             ret = excelTools.createTable();
             if(!ret)
                 System.exit(-8);
@@ -275,7 +279,7 @@ public class App
                 }
             }
 
-            ret = arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles, releaseList, "training_"+project, youngerRelease);
+            ret = arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles, releaseList, MACRO1+PROJECT, youngerRelease);
             if(!ret)
                 System.exit(-12);
 
@@ -298,7 +302,7 @@ public class App
         }
 
         WalkForward walkForward = new WalkForward();
-        walkForward.executeWalkForward(releaseList, project);
+        walkForward.executeWalkForward(releaseList, PROJECT);
 
     }
 }

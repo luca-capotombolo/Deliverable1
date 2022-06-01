@@ -99,10 +99,8 @@ public class FoundAllJavaFiles {
 
         while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
             dir = stack.pop();
-            //skippare anche i file test
-            if(dir.getName().equals("target") || dir.getName().equals("test")) continue;
             files = this.listFiles(dir);
-            if (files.length == 0) continue;                    //empty directory
+            if(dir.getName().equals("target") || dir.getName().equals("test") || files.length == 0) continue;
             for(File file: files){
                 if(file.isDirectory()){
                     stack.push(file);
