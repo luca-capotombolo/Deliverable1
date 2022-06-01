@@ -15,6 +15,9 @@ import java.util.List;
 
 public class Jira {
 
+    private static final String  MACRO = "fields";
+    private static final String MACRO1 = "releaseDate";
+
     private Jira(){
         throw new IllegalStateException("Utility class");
     }
@@ -83,7 +86,7 @@ public class Jira {
                 //Affected version on JIRA
                 affectedVersions = new ArrayList<>();
                 key = issues.getJSONObject(i%1000).get("key").toString();
-                resolutionDateString = issues.getJSONObject(i % 1000).getJSONObject("fields").getString("resolutiondate");
+                resolutionDateString = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getString("resolutiondate");
                 resolutionDateString = resolutionDateString.substring(0,10);
                 resolutionDate = Date.valueOf(resolutionDateString);
                 for(Release release: releaseList){
@@ -95,7 +98,7 @@ public class Jira {
                 if(fixVersion!=null){
                     //create issue object
                     //Opening version
-                    ovString = issues.getJSONObject(i % 1000).getJSONObject("fields").getString("created");
+                    ovString = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getString("created");
                     ovString = ovString.substring(0, 10);                                                                    //get date string
                     createdIssue = Date.valueOf(ovString);                                                                       //created date of issue
                     for (Release release : releaseList) {
@@ -107,13 +110,13 @@ public class Jira {
                     if(ovRelease==null)
                         continue;                               //There is not Opening version
                     //Affected version
-                    affectedVersionsJSONArray = issues.getJSONObject(i % 1000).getJSONObject("fields").getJSONArray("versions");
+                    affectedVersionsJSONArray = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getJSONArray("versions");
                     for (int u = 0; u < affectedVersionsJSONArray.length(); u++) {
                         released = affectedVersionsJSONArray.getJSONObject(u).getBoolean("released");
                         if (released) {
                             try {
                                 affectedVersions.add(new Release(affectedVersionsJSONArray.getJSONObject(u).getString("name"),
-                                        Date.valueOf(affectedVersionsJSONArray.getJSONObject(u).getString("releaseDate"))));
+                                        Date.valueOf(affectedVersionsJSONArray.getJSONObject(u).getString(MACRO1))));
                             } catch (Exception e) {
                                 //no releaseDate
                             }
@@ -180,14 +183,14 @@ public class Jira {
                 try {
                     //check if there is already one release in the list with same date
                     for(Release release1: releaseList){
-                        if(release1.getDate().compareTo(Date.valueOf(jsonObject.getString("releaseDate")))==0){
+                        if(release1.getDate().compareTo(Date.valueOf(jsonObject.getString(MACRO1)))==0){
                             already = true;         //there is a release with same date
                             break;
                         }
                     }
                     if(!already)
                     {
-                        release = new Release(jsonObject.getString("name"), Date.valueOf(jsonObject.getString("releaseDate")));
+                        release = new Release(jsonObject.getString("name"), Date.valueOf(jsonObject.getString(MACRO1)));
                         releaseList.add(release);
                     }
                 }catch (Exception e){

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GitSkills {
 
@@ -51,7 +52,7 @@ public class GitSkills {
         }
     }
 
-    public HashMap<Issue, List<Commit>> classifyCommitsIssue(List<Issue> issueList, List<Release> releaseList) throws IOException, GitAPIException {
+    public Map<Issue, List<Commit>> classifyCommitsIssue(List<Issue> issueList, List<Release> releaseList) throws IOException, GitAPIException {
 
         HashMap<Issue, List<Commit>> hashMapIssueCommits = new HashMap<>();
         List<String> changedFiles;                                                              //changed file by commit
@@ -88,7 +89,7 @@ public class GitSkills {
                     List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
                     for (DiffEntry entry : entries) {
                         if(entry.getChangeType()== DiffEntry.ChangeType.DELETE || entry.getChangeType()== DiffEntry.ChangeType.MODIFY) {
-                            String newPath = entry.getNewPath().replaceAll("/", "\\\\");
+                            String newPath = entry.getNewPath().replace("/", "\\");
                             //this file was changed by the commit
                             changedFiles.add(newPath);
                         }

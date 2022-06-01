@@ -83,7 +83,7 @@ public class App
         hashMapReleaseFiles = chgSetSize.getChgSetSizeRelease();
 
         //Get all commits for each issue
-        hashMapIssueCommits = gitSkills.classifyCommitsIssue(issueList, releaseList);
+        hashMapIssueCommits = (HashMap<Issue, List<Commit>>) gitSkills.classifyCommitsIssue(issueList, releaseList);
 
         //I order the issues by fixDate
         issueList.sort(Comparator.comparing(o -> o.fixDate));
@@ -132,10 +132,8 @@ public class App
                             for (MyFile myFile : myFiles) {
                                 for(String file: commit.files){
                                     if(myFile.path.contains(file) && myFile.state!= MyFile.StateFile.BUG){
-
                                             myFile.state = MyFile.StateFile.BUG;
                                             break;
-
                                     }
                                 }
                             }
@@ -143,19 +141,16 @@ public class App
                     }
                 }
             }
-            if(n==0){
-                //The first release will not be testing set
-                n++;
-                continue;
+            if(n!=0) {
+                //Create Excel
+                excelTools = new ExcelTools("ISW2", PROJECT, "testing_" + release.name);
+                ret = excelTools.createTable();
+                if (!ret)
+                    System.exit(-3);
+                ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release));
+                if (!ret)
+                    System.exit(-4);
             }
-            //Create Excel
-            excelTools = new ExcelTools("ISW2", PROJECT, "testing_" + release.name);
-            ret = excelTools.createTable();
-            if(!ret)
-                System.exit(-3);
-            ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release));
-            if(!ret)
-                System.exit(-4);
             n++;
         }
 
@@ -199,9 +194,6 @@ public class App
         int countPSubGlobal = 0;
 
         for(count1=1; count1<=nRelease; count1++){
-            // New iteration in the walk-forward
-            //if(count1==0)
-            //    continue;
             if(count1==1){
                 youngerRelease = releaseList.get(0);
                 //Get the younger release in the training set

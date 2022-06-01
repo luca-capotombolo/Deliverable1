@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ExcelTools {
 
     private final String sheetName;
-    private final String MACRO1 = "ISW2_";
+    private static final String MACRO = "ISW2_";
     private final String cell1;
     private final String cell2;
     private final String cell3;
@@ -53,7 +52,7 @@ public class ExcelTools {
     public boolean createTable() {
         this.wb = new HSSFWorkbook();
 
-        try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO1 + this.cell1 +  ".csv"))) {
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO + this.cell1 +  ".csv"))) {
             Sheet sheet = wb.createSheet(this.sheetName);
             Row titleRow = sheet.createRow(0);
             Cell cell = titleRow.createCell(0);
@@ -109,7 +108,7 @@ public class ExcelTools {
             return false;
         }
 
-        try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO1 + this.cell1 +  ".csv"))) {
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO + this.cell1 +  ".csv"))) {
             Sheet sheet = this.wb.getSheet(this.sheetName);
             int start = sheet.getLastRowNum();
             Row row;
@@ -159,7 +158,7 @@ public class ExcelTools {
             return false;
         }
 
-        try (OutputStream fileOut = Files.newOutputStream(Paths.get(MACRO1 + this.cell1 + ".csv"))) {
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(MACRO + this.cell1 + ".csv"))) {
             Sheet sheet = this.wb.getSheet(this.sheetName);
             int start = sheet.getLastRowNum();
             Row row;
