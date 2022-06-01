@@ -62,15 +62,11 @@ public class Proportion {
         int iv;
         int ov;
         List<Issue> issueFixedInPrevVersions;
-        int count = 0;
+        int count = 1;
 
+        //I can not compute P0 in increment iteration. I discard all no post release defects
         for(Release release: releaseList){
             pRelease = 0;
-            if(count==0){
-                //I can not compute P0 in increment iteration. I discard all no post release defects
-                count++;
-                continue;
-            }
             if(count==1){
                 //I have discarded all no post release defects
                 pColdStart = coldStart();
@@ -131,6 +127,7 @@ public class Proportion {
 
 
         // releaseList.size()/2 == number of releases wrote on Excel
+        //count = 0 --> [1] count = 1 --> [1;2]
         for(count = 0; count <= releaseList.size()/2; count ++){
             if(count == 0 || count == 1){
                 //[1] - [1;2]

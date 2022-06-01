@@ -95,7 +95,7 @@ public class FoundAllJavaFiles {
             }
         }
 
-        //while(!stack.empty()){      //finché c'è una directory che ancora non è stata esplorata
+        //finché c'è una directory che ancora non è stata esplorata
         while(!stack.isEmpty()){
             dir = stack.pop();
             files = this.listFiles(dir);
