@@ -107,8 +107,12 @@ public class Jira {
                             break;
                         }
                     }
+
+                    /*
                     if(ovRelease==null)
-                        continue;                               //There is not Opening version
+                        continue;       */
+
+
                     //Affected version
                     affectedVersionsJSONArray = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getJSONArray("versions");
                     for (int u = 0; u < affectedVersionsJSONArray.length(); u++) {
@@ -142,18 +146,20 @@ public class Jira {
                     issue = new Issue(key, ivVersion, fixVersion, ovRelease, affectedVersions, resolutionDate);
 
                     //OV and FV are on JIRA I can not calculate them
-                    if(issue.ov.getDate().compareTo(issue.fv.getDate())>=0){
+                    if(ovRelease==null||(issue.ov.getDate().compareTo(issue.fv.getDate())>=0) || (issue.getIv() !=null && issue.getIv().getDate().compareTo(issue.fv.getDate())==0
+                            && issue.getIv().getDate().compareTo(issue.ov.getDate())==0)){
                         //OV >= FV
                         continue;
                     }
 
 
                     //Exclude defects that are not post-release
+                    /*
                     if(issue.getIv() !=null && issue.getIv().getDate().compareTo(issue.fv.getDate())==0
                             && issue.getIv().getDate().compareTo(issue.ov.getDate())==0)
                     {
                         continue;
-                    }
+                    }*/
 
                     issueList.add(issue);
                 }

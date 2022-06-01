@@ -15,8 +15,8 @@ import java.util.*;
 public class App 
 {
 
-    static final String PROJECT = "BOOKKEEPER";
-    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\bookkeeper";
+    static final String PROJECT = "ZOOKEEPER";
+    static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
     static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {

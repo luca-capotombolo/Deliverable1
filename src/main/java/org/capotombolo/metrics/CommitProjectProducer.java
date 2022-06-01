@@ -26,8 +26,9 @@ public class CommitProjectProducer {
     }
 
     public List<CommitMetric> getAllCommitOfProject() throws IOException, GitAPIException {
-        List<FileCommitMetric> changedFiles;                                                              //changed file by commit
+        List<FileCommitMetric> changedFiles = null;                                                              //changed file by commit
         CommitMetric commitMetric;
+        Exception error;
         FileCommitMetric fileCommit;
         List<CommitMetric> commitMetrics = new ArrayList<>();
         GitSkills gitSkills = new GitSkills(this.path);
@@ -35,6 +36,7 @@ public class CommitProjectProducer {
         List<RevCommit> commitsList = new ArrayList<>();
         commits.iterator().forEachRemaining(commitsList::add);                                  //get all commits for the project
         for (RevCommit commit : commitsList) {
+            error = null;
             try {
                 changedFiles = new ArrayList<>();
                 ObjectReader reader = gitSkills.git.getRepository().newObjectReader();
@@ -53,7 +55,7 @@ public class CommitProjectProducer {
                     changedFiles.add(fileCommit);
                 }
             }catch (Exception e){
-                continue;
+                error = e;
             }
 
             //Get the release of the commit
@@ -67,7 +69,7 @@ public class CommitProjectProducer {
             }
 
             //the commit belong a version that is not released
-            if (commitMetric.getRelease() == null)
+            if (error!=null || commitMetric.getRelease() == null)
                 continue;
 
             commitMetrics.add(commitMetric);

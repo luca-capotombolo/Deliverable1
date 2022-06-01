@@ -52,64 +52,6 @@ public class Proportion {
         return pGlobal;
     }
 
-    public List<Float> incrementIteration() throws IOException {
-        List<Float> pReleasesIncrementIteration = new ArrayList<>();
-        float pRelease;
-        float pIssue;
-        float pColdStart = 0;
-        int total;
-        int fv;
-        int iv;
-        int ov;
-        List<Issue> issueFixedInPrevVersions;
-        int count = 1;
-
-        //I can not compute P0 in increment iteration. I discard all no post release defects
-        for(Release release: releaseList){
-            pRelease = 0;
-            if(count==1){
-                //I have discarded all no post release defects
-                pColdStart = coldStart();
-                pRelease = pColdStart;                               //P1
-                pReleasesIncrementIteration.add(pRelease);
-                count++;
-                continue;
-            }
-            issueFixedInPrevVersions = new ArrayList<>();
-
-            for(Issue issue: issueListWithAVConsistent){
-                if(issue.fv.getDate().compareTo(release.getDate()) < 0){
-                    issueFixedInPrevVersions.add(issue);
-                }
-            }
-
-            if(issueFixedInPrevVersions.size()<5){
-                pRelease = pColdStart;
-                pReleasesIncrementIteration.add(pRelease);
-                count++;
-                continue;
-            }
-            total = 0;
-            for(Issue issue: issueFixedInPrevVersions){
-                iv = issue.getIv().getIndex();
-                fv = issue.fv.getIndex();
-                ov = issue.ov.getIndex();
-                pIssue = (fv - iv)/(float)(fv - ov);
-                pRelease += pIssue;
-                total ++;
-            }
-            try {
-                pRelease = pRelease / total;
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            pReleasesIncrementIteration.add(pRelease);
-            count++;
-        }
-
-        return pReleasesIncrementIteration;
-    }
-
     public List<Float> incrementTrainingSet() throws IOException {
         List<Float> pSubGlobals = new ArrayList<>();
         boolean coldStartDone = false;
