@@ -70,12 +70,8 @@ public class Proportion {
 
         // releaseList.size()/2 == number of releases wrote on Excel
         //count = 0 --> [1] count = 1 --> [1;2]
-        for(count = 0; count <= releaseList.size()/2; count ++){
-            if(count == 0 || count == 1){
-                //[1] - [1;2]
-                count++;
-                continue;
-            }
+        for(count = 2; count <= releaseList.size()/2; count ++){
+            //count = 2 --> [1,2;3]
             issueWithFVInTrainingSet = new ArrayList<>();
             pSubGlobal = 0;
             total = 0;

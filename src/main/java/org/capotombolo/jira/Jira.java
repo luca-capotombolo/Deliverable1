@@ -108,10 +108,6 @@ public class Jira {
                         }
                     }
 
-                    /*
-                    if(ovRelease==null)
-                        continue;       */
-
 
                     //Affected version
                     affectedVersionsJSONArray = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getJSONArray("versions");
@@ -154,12 +150,6 @@ public class Jira {
 
 
                     //Exclude defects that are not post-release
-                    /*
-                    if(issue.getIv() !=null && issue.getIv().getDate().compareTo(issue.fv.getDate())==0
-                            && issue.getIv().getDate().compareTo(issue.ov.getDate())==0)
-                    {
-                        continue;
-                    }*/
 
                     issueList.add(issue);
                 }
