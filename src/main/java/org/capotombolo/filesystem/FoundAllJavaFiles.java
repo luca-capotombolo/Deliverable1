@@ -5,6 +5,7 @@ import org.capotombolo.utils.MyFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -40,8 +41,7 @@ public class FoundAllJavaFiles {
 
         if(!dir.isDirectory())
         {
-            System.out.println("Il parametro passato non è una directory...");
-            return null;
+            return new File[0];
         }
 
         //dir è una directory
@@ -74,8 +74,7 @@ public class FoundAllJavaFiles {
         Stack<File> stack = new Stack<>();              //Contiene le directory che devono essere ancora esplorate
 
         if(!this.directory.isDirectory()){
-            System.out.println("Il file passato non è una directory...");
-            return null;
+            return Collections.emptyList();
         }
 
         //this.directory è un file directory

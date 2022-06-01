@@ -49,7 +49,7 @@ public class CommitProjectProducer {
                 List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
                 //Get alla file changed by commit
                 for (DiffEntry entry : entries) {
-                    fileCommit = new FileCommitMetric(entry.getNewPath().replaceAll("/", "\\\\"), entry.getChangeType());
+                    fileCommit = new FileCommitMetric(entry.getNewPath().replace("/", "\\\\"), entry.getChangeType());
                     changedFiles.add(fileCommit);
                 }
             }catch (Exception e){

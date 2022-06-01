@@ -40,7 +40,7 @@ public class App
         HashMap<Issue, List<Commit>> hashMapIssueCommits;
         for (Release release : releaseList) {
             try {
-                gitSkills.setBranch(release.getRelease());
+                gitSkills.setBranch(release.getName());
             } catch (RefNotFoundException e) {
                 //inconsistent data on JIRA
                 continue;
@@ -86,15 +86,16 @@ public class App
 
         //Compute IV of all issues that have inconsistent AV on JIRA and then labeling testing releases
         Proportion proportion = new Proportion(releaseList, issueList);
-        float p_global = proportion.globalProportion();
+        float pGlobal = proportion.globalProportion();
 
-        float fv, ov;
+        float fv;
+        float ov;
         int index;
         for(Issue issue: issueList){
             if(issue.iv==null){
                 fv = issue.fv.index;
                 ov = issue.ov.index;
-                index = (int) (fv - (fv - ov)*p_global);
+                index = (int) (fv - (fv - ov)*pGlobal);
                 if(index<=0)
                     issue.iv = releaseList.get(0);
                 else if (index >= releaseList.size()) {
@@ -124,14 +125,13 @@ public class App
                     commits = hashMapIssueCommits.get(issue);
                     for (Commit commit : commits) {
                         if (commit.date.compareTo(release.getDate()) > 0) {
-                            //myFiles = hashMapReleaseFiles.get(release);
                             for (MyFile myFile : myFiles) {
                                 for(String file: commit.files){
-                                    if(myFile.path.contains(file)){
-                                        if(myFile.state!= MyFile.StateFile.BUG) {
+                                    if(myFile.path.contains(file) && myFile.state!= MyFile.StateFile.BUG){
+
                                             myFile.state = MyFile.StateFile.BUG;
                                             break;
-                                        }
+
                                     }
                                 }
                             }
@@ -145,7 +145,7 @@ public class App
                 continue;
             }
             //Create Excel
-            excelTools = new ExcelTools("ISW2", project, "testing_" + release.release);
+            excelTools = new ExcelTools("ISW2", project, "testing_" + release.name);
             ret = excelTools.createTable();
             if(!ret)
                 System.exit(-3);
@@ -187,10 +187,10 @@ public class App
         }
 
         //I do the labeling of the training sets that I will use in the walk-forward. I use all information in the training set
-        List<Float> p_sub_globals = proportion.increment_training_set();
+        List<Float> pSubGlobals = proportion.incrementTrainingSet();
 
         int count1;
-        float p_sub_global;
+        float pSubGlobal;
         Release youngerRelease;
         int countPSubGlobal = 0;
 
@@ -200,9 +200,8 @@ public class App
                 continue;
             if(count1==1){
                 youngerRelease = releaseList.get(0);
-                System.out.println(youngerRelease.release);
                 //Get the younger release in the training set
-                excelTools = new ExcelTools("ISW2", project, count1 + "training_" + youngerRelease.release);
+                excelTools = new ExcelTools("ISW2", project, count1 + "training_" + youngerRelease.name);
                 ret = excelTools.createTable();
                 if(!ret)
                     System.exit(-6);
@@ -213,7 +212,7 @@ public class App
                 continue;
             }
 
-            p_sub_global = p_sub_globals.get(countPSubGlobal);
+            pSubGlobal = pSubGlobals.get(countPSubGlobal);
             countPSubGlobal++;
             //Younger Release in the training set
             youngerRelease = releaseList.get(count1 - 1);
@@ -223,7 +222,7 @@ public class App
                 if(issue.fv.date.compareTo(youngerRelease.date)<=0 && issue.iv==null){
                     fv = issue.fv.index;
                     ov = issue.ov.index;
-                    index = (int) (fv - (fv - ov)*p_sub_global);
+                    index = (int) (fv - (fv - ov)*pSubGlobal);
                     if(index<=0)
                         issue.iv = releaseList.get(0);
                     else if (index >= count1 - 1) {
@@ -247,15 +246,13 @@ public class App
                         commits = hashMapIssueCommits.get(issue);
                         for (Commit commit : commits) {
                             if (commit.date.compareTo(release.getDate()) > 0) {
-                                //lo potrei mette sopra al for della release?
-                                //myFiles = hashMapReleaseFiles.get(release);
                                 for (MyFile myFile : myFiles) {
                                     for(String file: commit.files){
-                                        if(myFile.path.contains(file)){
-                                            if(myFile.state!= MyFile.StateFile.BUG) {
-                                                myFile.state = MyFile.StateFile.BUG;
-                                                break;
-                                            }
+                                        if(myFile.path.contains(file) && myFile.state!= MyFile.StateFile.BUG){
+
+                                            myFile.state = MyFile.StateFile.BUG;
+                                            break;
+
                                         }
                                     }
                                 }
@@ -266,7 +263,7 @@ public class App
             }
 
             //all java classes in the training set releases have been labeled
-            excelTools = new ExcelTools("ISW2", project, count1 + "training_" + youngerRelease.release);
+            excelTools = new ExcelTools("ISW2", project, count1 + "training_" + youngerRelease.name);
             ret = excelTools.createTable();
             if(!ret)
                 System.exit(-8);

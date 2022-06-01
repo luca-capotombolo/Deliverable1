@@ -42,7 +42,6 @@ public class GitSkills {
             checkoutCommand.setName("release-"+branch).call();
         }catch (CheckoutConflictException e){
             if(this.localPath.contains("zookeeper")) {
-                System.out.println(branch);
                 this.git.add().addFilepattern(".").call();
                 this.git.commit().setMessage("...").call();
                 CheckoutCommand checkoutCommand = this.git.checkout();

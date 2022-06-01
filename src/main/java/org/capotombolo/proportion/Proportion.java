@@ -23,9 +23,12 @@ public class Proportion {
     }
 
     public float globalProportion(){
-        float p_global = 0;
-        float p_issue;
-        int total = 0, fv, iv, ov;
+        float pGlobal = 0;
+        float pIssue;
+        int total = 0;
+        int fv;
+        int iv;
+        int ov;
 
         for(Issue issue: issueList){
             if(issue.iv==null){
@@ -37,25 +40,32 @@ public class Proportion {
             iv = issue.iv.index;
             fv = issue.fv.index;
             ov = issue.ov.index;
-            p_issue = (fv - iv)/(float)(fv - ov);
-            p_global += p_issue;
+            pIssue = (fv - iv)/(float)(fv - ov);
+            pGlobal += pIssue;
             total ++;
         }
-        p_global = p_global / (float) total;
-        return p_global;
+        try {
+            pGlobal = pGlobal / total;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pGlobal;
     }
 
-    public List<Float> increment_iteration() throws IOException {
-        List<Float> p_releases_increment_iteration = new ArrayList<>();
-        float p_release, p_issue;
-        float p_cold_start = 0;
-        int total, fv, iv, ov;
+    public List<Float> incrementIteration() throws IOException {
+        List<Float> pReleasesIncrementIteration = new ArrayList<>();
+        float pRelease;
+        float pIssue;
+        float pColdStart = 0;
+        int total;
+        int fv;
+        int iv;
+        int ov;
         List<Issue> issueFixedInPrevVersions;
         int count = 0;
 
-        //System.out.println("-------------------- INCREMENT ITERATION ----------------------");
         for(Release release: releaseList){
-            p_release = 0;
+            pRelease = 0;
             if(count==0){
                 //I can not compute P0 in increment iteration. I discard all no post release defects
                 count++;
@@ -63,9 +73,9 @@ public class Proportion {
             }
             if(count==1){
                 //I have discarded all no post release defects
-                p_cold_start = coldStart();
-                p_release = p_cold_start;                               //P1
-                p_releases_increment_iteration.add(p_release);
+                pColdStart = coldStart();
+                pRelease = pColdStart;                               //P1
+                pReleasesIncrementIteration.add(pRelease);
                 count++;
                 continue;
             }
@@ -78,8 +88,8 @@ public class Proportion {
             }
 
             if(issueFixedInPrevVersions.size()<5){
-                p_release = p_cold_start;
-                p_releases_increment_iteration.add(p_release);
+                pRelease = pColdStart;
+                pReleasesIncrementIteration.add(pRelease);
                 count++;
                 continue;
             }
@@ -88,25 +98,34 @@ public class Proportion {
                 iv = issue.iv.index;
                 fv = issue.fv.index;
                 ov = issue.ov.index;
-                p_issue = (fv - iv)/(float)(fv - ov);
-                p_release += p_issue;
+                pIssue = (fv - iv)/(float)(fv - ov);
+                pRelease += pIssue;
                 total ++;
             }
-            p_release = p_release /(float) total;
-            p_releases_increment_iteration.add(p_release);
+            try {
+                pRelease = pRelease / total;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            pReleasesIncrementIteration.add(pRelease);
             count++;
         }
 
-        return p_releases_increment_iteration;
+        return pReleasesIncrementIteration;
     }
 
-    public List<Float> increment_training_set() throws IOException {
-        List<Float> p_sub_globals = new ArrayList<>();
+    public List<Float> incrementTrainingSet() throws IOException {
+        List<Float> pSubGlobals = new ArrayList<>();
         boolean coldStartDone = false;
-        float p_cold_start = 0;
+        float pColdStart = 0;
         //count + 1 = total number of releases TRAINING SET + TESTING SET
-        int count, total;
-        float p_issue, p_subGlobal, iv, fv, ov;
+        int count;
+        int total;
+        float pIssue;
+        float pSubGlobal;
+        float iv;
+        float fv;
+        float ov;
         Release release;
         List<Issue> issueWithFVInTrainingSet;
 
@@ -119,7 +138,7 @@ public class Proportion {
                 continue;
             }
             issueWithFVInTrainingSet = new ArrayList<>();
-            p_subGlobal = 0;
+            pSubGlobal = 0;
             total = 0;
             //Bookkeeper --> [1,2;3] - [1,2,3;4] - [1,2,3,4;5] - [1,2,3,4,5;6]
             //Get the younger release in the training set
@@ -133,11 +152,11 @@ public class Proportion {
             if(issueWithFVInTrainingSet.size()<5){
                 //I can not compute P of this training set, so I have to use Cold Start
                 if(!coldStartDone){
-                    p_cold_start = coldStart();
+                    pColdStart = coldStart();
                     coldStartDone = true;
                 }
-                p_subGlobal = p_cold_start;
-                p_sub_globals.add(p_subGlobal);
+                pSubGlobal = pColdStart;
+                pSubGlobals.add(pSubGlobal);
                 continue;
             }
 
@@ -145,19 +164,28 @@ public class Proportion {
                 iv = issue.iv.index;
                 fv = issue.fv.index;
                 ov = issue.ov.index;
-                p_issue = (fv - iv)/(fv - ov);
-                p_subGlobal += p_issue;
+                pIssue = (fv - iv)/(fv - ov);
+                pSubGlobal += pIssue;
                 total ++;
             }
-            p_subGlobal = p_subGlobal / (float) total;
-            p_sub_globals.add(p_subGlobal);
+            try {
+                pSubGlobal = pSubGlobal / total;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            pSubGlobals.add(pSubGlobal);
         }
 
-        return p_sub_globals;
+        return pSubGlobals;
     }
 
     public Float coldStart() throws IOException {
-        float p_cold_start_project, p_cold_start, p_issue, iv, fv, ov;
+        float pColdStartProject;
+        float pColdStart;
+        float pIssue;
+        float iv;
+        float fv;
+        float ov;
         int total;
         List<String> projects = new ArrayList<>();
         projects.add("AVRO");
@@ -171,7 +199,7 @@ public class Proportion {
 
         for(String project: projects){
             total = 0;
-            p_cold_start_project = 0;
+            pColdStartProject = 0;
             releaseList1 = Jira.getReleases(project);
             issues = Jira.getBugs(project, releaseList1);
             for(Issue issue: issues){
@@ -180,14 +208,18 @@ public class Proportion {
                     iv = issue.iv.index;
                     fv = issue.fv.index;
                     ov = issue.ov.index;
-                    p_issue = (fv - iv)/(fv - ov);
-                    p_cold_start_project += p_issue;
+                    pIssue = (fv - iv)/(fv - ov);
+                    pColdStartProject += pIssue;
                     total ++;
                 }
             }
             if(total >= 5){
-                p_cold_start_project = p_cold_start_project / total;                //Average P of the project
-                p_projects.add(p_cold_start_project);
+                try {
+                    pColdStartProject = pColdStartProject / total;      //Average P of the project
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                p_projects.add(pColdStartProject);
             }
         }
 
@@ -195,10 +227,10 @@ public class Proportion {
         p_projects.sort(Comparator.comparing(o -> o));
 
         if(n%2 == 0){
-            p_cold_start = p_projects.get((n+1)/2);
+            pColdStart = p_projects.get((n+1)/2);
         }else{
-            p_cold_start = (p_projects.get(n/2) + p_projects.get((n/2) + 1))/2;
+            pColdStart = (p_projects.get(n/2) + p_projects.get((n/2) + 1))/2;
         }
-        return p_cold_start;
+        return pColdStart;
     }
 }

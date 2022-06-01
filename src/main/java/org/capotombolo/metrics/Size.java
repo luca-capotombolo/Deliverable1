@@ -12,11 +12,11 @@ public class Size {
 
     public int getLOC() throws IOException {
         int lines = 0;
-
+        String row;
         FileInputStream fileInputStream = new FileInputStream(this.path);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
-        while(reader.readLine() !=null){
+        while((row = reader.readLine()) !=null){
             lines++;
         }
         reader.close();

@@ -6,11 +6,11 @@ import java.util.List;
 
 public class CommitMetric {
 
-    public List<FileCommitMetric> fileCommits;
-    public Date date;
+    public final List<FileCommitMetric> fileCommits;
+    public final Date date;
     public Release release;
-    public String authorName;
-    public RevCommit revCommit;
+    public final String authorName;
+    public final RevCommit revCommit;
 
     public CommitMetric(List<FileCommitMetric> fileCommits, Date date, Release release, String authorName, RevCommit revCommit){
         this.release = release;

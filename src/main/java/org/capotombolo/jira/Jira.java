@@ -14,6 +14,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Jira {
+
+    private Jira(){
+        throw new IllegalStateException("Utility class");
+    }
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -40,14 +44,20 @@ public class Jira {
     }
 
     public  static List<Issue> getBugs(String project, List<Release> releaseList) throws IOException {
-        int j, i = 0, total;
+        int j;
+        int i = 0;
+        int total;
         List<Issue> issueList = new ArrayList<>();
         String key;
         List<Release> affectedVersions;
-        JSONArray issues, affectedVersionsJSONArray;
+        JSONArray issues;
+        JSONArray affectedVersionsJSONArray;
         JSONObject json;
-        Date createdIssue, resolutionDate;
-        Release ovRelease, fixVersion, ivVersion;
+        Date createdIssue;
+        Date resolutionDate;
+        Release ovRelease;
+        Release fixVersion;
+        Release ivVersion;
         String resolutionDateString;
         String ovString;
         boolean released;

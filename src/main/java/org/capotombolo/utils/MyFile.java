@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class MyFile {
 
-    public String path;
+    public final String path;
     public StateFile state;
     public int lines = -1;
     public int maxNumberTouchedFile = 0;

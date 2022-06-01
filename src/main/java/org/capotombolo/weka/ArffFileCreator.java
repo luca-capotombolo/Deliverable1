@@ -31,8 +31,8 @@ public class ArffFileCreator {
     public boolean createArffFileTrainingSet(HashMap<Release, List<MyFile>> hashMap, List<Release> releaseList, String relation, Release youngerRelease){
         List<MyFile> myFiles;
         try{
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(relation+"_"+youngerRelease.release+".arff"));
-            bufferedWriter.write("@RELATION " + relation+"_"+youngerRelease.release);
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(relation+"_"+youngerRelease.name +".arff"));
+            bufferedWriter.write("@RELATION " + relation+"_"+youngerRelease.name);
             bufferedWriter.newLine();
             bufferedWriter.newLine();
             bufferedWriter.flush();
@@ -99,8 +99,8 @@ public class ArffFileCreator {
             if(count<=releaseList.size()/2){
                 myFiles = hashMap.get(release);
                 try {
-                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(relation + "_" + release.release + ".arff"));
-                    bufferedWriter.write("@RELATION " + relation + "_" + release.release);
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(relation + "_" + release.name + ".arff"));
+                    bufferedWriter.write("@RELATION " + relation + "_" + release.name);
                     bufferedWriter.newLine();
                     bufferedWriter.newLine();
                     bufferedWriter.flush();

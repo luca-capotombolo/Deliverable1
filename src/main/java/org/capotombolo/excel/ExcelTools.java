@@ -95,7 +95,7 @@ public class ExcelTools {
             sheet.setColumnWidth(12, 3000);
             this.wb.write(fileOut);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
 
@@ -103,7 +103,7 @@ public class ExcelTools {
     }
 
     public boolean writeSingleRelease(List<MyFile> files){
-        if(files.size() == 0) {
+        if(files.isEmpty()) {
             return false;
         }
 
@@ -144,7 +144,7 @@ public class ExcelTools {
             }
             this.wb.write(fileOut);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -171,7 +171,7 @@ public class ExcelTools {
                     cell = row.createCell(0);
                     cell.setCellValue(this.cell1);
                     cell = row.createCell(1);
-                    cell.setCellValue(releaseList.get(count).release);
+                    cell.setCellValue(releaseList.get(count).name);
                     cell = row.createCell(2);
                     cell.setCellValue(myFile.path);
                     cell = row.createCell(3);
@@ -199,7 +199,7 @@ public class ExcelTools {
             }
             this.wb.write(fileOut);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
         return true;

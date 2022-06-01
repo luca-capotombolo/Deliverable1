@@ -4,8 +4,8 @@ import org.eclipse.jgit.diff.DiffEntry;
 
 public class FileCommitMetric {
 
-    public String filename;
-    public DiffEntry.ChangeType fileCommitState;
+    public final String filename;
+    public final DiffEntry.ChangeType fileCommitState;
 
 
     public FileCommitMetric(String filename, DiffEntry.ChangeType fileCommitState){
