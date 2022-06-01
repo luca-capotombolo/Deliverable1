@@ -10,12 +10,12 @@ public class ChgSetSize {
     private final HashMap<Release, List<MyFile>> hashMap;
     private final List<CommitMetric> commitMetrics;
 
-    public ChgSetSize(HashMap<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics){
+    public ChgSetSize(Map<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics){
         this.commitMetrics = commitMetrics;
-        this.hashMap = hashMap;
+        this.hashMap = (HashMap<Release, List<MyFile>>) hashMap;
     }
 
-    public HashMap<Release, List<MyFile>> getChgSetSizeRelease()  {
+    public Map<Release, List<MyFile>> getChgSetSizeRelease()  {
         Release release;
         List<MyFile> myFiles;
         Set<String>  filesTouchedWithC;

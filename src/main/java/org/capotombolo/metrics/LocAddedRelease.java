@@ -24,13 +24,13 @@ public class LocAddedRelease {
     private final List<CommitMetric> commitMetrics;
     private final String path;
 
-    public LocAddedRelease(HashMap<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics, String path){
+    public LocAddedRelease(Map<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics, String path){
         this.commitMetrics = commitMetrics;
-        this.hashMap = hashMap;
+        this.hashMap = (HashMap<Release, List<MyFile>>) hashMap;
         this.path = path;
     }
 
-    public HashMap<Release, List<MyFile>> computeLocAddedRelease() throws IOException {
+    public Map<Release, List<MyFile>> computeLocAddedRelease() throws IOException {
         Release release;
         List<MyFile> myFiles;
         int linesAdded;
@@ -63,7 +63,7 @@ public class LocAddedRelease {
                                     //Get all file changed by commit
                                     for (DiffEntry diff : entries) {
                                         //prendo il cambiamento che mi interessa
-                                        if(Objects.equals(diff.getNewPath().replaceAll("/", "\\\\"), fileCommitMetric.filename)) {
+                                        if(Objects.equals(diff.getNewPath().replace("/", "\\"), fileCommitMetric.filename)) {
                                             for (Edit edit : diffFormatter.toFileHeader(diff).toEditList()) {
                                                 linesAdded += edit.getEndB() - edit.getBeginB();
                                             }

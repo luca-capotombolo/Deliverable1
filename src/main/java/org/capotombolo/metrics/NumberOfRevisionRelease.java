@@ -13,12 +13,12 @@ public class NumberOfRevisionRelease {
     HashMap<Release, List<MyFile>> hashMap;
     List<CommitMetric> commitMetrics;
 
-    public NumberOfRevisionRelease(HashMap<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics){
-        this.hashMap = hashMap;
+    public NumberOfRevisionRelease(Map<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics){
+        this.hashMap = (HashMap<Release, List<MyFile>>) hashMap;
         this.commitMetrics = commitMetrics;
     }
 
-    public HashMap<Release, List<MyFile>> getNumberOfRevisionRelease() {
+    public Map<Release, List<MyFile>> getNumberOfRevisionRelease() {
         Release release;
         List<MyFile> myFiles;
         int count;

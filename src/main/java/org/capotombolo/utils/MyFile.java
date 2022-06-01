@@ -13,7 +13,6 @@ public class MyFile {
     public Set<String> setTouchedFileWithCRelease = new HashSet<>();
     public int numberRevisionTotal = 0;
     public int numberRevisionRelease=0;
-    public int numberLocAddedTotal = 0;
     public int numberLocAddedRelease = 0;
     public long maxNumberLocAdded = 0;
     public long averageNumberLocAdded = 0;

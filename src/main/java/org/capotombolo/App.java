@@ -63,24 +63,23 @@ public class App
         //Get all commits of Project
         CommitProjectProducer commitProjectProducer = new CommitProjectProducer(releaseList, PATH);
         List<CommitMetric> commitMetrics = commitProjectProducer.getAllCommitOfProject();
+        System.out.println(commitMetrics.size());
         //Get all revision for each file in all releases
         NumberOfRevisionTotal numberOfRevisionTotal = new NumberOfRevisionTotal(hashMapReleaseFiles, commitMetrics);
-        hashMapReleaseFiles = numberOfRevisionTotal.getNumberOfRevisionTotal();
+        hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) numberOfRevisionTotal.getNumberOfRevisionTotal();
         //Get all revision for each file in its release
         NumberOfRevisionRelease numberOfRevisionRelease = new NumberOfRevisionRelease(hashMapReleaseFiles, commitMetrics);
-        hashMapReleaseFiles = numberOfRevisionRelease.getNumberOfRevisionRelease();
+        hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) numberOfRevisionRelease.getNumberOfRevisionRelease();
         //Get all authors for each file in all releases
         NumberOfAuthors numberOfAuthors = new NumberOfAuthors(hashMapReleaseFiles, commitMetrics);
-        hashMapReleaseFiles = numberOfAuthors.getNumberOfAuthors();
+        hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) numberOfAuthors.getNumberOfAuthors();
         //Get LOC ADDED for each file in all releases
-        LocAdded locAdded = new LocAdded(hashMapReleaseFiles, commitMetrics, PATH);
-        hashMapReleaseFiles = locAdded.computeLocAdded();
         //Get LOC ADDED (with maximum and average) for each file in its release
         LocAddedRelease locAddedRelease = new LocAddedRelease(hashMapReleaseFiles, commitMetrics, PATH);
-        hashMapReleaseFiles = locAddedRelease.computeLocAddedRelease();
+        hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) locAddedRelease.computeLocAddedRelease();
         //Get ChgSetSize (with maximum and average)
         ChgSetSize chgSetSize = new ChgSetSize(hashMapReleaseFiles, commitMetrics);
-        hashMapReleaseFiles = chgSetSize.getChgSetSizeRelease();
+        hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) chgSetSize.getChgSetSizeRelease();
 
         //Get all commits for each issue
         hashMapIssueCommits = (HashMap<Issue, List<Commit>>) gitSkills.classifyCommitsIssue(issueList, releaseList);

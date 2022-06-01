@@ -13,12 +13,12 @@ public class NumberOfAuthors {
     HashMap<Release, List<MyFile>> hashMap;
     List<CommitMetric> commitMetrics;
 
-    public NumberOfAuthors(HashMap<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics){
+    public NumberOfAuthors(Map<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics){
         this.commitMetrics = commitMetrics;
-        this.hashMap = hashMap;
+        this.hashMap = (HashMap<Release, List<MyFile>>) hashMap;
     }
 
-    public HashMap<Release, List<MyFile>> getNumberOfAuthors() {
+    public Map<Release, List<MyFile>> getNumberOfAuthors() {
         Release release;
         List<MyFile> myFiles;
 
