@@ -63,7 +63,6 @@ public class Jira {
         Release ivVersion;
         String resolutionDateString;
         String ovString;
-        boolean released;
 
         do {
             //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
@@ -196,18 +195,13 @@ public class Jira {
         JSONArray json = readJsonArrayFromUrl(url);
         int len = json.length();
         for(int count = 0; count<len; count++){
-            already=false;                                       //I suppose that release is not in list
             JSONObject jsonObject = json.getJSONObject(count);
             released = jsonObject.getBoolean("released");
             if(released){
                 try {
                     //check if there is already one release in the list with same date
-                    for(Release release1: releaseList){
-                        if(release1.getDate().compareTo(Date.valueOf(jsonObject.getString(MACRO1)))==0){
-                            already = true;         //there is a release with same date
-                            break;
-                        }
-                    }
+                    already = checkAlreadyExists(releaseList, jsonObject);
+
                     if(!already)
                     {
                         release = new Release(jsonObject.getString("name"), Date.valueOf(jsonObject.getString(MACRO1)));
@@ -231,6 +225,19 @@ public class Jira {
         }
 
         return releaseList;
+    }
+
+    private static boolean checkAlreadyExists(List<Release> releaseList, JSONObject jsonObject){
+        //I suppose that release is not in list
+        boolean already = false;
+
+        for(Release release1: releaseList){
+            if(release1.getDate().compareTo(Date.valueOf(jsonObject.getString(MACRO1)))==0){
+                already = true;         //there is a release with same date
+                break;
+            }
+        }
+        return already;
     }
 
 }
