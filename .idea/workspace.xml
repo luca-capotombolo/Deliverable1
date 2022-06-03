@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb70da71-659f-40c8-ac4c-dfac2d2b1fb9" name="Changes" comment="Prova workflow">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/capotombolo/metrics/LocAddedRelease.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +68,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LocAddedRelease" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.capotombolo.metrics.LocAddedRelease" />
+      <module name="Deliverable1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.capotombolo.metrics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestFoundAllJavaFiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Deliverable1" />
       <extension name="coverage">
@@ -113,29 +126,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestJira.checkIVFV" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Deliverable1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.capotombolo.jira.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.capotombolo.jira" />
-      <option name="MAIN_CLASS_NAME" value="org.capotombolo.jira.TestJira" />
-      <option name="METHOD_NAME" value="checkIVFV" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.LocAddedRelease" />
         <item itemvalue="JUnit.TestJira" />
         <item itemvalue="JUnit.TestGitSkills" />
         <item itemvalue="JUnit.TestFoundAllJavaFiles" />
-        <item itemvalue="JUnit.TestJira.checkIVFV" />
       </list>
     </recent_temporary>
   </component>

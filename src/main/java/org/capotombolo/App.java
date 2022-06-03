@@ -15,13 +15,16 @@ import java.util.*;
 public class App 
 {
 
-    static final String PROJECT = "ZOOKEEPER";
-    //static final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
+    static final String PROJECT = "BOOKKEEPER";
     static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {
-        
-        final String PATH = "C:\\Users\\lucac\\ESAME FALESSI\\zookeeper";
+        String PATH = "C:" +
+                "\\Users" +
+                "\\lucac" +
+                "\\ESAME FALESSI" +
+                "\\bookkeeper";
+
         //Get All Releases from JIRA
         List<Release> releaseList = Jira.getReleases(PROJECT);
 
