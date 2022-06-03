@@ -1,10 +1,7 @@
 package org.capotombolo.metrics;
 
 import org.capotombolo.git.GitSkills;
-import org.capotombolo.utils.CommitMetric;
-import org.capotombolo.utils.FileCommitMetric;
-import org.capotombolo.utils.MyFile;
-import org.capotombolo.utils.Release;
+import org.capotombolo.utils.*;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.diff.Edit;
@@ -22,20 +19,18 @@ public class LocAddedRelease {
 
     private final HashMap<Release, List<MyFile>> hashMap;
     private final List<CommitMetric> commitMetrics;
-    private final String path;
+    private final  GitSkills gitSkills;
 
-    public LocAddedRelease(Map<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics, String path){
+    public LocAddedRelease(Map<Release, List<MyFile>> hashMap, List<CommitMetric> commitMetrics, String path) throws IOException {
         this.commitMetrics = commitMetrics;
         this.hashMap = (HashMap<Release, List<MyFile>>) hashMap;
-        this.path = path;
+        this.gitSkills = new GitSkills(path);
     }
 
-    public Map<Release, List<MyFile>> computeLocAddedRelease() throws IOException {
+    public Map<Release, List<MyFile>> computeLocAddedRelease()  {
         Release release;
         List<MyFile> myFiles;
         int linesAdded;
-        int tot;
-        GitSkills gitSkills = new GitSkills(this.path);
 
         for (Map.Entry<Release, List<MyFile>> entry : this.hashMap.entrySet()) {
             release = entry.getKey();                                                           //Get current release
@@ -45,43 +40,7 @@ public class LocAddedRelease {
                 for (CommitMetric commitMetric : commitMetrics) {
                     //for each commit
                     linesAdded = 0;
-                    if (commitMetric.getRelease().getDate().compareTo(release.getDate()) == 0) {
-                        //commit.release == release
-                        for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
-                            if(myFile.path.contains(fileCommitMetric.filename) && (DiffEntry.ChangeType.ADD==fileCommitMetric.fileCommitState
-                                    || DiffEntry.ChangeType.MODIFY ==fileCommitMetric.fileCommitState)){
-                                try {
-                                    ObjectReader reader = gitSkills.git.getRepository().newObjectReader();
-                                    CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
-                                    ObjectId oldTree = gitSkills.git.getRepository().resolve(commitMetric.revCommit.getName() + "~1^{tree}");
-                                    oldTreeIter.reset(reader, oldTree);
-                                    CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
-                                    ObjectId newTree = gitSkills.git.getRepository().resolve(commitMetric.revCommit.getName() + "^{tree}");
-                                    newTreeIter.reset(reader, newTree);
-                                    DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
-                                    diffFormatter.setRepository(gitSkills.git.getRepository());
-                                    List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
-                                    //Get all file changed by commit
-                                    for (DiffEntry diff : entries) {
-                                        //prendo il cambiamento che mi interessa
-                                        if(Objects.equals(diff.getNewPath().replace("/", "\\"), fileCommitMetric.filename)) {
-                                            for (Edit edit : diffFormatter.toFileHeader(diff).toEditList()) {
-                                                linesAdded += edit.getEndB() - edit.getBeginB();
-                                            }
-                                        }
-                                    }
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                        tot = myFile.getNumberLocAddedRelease();
-                        myFile.setNumberLocAddedRelease(tot + linesAdded);
-                        if(linesAdded > myFile.getMaxNumberLocAdded()) {
-                            myFile.setMaxNumberLocAdded(linesAdded);
-                        }
-                    }
-
+                    computeLocAddedFileCommit(commitMetric, release, myFile, linesAdded);
                 }
                 try {
                     myFile.setAverageNumberLocAdded(myFile.getNumberLocAddedRelease() / myFile.getNumberRevisionRelease());
@@ -91,5 +50,60 @@ public class LocAddedRelease {
             }
         }
         return hashMap;
+    }
+
+    private void computeLocAddedFileCommit(CommitMetric commitMetric, Release release, MyFile myFile, int linesAdded){
+        int tot;
+        if (commitMetric.getRelease().getDate().compareTo(release.getDate()) == 0) {
+            //commit.release == release
+            for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
+                linesAdded = compareFileCommitToFile(myFile, fileCommitMetric, commitMetric, linesAdded);
+            }
+            tot = myFile.getNumberLocAddedRelease();
+            myFile.setNumberLocAddedRelease(tot + linesAdded);
+            setMaxNumberLA(linesAdded, myFile);
+        }
+    }
+
+    private int compareFileCommitToFile(MyFile myFile, FileCommitMetric fileCommitMetric, CommitMetric commitMetric, int linesAdded){
+        //Fixed file
+        if(myFile.path.contains(fileCommitMetric.filename) && (DiffEntry.ChangeType.ADD==fileCommitMetric.fileCommitState
+                || DiffEntry.ChangeType.MODIFY ==fileCommitMetric.fileCommitState)){
+            try {
+                ObjectReader reader = gitSkills.git.getRepository().newObjectReader();
+                CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+                ObjectId oldTree = gitSkills.git.getRepository().resolve(commitMetric.revCommit.getName() + "~1^{tree}");
+                oldTreeIter.reset(reader, oldTree);
+                CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+                ObjectId newTree = gitSkills.git.getRepository().resolve(commitMetric.revCommit.getName() + "^{tree}");
+                newTreeIter.reset(reader, newTree);
+                DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+                diffFormatter.setRepository(gitSkills.git.getRepository());
+                List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
+                //Get all file changed by commit
+                linesAdded = diffEntry(entries, fileCommitMetric, diffFormatter, linesAdded);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return linesAdded;
+    }
+
+    private int diffEntry(List<DiffEntry> entries, FileCommitMetric fileCommitMetric, DiffFormatter diffFormatter, int linesAdded) throws IOException {
+        for (DiffEntry diff : entries) {
+            //prendo il cambiamento che mi interessa
+            if(Objects.equals(diff.getNewPath().replace("/", "\\"), fileCommitMetric.filename)) {
+                for (Edit edit : diffFormatter.toFileHeader(diff).toEditList()) {
+                    linesAdded += edit.getEndB() - edit.getBeginB();
+                }
+            }
+        }
+        return linesAdded;
+    }
+
+    private void setMaxNumberLA(int linesAdded, MyFile myFile){
+        if(linesAdded > myFile.getMaxNumberLocAdded()) {
+            myFile.setMaxNumberLocAdded(linesAdded);
+        }
     }
 }
