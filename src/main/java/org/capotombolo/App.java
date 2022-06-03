@@ -19,7 +19,7 @@ public class App
     static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {
-        String PATH = "C:" +
+        final String PATH = "C:" +
                 "\\Users" +
                 "\\lucac" +
                 "\\ESAME FALESSI" +
