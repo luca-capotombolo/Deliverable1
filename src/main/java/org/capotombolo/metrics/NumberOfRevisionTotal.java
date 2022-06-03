@@ -28,18 +28,23 @@ public class NumberOfRevisionTotal {
                 //I suppose zero revision for this file
                 count = 0;
                 for(CommitMetric commitMetric: commitMetrics){
-                    if(commitMetric.getRelease().getDate().compareTo(release.getDate()) <=0){
-                        for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
-                            if(myFile.path.contains(fileCommitMetric.filename)){
-                                count++;
-                            }
-                        }
-                    }
+                    count = getNumberOfRevisionTotalFile(commitMetric, release, myFile, count);
                 }
                 myFile.setNumberRevisionTotal(count);
             }
         }
         return this.hashMap;
+    }
+
+    private int getNumberOfRevisionTotalFile(CommitMetric commitMetric, Release release, MyFile myFile, int count){
+        if(commitMetric.getRelease().getDate().compareTo(release.getDate()) <=0){
+            for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
+                if(myFile.path.contains(fileCommitMetric.filename)){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 
