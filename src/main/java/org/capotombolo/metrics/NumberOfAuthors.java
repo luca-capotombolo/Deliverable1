@@ -29,17 +29,21 @@ public class NumberOfAuthors {
                 //For each file of release
                 for(CommitMetric commitMetric: commitMetrics){
                     //for each commit
-                    if(commitMetric.getRelease().getDate().compareTo(release.getDate())<=0){
-                        for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
-                            //for each changed files
-                            if(myFile.path.contains(fileCommitMetric.filename)){
-                                myFile.getAuthors().add(commitMetric.authorName);
-                            }
-                        }
-                    }
+                    getNumberOfAuthorsFileCommit(release, commitMetric, myFile);
                 }
             }
         }
         return this.hashMap;
+    }
+
+    private void getNumberOfAuthorsFileCommit(Release release, CommitMetric commitMetric, MyFile myFile){
+        if(commitMetric.getRelease().getDate().compareTo(release.getDate())<=0){
+            for(FileCommitMetric fileCommitMetric: commitMetric.fileCommits){
+                //for each changed files
+                if(myFile.path.contains(fileCommitMetric.filename)){
+                    myFile.getAuthors().add(commitMetric.authorName);
+                }
+            }
+        }
     }
 }
