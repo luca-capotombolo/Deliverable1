@@ -6,15 +6,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * @author Luca Capotombolo
- */
-
 public class FoundAllJavaFiles {
 
     public final String localPath;
     public final File directory;
     public final int length;
+
+    private final Deque<File> stack = new ArrayDeque<>();
 
     public FoundAllJavaFiles(String localPath) {
         this.localPath = localPath;
@@ -52,35 +50,40 @@ public class FoundAllJavaFiles {
         return files;
     }
 
-    /**
-     * @author Luca Capotombolo
-     *
-     *
-     *
-     *
-     *
-     * @return La lista di tutti i file contenuti nella directory
-     */
-
     public List<MyFile> foundAllFiles() throws IOException {
 
         File[] files;
         File dir;
         List<MyFile> filenames = new ArrayList<>();     //Lista dei filename corrispondenti ai file .java
-        String filename;
-        //Stack<File> stack = new Stack<>();              //Contiene le directory che devono essere ancora esplorate
-        Deque<File> stack = new ArrayDeque<>();
+
 
         if(!this.directory.isDirectory()){
             return Collections.emptyList();
         }
 
         //this.directory è un file directory
-        Size size;
-        int lines;
 
         //tutti i file contenuti nella directory root
         files = this.listFiles(this.directory);
+
+        getAllFilesOfDir(filenames, files);
+
+
+        //finché c'è una directory che ancora non è stata esplorata
+        while(!stack.isEmpty()){
+            dir = stack.pop();
+            files = this.listFiles(dir);
+            if(dir.getName().equals("target") || dir.getName().equals("test") || files.length == 0) continue;
+            getAllFilesOfDir(filenames, files);
+        }
+
+        return filenames;
+    }
+
+    private void getAllFilesOfDir(List<MyFile> filenames, File[] files) throws IOException {
+        String filename;
+        Size size;
+        int lines;
 
         for(File file: files){
             if(file.isDirectory()){
@@ -94,27 +97,6 @@ public class FoundAllJavaFiles {
                 }
             }
         }
-
-        //finché c'è una directory che ancora non è stata esplorata
-        while(!stack.isEmpty()){
-            dir = stack.pop();
-            files = this.listFiles(dir);
-            if(dir.getName().equals("target") || dir.getName().equals("test") || files.length == 0) continue;
-            for(File file: files){
-                if(file.isDirectory()){
-                    stack.push(file);
-                }else {
-                    filename = file.getAbsolutePath();
-                    if (filename.contains(".java")) {
-                        size = new Size(filename);
-                        lines = size.getLOC();
-                        filenames.add(new MyFile(filename, MyFile.StateFile.NO_BUG, lines));
-                    }
-                }
-            }
-        }
-
-        return filenames;
     }
 
 
