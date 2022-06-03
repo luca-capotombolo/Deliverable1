@@ -30,18 +30,23 @@ public class NumberOfRevisionRelease {
                 //I suppose zero revision for this file
                 count = 0;
                 for (CommitMetric commitMetric : commitMetrics) {
-                    if (commitMetric.getRelease().getDate().compareTo(release.getDate()) == 0) {
-                        for (FileCommitMetric fileCommitMetric : commitMetric.fileCommits) {
-                            if (myFile.path.contains(fileCommitMetric.filename)) {
-                                count++;
-                            }
-                        }
-                    }
+                    count = gerNumberOfRevisionReleaseFile(count, commitMetric, release, myFile);
                 }
                 myFile.setNumberRevisionRelease(count);
             }
         }
         return this.hashMap;
+    }
+
+    private int gerNumberOfRevisionReleaseFile(int count, CommitMetric commitMetric, Release release, MyFile myFile){
+        if (commitMetric.getRelease().getDate().compareTo(release.getDate()) == 0) {
+            for (FileCommitMetric fileCommitMetric : commitMetric.fileCommits) {
+                if (myFile.path.contains(fileCommitMetric.filename)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }
