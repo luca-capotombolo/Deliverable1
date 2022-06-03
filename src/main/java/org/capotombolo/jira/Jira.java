@@ -78,66 +78,31 @@ public class Jira {
             Issue issue;
             for (; i < total && i < j; i++) {
                 //Get new Issue
-                //Opening version
-                ovRelease=null;
-                //Fix version on JIRA
-                fixVersion = null;
-                ivVersion = null;
-                //Affected version on JIRA
-                affectedVersions = new ArrayList<>();
+
                 key = issues.getJSONObject(i%1000).get("key").toString();
                 resolutionDateString = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getString("resolutiondate");
                 resolutionDateString = resolutionDateString.substring(0,10);
                 resolutionDate = Date.valueOf(resolutionDateString);
-                for(Release release: releaseList){
-                    if(release.getDate().compareTo(resolutionDate) > 0){
-                        fixVersion = release;
-                        break;
-                    }
-                }
+                //Fix version on JIRA
+                fixVersion = getFixVersion(releaseList, resolutionDate);
+
                 if(fixVersion!=null){
                     //create issue object
                     //Opening version
                     ovString = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getString("created");
                     ovString = ovString.substring(0, 10);                                                                    //get date string
                     createdIssue = Date.valueOf(ovString);                                                                       //created date of issue
-                    for (Release release : releaseList) {
-                        if (release.getDate().compareTo(createdIssue) > 0) {
-                            ovRelease = release;
-                            break;
-                        }
-                    }
+                    ovRelease = getOpeningVersion(releaseList, createdIssue);
 
 
                     //Affected version
                     affectedVersionsJSONArray = issues.getJSONObject(i % 1000).getJSONObject(MACRO).getJSONArray("versions");
-                    for (int u = 0; u < affectedVersionsJSONArray.length(); u++) {
-                        released = affectedVersionsJSONArray.getJSONObject(u).getBoolean("released");
-                        if (released) {
-                            try {
-                                affectedVersions.add(new Release(affectedVersionsJSONArray.getJSONObject(u).getString("name"),
-                                        Date.valueOf(affectedVersionsJSONArray.getJSONObject(u).getString(MACRO1))));
-                            } catch (Exception e) {
-                                //no releaseDate
-                            }
-                        }
-                    }
+                    affectedVersions = getAffectedVersions(affectedVersionsJSONArray);
+
 
                     //Get IV of issue if AV is consistent
-                    if(!affectedVersions.isEmpty()){
-                        Release olderRelease = affectedVersions.get(0);
-                        for(Release release: affectedVersions){
-                            if(olderRelease.getDate().compareTo(release.getDate())>0){
-                                olderRelease = release;
-                            }
-                        }
-                        for(Release release: releaseList){
-                            if(release.getDate().compareTo(olderRelease.getDate())==0){
-                                ivVersion = release;
-                                break;
-                            }
-                        }
-                    }
+                    ivVersion = getIvVersion(releaseList, affectedVersions);
+
 
                     issue = new Issue(key, ivVersion, fixVersion, ovRelease, affectedVersions, resolutionDate);
 
@@ -159,6 +124,65 @@ public class Jira {
 
         return issueList;
 
+    }
+
+    private static Release getIvVersion(List<Release> releaseList, List<Release> affectedVersions){
+        Release ivVersion = null;
+        if(!affectedVersions.isEmpty()){
+            Release olderRelease = affectedVersions.get(0);
+            for(Release release: affectedVersions){
+                if(olderRelease.getDate().compareTo(release.getDate())>0){
+                    olderRelease = release;
+                }
+            }
+            for(Release release1: releaseList){
+                if(release1.getDate().compareTo(olderRelease.getDate())==0){
+                    ivVersion = release1;
+                    break;
+                }
+            }
+        }
+        return ivVersion;
+    }
+
+    private static Release getFixVersion(List<Release> releaseList, java.util.Date resolutionDate){
+        Release fixVersion = null;
+        for(Release release2: releaseList){
+            if(release2.getDate().compareTo(resolutionDate) > 0){
+                fixVersion = release2;
+                break;
+            }
+        }
+        return fixVersion;
+    }
+
+    private static Release getOpeningVersion(List<Release> releaseList, java.util.Date createdIssue){
+        Release ovRelease = null;
+        for (Release release3 : releaseList) {
+            if (release3.getDate().compareTo(createdIssue) > 0) {
+                ovRelease = release3;
+                break;
+            }
+        }
+        return ovRelease;
+    }
+
+    private static List<Release> getAffectedVersions(JSONArray affectedVersionsJSONArray){
+        boolean released;
+        List<Release> affectedVersions = new ArrayList<>();
+
+        for (int u = 0; u < affectedVersionsJSONArray.length(); u++) {
+            released = affectedVersionsJSONArray.getJSONObject(u).getBoolean("released");
+            if (released) {
+                try {
+                    affectedVersions.add(new Release(affectedVersionsJSONArray.getJSONObject(u).getString("name"),
+                            Date.valueOf(affectedVersionsJSONArray.getJSONObject(u).getString(MACRO1))));
+                } catch (Exception e) {
+                    //no releaseDate
+                }
+            }
+        }
+        return affectedVersions;
     }
 
 
