@@ -4,6 +4,7 @@ import org.capotombolo.utils.MyFile;
 import org.capotombolo.utils.Release;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ArffFileCreator {
@@ -117,23 +118,7 @@ public class ArffFileCreator {
                     bufferedWriter.write("@DATA");
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
-                    for(MyFile myFile: myFiles){
-                        bufferedWriter.write(myFile.getNumberRevisionRelease() +",");
-                        bufferedWriter.write(myFile.getNumberLocAddedRelease() + ",");
-                        bufferedWriter.write(myFile.getAverageNumberLocAdded() + ",");
-                        bufferedWriter.write(myFile.getMaxNumberLocAdded() + ",");
-                        bufferedWriter.write(myFile.getLines() + ",");
-                        bufferedWriter.write(myFile.getSetTouchedFileWithCRelease().size()+",");
-                        if(Float.isNaN(myFile.getAvgNumberTouchedFile()))
-                            bufferedWriter.write("?,");
-                        else
-                            bufferedWriter.write(myFile.getAvgNumberTouchedFile() +",");
-                        bufferedWriter.write(myFile.getMaxNumberTouchedFile() +",");
-                        bufferedWriter.write(myFile.getAuthors().size()+",");
-                        bufferedWriter.write(myFile.getState().toString());
-                        bufferedWriter.newLine();
-                        bufferedWriter.flush();
-                    }
+                    writeData(myFiles, bufferedWriter);
                     bufferedWriter.flush();
                     bufferedWriter.close();
                 }catch (Exception e){
@@ -143,6 +128,26 @@ public class ArffFileCreator {
             }
         }
        return true;
+    }
+
+    private void writeData(List<MyFile> myFiles, BufferedWriter bufferedWriter) throws IOException {
+        for(MyFile myFile: myFiles){
+            bufferedWriter.write(myFile.getNumberRevisionRelease() +",");
+            bufferedWriter.write(myFile.getNumberLocAddedRelease() + ",");
+            bufferedWriter.write(myFile.getAverageNumberLocAdded() + ",");
+            bufferedWriter.write(myFile.getMaxNumberLocAdded() + ",");
+            bufferedWriter.write(myFile.getLines() + ",");
+            bufferedWriter.write(myFile.getSetTouchedFileWithCRelease().size()+",");
+            if(Float.isNaN(myFile.getAvgNumberTouchedFile()))
+                bufferedWriter.write("?,");
+            else
+                bufferedWriter.write(myFile.getAvgNumberTouchedFile() +",");
+            bufferedWriter.write(myFile.getMaxNumberTouchedFile() +",");
+            bufferedWriter.write(myFile.getAuthors().size()+",");
+            bufferedWriter.write(myFile.getState().toString());
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        }
     }
 
 }
