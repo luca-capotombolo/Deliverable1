@@ -77,32 +77,11 @@ public class GitSkills {
 
                     //get all files changed by commit
                     changedFiles = new ArrayList<>();
-                    ObjectReader reader = this.git.getRepository().newObjectReader();
-                    CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
-                    ObjectId oldTree = this.git.getRepository().resolve(commit.getName()+"~1^{tree}");
-                    oldTreeIter.reset(reader, oldTree);
-                    CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
-                    ObjectId newTree = this.git.getRepository().resolve(commit.getName()+"^{tree}");
-                    newTreeIter.reset(reader, newTree);
-                    DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
-                    diffFormatter.setRepository(this.git.getRepository());
-                    List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
-                    for (DiffEntry entry : entries) {
-                        if(entry.getChangeType()== DiffEntry.ChangeType.DELETE || entry.getChangeType()== DiffEntry.ChangeType.MODIFY) {
-                            String newPath = entry.getNewPath().replace("/", "\\");
-                            //this file was changed by the commit
-                            changedFiles.add(newPath);
-                        }
-                    }
+                    getAllFilesChangedByCommit(changedFiles, commit);
 
                     //Get the release of the commit
                     commitWithKey = new Commit(new Date(commit.getCommitTime()*1000L), commit.getFullMessage(), changedFiles, null, commit.getName());
-                    for(Release release: releaseList){
-                        if(release.date.compareTo(commitWithKey.date)>0){
-                            commitWithKey.setRelease(release);                                    //first release with date greater than date of commit
-                            break;                                                              //sorted releases
-                        }
-                    }
+                    getReleaseCommit(commitWithKey, releaseList);
 
                     //the commit belong a version that is not released
                     if (commitWithKey.getRelease() == null)
@@ -113,11 +92,39 @@ public class GitSkills {
 
             }
 
-
             hashMapIssueCommits.put(issue, commitWithIssueKeyList);
 
         }
 
         return hashMapIssueCommits;
+    }
+
+    private void getAllFilesChangedByCommit(List<String> changedFiles, RevCommit commit) throws IOException {
+        ObjectReader reader = this.git.getRepository().newObjectReader();
+        CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+        ObjectId oldTree = this.git.getRepository().resolve(commit.getName()+"~1^{tree}");
+        oldTreeIter.reset(reader, oldTree);
+        CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+        ObjectId newTree = this.git.getRepository().resolve(commit.getName()+"^{tree}");
+        newTreeIter.reset(reader, newTree);
+        DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
+        diffFormatter.setRepository(this.git.getRepository());
+        List<DiffEntry> entries = diffFormatter.scan(oldTreeIter, newTreeIter);
+        for (DiffEntry entry : entries) {
+            if(entry.getChangeType()== DiffEntry.ChangeType.DELETE || entry.getChangeType()== DiffEntry.ChangeType.MODIFY) {
+                String newPath = entry.getNewPath().replace("/", "\\");
+                //this file was changed by the commit
+                changedFiles.add(newPath);
+            }
+        }
+    }
+
+    private void getReleaseCommit(Commit commitWithKey, List<Release> releaseList){
+        for(Release release: releaseList){
+            if(release.date.compareTo(commitWithKey.date)>0){
+                commitWithKey.setRelease(release);                                    //first release with date greater than date of commit
+                break;                                                              //sorted releases
+            }
+        }
     }
 }
