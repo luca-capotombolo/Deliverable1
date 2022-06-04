@@ -2,6 +2,7 @@ package org.capotombolo;
 
 import org.capotombolo.excel.ExcelTools;
 import org.capotombolo.filesystem.FoundAllJavaFiles;
+import org.capotombolo.flow.Execution;
 import org.capotombolo.git.GitSkills;
 import org.capotombolo.jira.Jira;
 import org.capotombolo.metrics.*;
@@ -9,7 +10,6 @@ import org.capotombolo.proportion.Proportion;
 import org.capotombolo.utils.*;
 import org.capotombolo.weka.ArffFileCreator;
 import org.capotombolo.weka.WalkForward;
-import org.eclipse.jgit.api.errors.RefNotFoundException;
 import java.util.*;
 
 public class App 
@@ -36,26 +36,12 @@ public class App
 
         //Get all files for each release
         GitSkills gitSkills = new GitSkills(PATH);
-        FoundAllJavaFiles foundAllJavaFiles;
-        int count = 0;
-        List<MyFile> filenames;
+        //FoundAllJavaFiles foundAllJavaFiles;
+        //int count = 0;
+        //List<MyFile> filenames;
         HashMap<Release, List<MyFile>> hashMapReleaseFiles = new HashMap<>();
-        HashMap<Issue, List<Commit>> hashMapIssueCommits;
-        for (Release release : releaseList) {
-            try {
-                gitSkills.setBranch(release.getName());
-            } catch (RefNotFoundException e) {
-                //inconsistent data on JIRA
-                continue;
-            }
-            if (count <= nRelease) {
-                foundAllJavaFiles = new FoundAllJavaFiles(PATH);
-                //all java files in the release
-                filenames = foundAllJavaFiles.foundAllFiles();
-                hashMapReleaseFiles.put(release, filenames);
-            }
-            count++;
-        }
+
+        Execution.getAllFileRelease(PATH, hashMapReleaseFiles, nRelease, releaseList);
 
 
         //Set the value of the metrics for all files in all releases
@@ -80,6 +66,7 @@ public class App
         hashMapReleaseFiles = (HashMap<Release, List<MyFile>>) chgSetSize.getChgSetSizeRelease();
 
         //Get all commits for each issue
+        HashMap<Issue, List<Commit>> hashMapIssueCommits;
         hashMapIssueCommits = (HashMap<Issue, List<Commit>>) gitSkills.classifyCommitsIssue(issueList, releaseList);
 
         //I order the issues by fixDate
