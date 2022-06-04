@@ -84,43 +84,12 @@ public class App
         ArffFileCreator arffFileCreator = new ArffFileCreator();
 
         //Labeling java files for testing set in walk-forward
+
+
         List<Commit> commits;
         List<MyFile> myFiles;
-        int n = 0;
-        for (Release release : releaseList) {
-            if (n > nRelease)
-                continue;
-            myFiles = hashMapReleaseFiles.get(release);
-            for (Issue issue : issueList) {
-                //I use all information to labeling java classes
-                if ((release.getDate().compareTo(issue.getIv().getDate()) >= 0) && (release.getDate().compareTo(issue.fv.getDate()) < 0)) {
-                    commits = hashMapIssueCommits.get(issue);
-                    for (Commit commit : commits) {
-                        if (commit.date.compareTo(release.getDate()) > 0) {
-                            for (MyFile myFile : myFiles) {
-                                for(String file: commit.files){
-                                    if(myFile.path.contains(file) && myFile.getState() != MyFile.StateFile.BUG){
-                                            myFile.setState(MyFile.StateFile.BUG);
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if(n!=0) {
-                //Create Excel
-                excelTools = new ExcelTools("ISW2", PROJECT, "testing_" + release.name);
-                ret = excelTools.createTable();
-                if (!ret)
-                    System.exit(-3);
-                ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release));
-                if (!ret)
-                    System.exit(-4);
-            }
-            n++;
-        }
+
+        Execution.labelingTestingSets(releaseList, nRelease, hashMapReleaseFiles, issueList, hashMapIssueCommits, PROJECT);
 
         //I have labeled all the java classes of testing releases (even release zero)
         ret = arffFileCreator.createArffFileTestingSet(hashMapReleaseFiles, releaseList, "testing_" + PROJECT);

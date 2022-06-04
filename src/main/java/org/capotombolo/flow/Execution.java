@@ -1,7 +1,9 @@
 package org.capotombolo.flow;
 
+import org.capotombolo.excel.ExcelTools;
 import org.capotombolo.filesystem.FoundAllJavaFiles;
 import org.capotombolo.git.GitSkills;
+import org.capotombolo.utils.Commit;
 import org.capotombolo.utils.Issue;
 import org.capotombolo.utils.MyFile;
 import org.capotombolo.utils.Release;
@@ -14,6 +16,59 @@ public class Execution {
 
     private Execution(){
 
+    }
+
+    public static void labelingTestingSets(List<Release> releaseList, int nRelease, Map<Release, List<MyFile>> hashMapReleaseFiles,
+                                           List<Issue> issueList, Map<Issue, List<Commit>>hashMapIssueCommits, String PROJECT){
+        List<MyFile> myFiles;
+        ExcelTools excelTools;
+        boolean ret;
+        int n = 0;
+
+        for (Release release : releaseList) {
+            if (n > nRelease)
+                continue;
+            myFiles = hashMapReleaseFiles.get(release);
+            labelingFilesReleaseIssuesTesting(issueList, release, hashMapIssueCommits,myFiles);
+            if(n!=0) {
+                //Create Excel
+                excelTools = new ExcelTools("ISW2", PROJECT, "testing_" + release.name);
+                ret = excelTools.createTable();
+                if (!ret)
+                    System.exit(-3);
+                ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release));
+                if (!ret)
+                    System.exit(-4);
+            }
+            n++;
+        }
+    }
+
+    private static void labelingFilesReleaseIssuesTesting(List<Issue> issueList, Release release, Map<Issue, List<Commit>>hashMapIssueCommits, List<MyFile> myFiles){
+        List<Commit> commits;
+
+        for (Issue issue : issueList) {
+            //I use all information to labeling java classes
+            if ((release.getDate().compareTo(issue.getIv().getDate()) >= 0) && (release.getDate().compareTo(issue.fv.getDate()) < 0)) {
+                commits = hashMapIssueCommits.get(issue);
+                for (Commit commit : commits) {
+                    if (commit.date.compareTo(release.getDate()) > 0) {
+                        labelingFilesCommit(myFiles, commit);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void labelingFilesCommit(List<MyFile> myFiles, Commit commit){
+        for (MyFile myFile : myFiles) {
+            for(String file: commit.files){
+                if(myFile.path.contains(file) && myFile.getState() != MyFile.StateFile.BUG){
+                    myFile.setState(MyFile.StateFile.BUG);
+                    break;
+                }
+            }
+        }
     }
 
     public static void computeIVLabelingTestingGlobalProportion(List<Issue> issueList, List<Release> releaseList, float pGlobal){
