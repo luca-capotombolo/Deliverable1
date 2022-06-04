@@ -1,7 +1,6 @@
 package org.capotombolo;
 
 import org.capotombolo.excel.ExcelTools;
-import org.capotombolo.filesystem.FoundAllJavaFiles;
 import org.capotombolo.flow.Execution;
 import org.capotombolo.git.GitSkills;
 import org.capotombolo.jira.Jira;
@@ -36,13 +35,10 @@ public class App
 
         //Get all files for each release
         GitSkills gitSkills = new GitSkills(PATH);
-        //FoundAllJavaFiles foundAllJavaFiles;
-        //int count = 0;
-        //List<MyFile> filenames;
+
         HashMap<Release, List<MyFile>> hashMapReleaseFiles = new HashMap<>();
 
         Execution.getAllFileRelease(PATH, hashMapReleaseFiles, nRelease, releaseList);
-
 
         //Set the value of the metrics for all files in all releases
         //Get all commits of Project
@@ -76,23 +72,11 @@ public class App
         Proportion proportion = new Proportion(releaseList, issueList);
         float pGlobal = proportion.globalProportion();
 
+        Execution.computeIVLabelingTestingGlobalProportion(issueList, releaseList, pGlobal);
+
         float fv;
         float ov;
         int index;
-        for(Issue issue: issueList){
-            if(issue.getIv() ==null){
-                fv = issue.fv.getIndex();
-                ov = issue.ov.getIndex();
-                index = (int) (fv - (fv - ov)*pGlobal);
-                if(index<=0)
-                    issue.setIv(releaseList.get(0));
-                else if (index >= releaseList.size()) {
-                    issue.setIv(releaseList.get(releaseList.size() - 1));
-                }else{
-                    issue.setIv(releaseList.get(index));
-                }
-            }
-        }
 
         //I will create N - 1 csv for testing releases
         boolean ret;
