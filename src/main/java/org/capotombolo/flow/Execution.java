@@ -18,8 +18,28 @@ public class Execution {
 
     }
 
+    public static void clean(List<Issue> issueList, List<Release> releaseList, int nRelease, Map<Release, List<MyFile>> hashMapReleaseFiles){
+        //I delete the IV value for all issues that have an inconsistent AV because I will have to do the labeling again
+        for(Issue issue: issueList){
+            if(issue.isChangedIV())
+                issue.setIv(null);
+        }
+
+        //I reset the state of java files in all releases
+        int h = 0;
+        for(Release release: releaseList){
+            if(h>nRelease)
+                break;
+            for(MyFile myFile: hashMapReleaseFiles.get(release)){
+                if(myFile.getState() == MyFile.StateFile.BUG)
+                    myFile.setState(MyFile.StateFile.NO_BUG);
+            }
+            h++;
+        }
+    }
+
     public static void labelingTestingSets(List<Release> releaseList, int nRelease, Map<Release, List<MyFile>> hashMapReleaseFiles,
-                                           List<Issue> issueList, Map<Issue, List<Commit>>hashMapIssueCommits, String PROJECT){
+                                           List<Issue> issueList, Map<Issue, List<Commit>>hashMapIssueCommits, String project){
         List<MyFile> myFiles;
         ExcelTools excelTools;
         boolean ret;
@@ -32,7 +52,7 @@ public class Execution {
             labelingFilesReleaseIssuesTesting(issueList, release, hashMapIssueCommits,myFiles);
             if(n!=0) {
                 //Create Excel
-                excelTools = new ExcelTools("ISW2", PROJECT, "testing_" + release.name);
+                excelTools = new ExcelTools("ISW2", project, "testing_" + release.name);
                 ret = excelTools.createTable();
                 if (!ret)
                     System.exit(-3);

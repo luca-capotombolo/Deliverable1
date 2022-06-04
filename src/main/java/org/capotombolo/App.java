@@ -14,7 +14,7 @@ import java.util.*;
 public class App 
 {
 
-    static final String PROJECT = "BOOKKEEPER";
+    static final String PROJECT = "ZOOKEEPER";
     static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {
@@ -22,7 +22,7 @@ public class App
                 "\\Users" +
                 "\\lucac" +
                 "\\ESAME FALESSI" +
-                "\\bookkeeper";
+                "\\zookeeper";
 
         //Get All Releases from JIRA
         List<Release> releaseList = Jira.getReleases(PROJECT);
@@ -104,23 +104,8 @@ public class App
         if(!ret)
             System.exit(-13);
 
-        //I delete the IV value for all issues that have an inconsistent AV because I will have to do the labeling again
-        for(Issue issue: issueList){
-            if(issue.isChangedIV())
-                issue.setIv(null);
-        }
+        Execution.clean(issueList, releaseList, nRelease, hashMapReleaseFiles);
 
-        //I reset the state of java files in all releases
-        int h = 0;
-        for(Release release: releaseList){
-            if(h>nRelease)
-                break;
-            for(MyFile myFile: hashMapReleaseFiles.get(release)){
-                if(myFile.getState() == MyFile.StateFile.BUG)
-                    myFile.setState(MyFile.StateFile.NO_BUG);
-            }
-            h++;
-        }
 
         //I do the labeling of the training sets that I will use in the walk-forward. I use all information in the training set
         List<Float> pSubGlobals = proportion.incrementTrainingSet();
@@ -212,22 +197,7 @@ public class App
             if(!ret)
                 System.exit(-12);
 
-            //I will label with another sub global P because the training set changes, and I have new issues
-            for(Issue issue: issueList){
-                if(issue.isChangedIV())
-                    issue.setIv(null);
-            }
-
-            int k = 0;
-            for(Release release: releaseList){
-                if(k>nRelease)
-                    break;
-                for(MyFile myFile: hashMapReleaseFiles.get(release)){
-                    if(myFile.getState() == MyFile.StateFile.BUG)
-                        myFile.setState(MyFile.StateFile.NO_BUG);
-                }
-                k++;
-            }
+            Execution.clean(issueList, releaseList, nRelease, hashMapReleaseFiles);
         }
 
         WalkForward walkForward = new WalkForward();
