@@ -50,8 +50,7 @@ public class Execution {
             //all java classes in the training set releases have been labeled
             excelTools = new ExcelTools("ISW2", project, count1 + MACRO1 + youngerRelease.name);
             ret = excelTools.createTable();
-            if(!ret)
-                System.exit(-8);
+            checkRetValue(ret);
             for(Release release1: releaseList){
                 if(release1.date.compareTo(youngerRelease.date)<=0){
                     ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release1));
@@ -65,6 +64,11 @@ public class Execution {
                 System.exit(-12);
             Execution.clean(issueList, releaseList, nRelease, hashMapReleaseFiles);
         }
+    }
+
+    private static void checkRetValue(boolean ret){
+        if(!ret)
+            System.exit(-34);
     }
 
     private static void computeIVIssueFixedInTrainingSet(List<Issue> issueList, Release youngerRelease, float pSubGlobal, List<Release> releaseList, int count1){
@@ -105,12 +109,16 @@ public class Execution {
                 if(issue.fv.date.compareTo(youngerRelease.date)<=0 && (release.getDate().compareTo(issue.getIv().getDate()) >= 0)
                         && (release.getDate().compareTo(issue.fv.getDate()) < 0)){
                     commits = hashMapIssueCommits.get(issue);
-                    for (Commit commit : commits) {
-                        if (commit.date.compareTo(release.getDate()) > 0) {
-                            labelingFilesCommit(myFiles, commit);
-                        }
-                    }
+                    labelingFileCommitsTraining(commits, release, myFiles);
                 }
+            }
+        }
+    }
+
+    private static void labelingFileCommitsTraining(List<Commit> commits, Release release, List<MyFile> myFiles){
+        for (Commit commit : commits) {
+            if (commit.date.compareTo(release.getDate()) > 0) {
+                labelingFilesCommit(myFiles, commit);
             }
         }
     }
