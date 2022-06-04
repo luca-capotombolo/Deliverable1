@@ -15,7 +15,6 @@ public class App
 {
 
     static final String PROJECT = "ZOOKEEPER";
-    static final String MACRO1 = "training_";
 
     public static void main(String[] args) throws Exception {
         final String PATH = "C:" +
@@ -74,20 +73,12 @@ public class App
 
         Execution.computeIVLabelingTestingGlobalProportion(issueList, releaseList, pGlobal);
 
-        float fv;
-        float ov;
-        int index;
-
         //I will create N - 1 csv for testing releases
         boolean ret;
         ExcelTools excelTools;
         ArffFileCreator arffFileCreator = new ArffFileCreator();
 
         //Labeling java files for testing set in walk-forward
-
-
-        List<Commit> commits;
-        List<MyFile> myFiles;
 
         Execution.labelingTestingSets(releaseList, nRelease, hashMapReleaseFiles, issueList, hashMapIssueCommits, PROJECT);
 
@@ -110,98 +101,9 @@ public class App
         //I do the labeling of the training sets that I will use in the walk-forward. I use all information in the training set
         List<Float> pSubGlobals = proportion.incrementTrainingSet();
 
-        int count1;
-        float pSubGlobal;
-        Release youngerRelease;
-        int countPSubGlobal = 0;
-
-        for(count1=1; count1<=nRelease; count1++){
-            if(count1==1){
-                youngerRelease = releaseList.get(0);
-                //Get the younger release in the training set
-                excelTools = new ExcelTools("ISW2", PROJECT, count1 + MACRO1 + youngerRelease.name);
-                ret = excelTools.createTable();
-                if(!ret)
-                    System.exit(-6);
-                ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(youngerRelease));
-                if(!ret)
-                    System.exit(-7);
-                arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles,releaseList,MACRO1 + PROJECT ,youngerRelease);
-                continue;
-            }
-
-            pSubGlobal = pSubGlobals.get(countPSubGlobal);
-            countPSubGlobal++;
-            //Younger Release in the training set
-            youngerRelease = releaseList.get(count1 - 1);
-
-            //Compute IV of issue that has no consistent AV on JIRA fixed in the training set
-            for(Issue issue: issueList){
-                if(issue.fv.date.compareTo(youngerRelease.date)<=0 && issue.getIv() ==null){
-                    fv = issue.fv.getIndex();
-                    ov = issue.ov.getIndex();
-                    index = (int) (fv - (fv - ov)*pSubGlobal);
-                    if(index<=0)
-                        issue.setIv(releaseList.get(0));
-                    else if (index >= count1 - 1) {
-                        issue.setIv(releaseList.get(count1 - 1));
-                    }else{
-                        issue.setIv(releaseList.get(index));
-                    }
-                }
-            }
-
-            //labeling java classes of training set releases
-            for(Release release: releaseList){
-                //there are not two different releases with same date
-                if(release.date.compareTo(youngerRelease.date)>0)
-                    break;
-                myFiles = hashMapReleaseFiles.get(release);
-                for(Issue issue: issueList){
-                    //I don't use future issue
-                    if(issue.fv.date.compareTo(youngerRelease.date)<=0 && (release.getDate().compareTo(issue.getIv().getDate()) >= 0)
-                            && (release.getDate().compareTo(issue.fv.getDate()) < 0)){
-                        commits = hashMapIssueCommits.get(issue);
-                        for (Commit commit : commits) {
-                            if (commit.date.compareTo(release.getDate()) > 0) {
-                                for (MyFile myFile : myFiles) {
-                                    for(String file: commit.files){
-                                        if(myFile.path.contains(file) && myFile.getState() != MyFile.StateFile.BUG){
-
-                                            myFile.setState(MyFile.StateFile.BUG);
-                                            break;
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //all java classes in the training set releases have been labeled
-            excelTools = new ExcelTools("ISW2", PROJECT, count1 + MACRO1 + youngerRelease.name);
-            ret = excelTools.createTable();
-            if(!ret)
-                System.exit(-8);
-            for(Release release1: releaseList){
-                if(release1.date.compareTo(youngerRelease.date)<=0){
-                    ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release1));
-                    if(!ret)
-                        System.exit(-9);
-                }
-            }
-
-            ret = arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles, releaseList, MACRO1+PROJECT, youngerRelease);
-            if(!ret)
-                System.exit(-12);
-
-            Execution.clean(issueList, releaseList, nRelease, hashMapReleaseFiles);
-        }
+        Execution.labelingTrainingSets(nRelease, releaseList, PROJECT, issueList, hashMapReleaseFiles, pSubGlobals, hashMapIssueCommits);
 
         WalkForward walkForward = new WalkForward();
         walkForward.executeWalkForward(releaseList, PROJECT);
-
     }
 }

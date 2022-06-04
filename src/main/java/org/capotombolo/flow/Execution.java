@@ -7,6 +7,7 @@ import org.capotombolo.utils.Commit;
 import org.capotombolo.utils.Issue;
 import org.capotombolo.utils.MyFile;
 import org.capotombolo.utils.Release;
+import org.capotombolo.weka.ArffFileCreator;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import java.io.IOException;
 import java.util.List;
@@ -14,8 +15,121 @@ import java.util.Map;
 
 public class Execution {
 
+    static final String MACRO1 = "training_";
+
     private Execution(){
 
+    }
+
+    public static void labelingTrainingSets(int nRelease, List<Release> releaseList, String project, List<Issue> issueList,
+                                            Map<Release, List<MyFile>> hashMapReleaseFiles, List<Float> pSubGlobals, Map<Issue, List<Commit>> hashMapIssueCommits){
+        int count1;
+        float pSubGlobal;
+        Release youngerRelease;
+        int countPSubGlobal = 0;
+        ExcelTools excelTools;
+        boolean ret;
+        ArffFileCreator arffFileCreator = new ArffFileCreator();
+
+        //count = 0 --> [1]
+        for(count1=1; count1<=nRelease; count1++){
+            if(count1==1){
+                labelingFirstTrainingSet(releaseList, project, arffFileCreator, hashMapReleaseFiles);
+                continue;
+            }
+
+            pSubGlobal = pSubGlobals.get(countPSubGlobal);
+            countPSubGlobal++;
+            //Younger Release in the training set
+            youngerRelease = releaseList.get(count1 - 1);
+
+            computeIVIssueFixedInTrainingSet(issueList, youngerRelease, pSubGlobal, releaseList, count1);
+
+            labelingTrainingSet(releaseList, youngerRelease, hashMapReleaseFiles, issueList, hashMapIssueCommits);
+
+            //all java classes in the training set releases have been labeled
+            excelTools = new ExcelTools("ISW2", project, count1 + MACRO1 + youngerRelease.name);
+            ret = excelTools.createTable();
+            if(!ret)
+                System.exit(-8);
+            for(Release release1: releaseList){
+                if(release1.date.compareTo(youngerRelease.date)<=0){
+                    ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(release1));
+                    if(!ret)
+                        System.exit(-9);
+                }
+            }
+
+            ret = arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles, releaseList, MACRO1+project, youngerRelease);
+            if(!ret)
+                System.exit(-12);
+            Execution.clean(issueList, releaseList, nRelease, hashMapReleaseFiles);
+        }
+    }
+
+    private static void computeIVIssueFixedInTrainingSet(List<Issue> issueList, Release youngerRelease, float pSubGlobal, List<Release> releaseList, int count1){
+        float fv;
+        float ov;
+        int index;
+
+        //Compute IV of issue that has no consistent AV on JIRA fixed in the training set
+        for(Issue issue: issueList){
+            if(issue.fv.date.compareTo(youngerRelease.date)<=0 && issue.getIv() ==null){
+                fv = issue.fv.getIndex();
+                ov = issue.ov.getIndex();
+                index = (int) (fv - (fv - ov)*pSubGlobal);
+                if(index<=0)
+                    issue.setIv(releaseList.get(0));
+                else if (index >= count1 - 1) {
+                    issue.setIv(releaseList.get(count1 - 1));
+                }else{
+                    issue.setIv(releaseList.get(index));
+                }
+            }
+        }
+    }
+
+    private static void labelingTrainingSet(List<Release> releaseList, Release youngerRelease, Map<Release, List<MyFile>> hashMapReleaseFiles, List<Issue> issueList,
+                                            Map<Issue, List<Commit>> hashMapIssueCommits){
+        List<Commit> commits;
+        List<MyFile> myFiles;
+
+        //labeling java classes of training set releases
+        for(Release release: releaseList){
+            //there are not two different releases with same date
+            if(release.date.compareTo(youngerRelease.date)>0)
+                break;
+            myFiles = hashMapReleaseFiles.get(release);
+            for(Issue issue: issueList){
+                //I don't use future issue
+                if(issue.fv.date.compareTo(youngerRelease.date)<=0 && (release.getDate().compareTo(issue.getIv().getDate()) >= 0)
+                        && (release.getDate().compareTo(issue.fv.getDate()) < 0)){
+                    commits = hashMapIssueCommits.get(issue);
+                    for (Commit commit : commits) {
+                        if (commit.date.compareTo(release.getDate()) > 0) {
+                            labelingFilesCommit(myFiles, commit);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void labelingFirstTrainingSet(List<Release> releaseList, String project, ArffFileCreator arffFileCreator, Map<Release, List<MyFile>> hashMapReleaseFiles){
+        boolean ret;
+        Release youngerRelease = releaseList.get(0);
+
+        //All no buggy
+        //Get the younger release in the training set
+        ExcelTools excelTools = new ExcelTools("ISW2", project, 1 + MACRO1 + youngerRelease.name);
+
+        ret = excelTools.createTable();
+        if(!ret)
+            System.exit(-6);
+        ret = excelTools.writeSingleRelease(hashMapReleaseFiles.get(youngerRelease));
+        if(!ret)
+            System.exit(-7);
+        arffFileCreator.createArffFileTrainingSet(hashMapReleaseFiles,releaseList,MACRO1 + project ,youngerRelease);
     }
 
     public static void clean(List<Issue> issueList, List<Release> releaseList, int nRelease, Map<Release, List<MyFile>> hashMapReleaseFiles){
@@ -39,7 +153,7 @@ public class Execution {
     }
 
     public static void labelingTestingSets(List<Release> releaseList, int nRelease, Map<Release, List<MyFile>> hashMapReleaseFiles,
-                                           List<Issue> issueList, Map<Issue, List<Commit>>hashMapIssueCommits, String project){
+                                            List<Issue> issueList, Map<Issue, List<Commit>>hashMapIssueCommits, String project){
         List<MyFile> myFiles;
         ExcelTools excelTools;
         boolean ret;
