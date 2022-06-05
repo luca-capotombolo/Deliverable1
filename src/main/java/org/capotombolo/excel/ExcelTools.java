@@ -273,61 +273,61 @@ public class ExcelTools {
         this.wb = new HSSFWorkbook();
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
-            /*
+
             Sheet sheet5 = wb.createSheet("weka");
             Row titleRow = sheet5.createRow(0);
             Cell cellWT = titleRow.createCell(0);
             cellWT.setCellValue("project");                  //project
+            sheet5.setColumnWidth(0, 5000);
             cellWT = titleRow.createCell(1);
             cellWT.setCellValue("numberTrainingRelease");                  //Release
+            sheet5.setColumnWidth(1, 6000);
             cellWT = titleRow.createCell(2);
             cellWT.setCellValue("percentTraining");                  //Name of the class
+            sheet5.setColumnWidth(2, 5000);
             cellWT = titleRow.createCell(3);
             cellWT.setCellValue("percentDefectiveTraining");                  //# revision
+            sheet5.setColumnWidth(3, 7000);
             cellWT = titleRow.createCell(4);
             cellWT.setCellValue("percentDefectiveTesting");                  //LOC ADDED
+            sheet5.setColumnWidth(4, 7000);
             cellWT = titleRow.createCell(5);
             cellWT.setCellValue("classifier");
+            sheet5.setColumnWidth(5, 5000);
             cellWT = titleRow.createCell(6);
             cellWT.setCellValue("balancing");
+            sheet5.setColumnWidth(6, 5000);
             cellWT = titleRow.createCell(7);
             cellWT.setCellValue("featureSelection");
+            sheet5.setColumnWidth(7, 5000);
             cellWT = titleRow.createCell(8);
             cellWT.setCellValue("sensitivity");
+            sheet5.setColumnWidth(8, 5000);
             cellWT = titleRow.createCell(9);
             cellWT.setCellValue("TP");
+            sheet5.setColumnWidth(9, 5000);
             cellWT = titleRow.createCell(10);
             cellWT.setCellValue("FP");
+            sheet5.setColumnWidth(10, 5000);
             cellWT = titleRow.createCell(11);
             cellWT.setCellValue("TN");
+            sheet5.setColumnWidth(11, 5000);
             cellWT = titleRow.createCell(12);
             cellWT.setCellValue("FN");
+            sheet5.setColumnWidth(12, 5000);
             cellWT = titleRow.createCell(13);
             cellWT.setCellValue("precision");
+            sheet5.setColumnWidth(13, 5000);
             cellWT = titleRow.createCell(14);
             cellWT.setCellValue("recall");
+            sheet5.setColumnWidth(14, 5000);
             cellWT = titleRow.createCell(15);
             cellWT.setCellValue("auc");
+            sheet5.setColumnWidth(15, 5000);
             cellWT = titleRow.createCell(16);
             cellWT.setCellValue("kappa");
-            sheet5.setColumnWidth(0, 5000);
-            sheet5.setColumnWidth(1, 6000);
-            sheet5.setColumnWidth(2, 5000);
-            sheet5.setColumnWidth(3, 7000);
-            sheet5.setColumnWidth(4, 7000);
-            sheet5.setColumnWidth(5, 5000);
-            sheet5.setColumnWidth(6, 5000);
-            sheet5.setColumnWidth(7, 5000);
-            sheet5.setColumnWidth(8, 5000);
-            sheet5.setColumnWidth(9, 5000);
-            sheet5.setColumnWidth(10, 5000);
-            sheet5.setColumnWidth(11, 5000);
-            sheet5.setColumnWidth(12, 5000);
-            sheet5.setColumnWidth(13, 5000);
-            sheet5.setColumnWidth(14, 5000);
-            sheet5.setColumnWidth(15, 5000);
             sheet5.setColumnWidth(16, 5000);
-            this.wb.write(fileOut);*/
+            this.wb.write(fileOut);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
