@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ExcelTools {
 
@@ -271,26 +273,35 @@ public class ExcelTools {
 
     private boolean createWekaTable(String project) {
         this.wb = new HSSFWorkbook();
-
+        int count = 0;
+        Logger logger = Logger.getLogger(ExcelTools.class.getName());
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
             Sheet sheet5 = wb.createSheet("weka");
             Row titleRow = sheet5.createRow(0);
             Cell cellWT = titleRow.createCell(0);
             cellWT.setCellValue("project");                  //project
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(1);
             cellWT.setCellValue("numberTrainingRelease");                  //Release
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(2);
             cellWT.setCellValue("percentTraining");                  //Name of the class
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(3);
             cellWT.setCellValue("percentDefectiveTraining");                  //# revision
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(4);
             cellWT.setCellValue("percentDefectiveTesting");                  //LOC ADDED
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(5);
             cellWT.setCellValue("classifier");
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(6);
             cellWT.setCellValue("balancing");
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(7);
             cellWT.setCellValue("featureSelection");
+            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(8);
             cellWT.setCellValue("sensitivity");
             cellWT = titleRow.createCell(9);
