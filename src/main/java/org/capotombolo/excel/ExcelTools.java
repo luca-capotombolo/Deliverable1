@@ -112,6 +112,7 @@ public class ExcelTools {
         }
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO + this.cell1 +  ".csv"))) {
+            /*
             Sheet sheet = this.wb.getSheet(this.sheetName);
             int start = sheet.getLastRowNum();
             Row row;
@@ -146,7 +147,7 @@ public class ExcelTools {
                 cell.setCellValue(file.getState().toString());
                 start += 1;
             }
-            this.wb.write(fileOut);
+            this.wb.write(fileOut);*/
         } catch (IOException e) {
             e.printStackTrace();
             return false;
