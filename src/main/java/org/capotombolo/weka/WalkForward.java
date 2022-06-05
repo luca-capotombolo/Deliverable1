@@ -41,16 +41,15 @@ public class WalkForward {
         return fullList;
     }
 
-    private void writeExcelRowWeka(int count, String classifier, String balancing, String featureSelection, float sensitivity,
-                                   List<ExcelRowWeka> excelRowWekaList, double [] bugs,Evaluation eval){
+    private void writeExcelRowWeka(int count, String [] args, float sensitivity, List<ExcelRowWeka> excelRowWekaList, double [] bugs,Evaluation eval){
         ExcelRowWeka excelRowWekaFS = new ExcelRowWeka();
         excelRowWekaFS.setNumberTrainingRelease(count);
         excelRowWekaFS.setPercentTraining(-1);
         excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
         excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-        excelRowWekaFS.setClassifier(classifier);
-        excelRowWekaFS.setBalancing(balancing);
-        excelRowWekaFS.setFeatureSelection(featureSelection);
+        excelRowWekaFS.setClassifier(args[0]);
+        excelRowWekaFS.setBalancing(args[1]);
+        excelRowWekaFS.setFeatureSelection(args[2]);
         excelRowWekaFS.setSensitivity(sensitivity);
         excelRowWekaFS.setTp(eval.numTruePositives(0));
         excelRowWekaFS.setFp(eval.numFalsePositives(0));
@@ -118,7 +117,9 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingFS, newTestingFS);
             String bestFirst = "BEST FIRST";
 
-            writeExcelRowWeka(count1, NAIVE_BAYES, "NONE", bestFirst,0.5f,excelRowWekaList,bugs,eval);
+            String [] args = {NAIVE_BAYES, "NONE", bestFirst};
+
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
             //RANDOM FOREST
             classifierRandomForestFS = new RandomForest();
@@ -137,7 +138,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingFS, newTestingFS);
 
-            writeExcelRowWeka(count1, RANDOM_FOREST, "NONE", bestFirst,0.5f,excelRowWekaList,bugs,eval);
+            args = new String[]{RANDOM_FOREST, "NONE", bestFirst};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
 
 
@@ -157,7 +159,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingFS, newTestingFS);
 
-            writeExcelRowWeka(count1, IBK, "NONE", bestFirst,0.5f,excelRowWekaList,bugs,eval);
+            args = new String[]{IBK, "NONE", bestFirst};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
         }
         return excelRowWekaList;
@@ -249,7 +252,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingUS, testingUS);
 
-            writeExcelRowWeka(count1, NAIVE_BAYES, underSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
+            String [] args = new String[]{NAIVE_BAYES, underSampling, "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
 
 
@@ -268,7 +272,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingUS, testingUS);
 
-            writeExcelRowWeka(count1, RANDOM_FOREST, underSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
+            args = new String[]{RANDOM_FOREST, underSampling, "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
 
 
@@ -287,7 +292,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingUS, testingUS);
 
-            writeExcelRowWeka(count1, IBK, underSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
+            args = new String[]{IBK, underSampling, "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
         }
         return excelRowWekaList;
@@ -346,7 +352,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingOS, testingOS);
 
-            writeExcelRowWeka(count1, NAIVE_BAYES, overSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
+            String [] args = new String[]{NAIVE_BAYES, overSampling, "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
 
 
@@ -365,7 +372,9 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingOS, testingOS);
 
-            writeExcelRowWeka(count1, RANDOM_FOREST, overSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
+
+            args = new String[]{RANDOM_FOREST, overSampling, "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
 
 
@@ -384,7 +393,8 @@ public class WalkForward {
 
             bugs = getCountBuggyNoBuggy(newTrainingOS, testingOS);
 
-            writeExcelRowWeka(count1, IBK, overSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
+            args = new String[]{IBK, overSampling, "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
         }
         return excelRowWekaList;
@@ -430,7 +440,8 @@ public class WalkForward {
             eval = new Evaluation(testing);
             eval.evaluateModel(classifierBayes, testing);
 
-            writeExcelRowWeka(count1, NAIVE_BAYES, "NONE", "NONE",0.5f,excelRowWekaList,bugs,eval);
+            String [] args = new String[]{NAIVE_BAYES, "NONE", "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
 
             classifierRandomForest = new RandomForest();
@@ -438,14 +449,17 @@ public class WalkForward {
             eval = new Evaluation(testing);
             eval.evaluateModel(classifierRandomForest, testing);
 
-            writeExcelRowWeka(count1, RANDOM_FOREST, "NONE", "NONE",0.5f,excelRowWekaList,bugs,eval);
+            args = new String[]{RANDOM_FOREST, "NONE", "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
             classifierIBK = new IBk();
             classifierIBK.buildClassifier(training);
             eval = new Evaluation(testing);
             eval.evaluateModel(classifierIBK, testing);
 
-            writeExcelRowWeka(count1, IBK, "NONE", "NONE",0.5f,excelRowWekaList,bugs,eval);
+
+            args = new String[]{IBK, "NONE", "NONE"};
+            writeExcelRowWeka(count1, args,0.5f,excelRowWekaList,bugs,eval);
 
         }
         return excelRowWekaList;
