@@ -225,16 +225,6 @@ public class ExcelTools {
             Cell cellWE;
             for(ExcelRowWeka excelRowWeka: excelRowWekaList){
                 rowWE = sheet6.createRow(startWE + 1);
-                cellWE = rowWE.createCell(0);
-                cellWE.setCellValue(project);
-                cellWE = rowWE.createCell(1);
-                cellWE.setCellValue(excelRowWeka.getNumberTrainingRelease());
-                cellWE = rowWE.createCell(2);
-                cellWE.setCellValue(excelRowWeka.getPercentTraining());
-                cellWE = rowWE.createCell(3);
-                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
-                cellWE = rowWE.createCell(4);
-                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
                 cellWE = rowWE.createCell(5);
                 cellWE.setCellValue(excelRowWeka.getClassifier());
                 cellWE = rowWE.createCell(6);
@@ -259,6 +249,16 @@ public class ExcelTools {
                 cellWE.setCellValue(excelRowWeka.getAuc());
                 cellWE = rowWE.createCell(16);
                 cellWE.setCellValue(excelRowWeka.getKappa());
+                cellWE = rowWE.createCell(0);
+                cellWE.setCellValue(project);
+                cellWE = rowWE.createCell(1);
+                cellWE.setCellValue(excelRowWeka.getNumberTrainingRelease());
+                cellWE = rowWE.createCell(2);
+                cellWE.setCellValue(excelRowWeka.getPercentTraining());
+                cellWE = rowWE.createCell(3);
+                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
+                cellWE = rowWE.createCell(4);
+                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
                 startWE += 1;
             }
             this.wb.write(fileOut);
