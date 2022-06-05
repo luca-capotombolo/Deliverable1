@@ -224,7 +224,6 @@ public class ExcelTools {
             Row rowWE;
             Cell cellWE;
             for(ExcelRowWeka excelRowWeka: excelRowWekaList){
-                /*
                 rowWE = sheet6.createRow(startWE + 1);
                 cellWE = rowWE.createCell(5);
                 cellWE.setCellValue(excelRowWeka.getClassifier());
@@ -260,7 +259,7 @@ public class ExcelTools {
                 cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
                 cellWE = rowWE.createCell(4);
                 cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
-                startWE += 1;*/
+                startWE += 1;
             }
             this.wb.write(fileOut);
         } catch (IOException e) {
@@ -274,6 +273,7 @@ public class ExcelTools {
         this.wb = new HSSFWorkbook();
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
+            /*
             Sheet sheet5 = wb.createSheet("weka");
             Row titleRow = sheet5.createRow(0);
             Cell cellWT = titleRow.createCell(0);
@@ -327,7 +327,7 @@ public class ExcelTools {
             sheet5.setColumnWidth(14, 5000);
             sheet5.setColumnWidth(15, 5000);
             sheet5.setColumnWidth(16, 5000);
-            this.wb.write(fileOut);
+            this.wb.write(fileOut);*/
         } catch (Exception e) {
             e.printStackTrace();
             return false;
