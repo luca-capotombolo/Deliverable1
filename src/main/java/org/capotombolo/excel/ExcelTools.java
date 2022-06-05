@@ -4,6 +4,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.capotombolo.utils.MyFile;
 import org.capotombolo.utils.Release;
+import org.capotombolo.weka.ExcelRowWeka;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -30,6 +32,7 @@ public class ExcelTools {
     private final String cell13;
     private  Workbook wb;
     private final String title;
+
 
     public ExcelTools(String sheetName, String cell1, String title) {
         this.sheetName = sheetName;
@@ -204,5 +207,136 @@ public class ExcelTools {
             return false;
         }
         return true;
+    }
+
+    public boolean writeWekaResult(List<ExcelRowWeka> excelRowWekaList, String project){
+        boolean ret = createWekaTable(project);
+        if(!ret)
+            return false;
+        ret = writeEvaluation(excelRowWekaList, project);
+        return ret;
+    }
+
+    private boolean writeEvaluation(List<ExcelRowWeka> excelRowWekaList, String project) {
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
+            Sheet sheet = this.wb.getSheet("weka");
+            int start = sheet.getLastRowNum();
+            Row row;
+            Cell cell;
+            for(ExcelRowWeka excelRowWeka: excelRowWekaList){
+                row = sheet.createRow(start + 1);
+                cell = row.createCell(0);
+                cell.setCellValue(project);
+                cell = row.createCell(1);
+                cell.setCellValue(excelRowWeka.getNumberTrainingRelease());
+                cell = row.createCell(2);
+                cell.setCellValue(excelRowWeka.getPercentTraining());
+                cell = row.createCell(3);
+                cell.setCellValue(excelRowWeka.getPercentDefectiveTraining());
+                cell = row.createCell(4);
+                cell.setCellValue(excelRowWeka.getPercentDefectiveTesting());
+                cell = row.createCell(5);
+                cell.setCellValue(excelRowWeka.getClassifier());
+                cell = row.createCell(6);
+                cell.setCellValue(excelRowWeka.getBalancing());
+                cell = row.createCell(7);
+                cell.setCellValue(excelRowWeka.getFeatureSelection());
+                cell = row.createCell(8);
+                cell.setCellValue(excelRowWeka.getSensitivity());
+                cell = row.createCell(9);
+                cell.setCellValue(excelRowWeka.getTp());
+                cell = row.createCell(10);
+                cell.setCellValue(excelRowWeka.getFp());
+                cell = row.createCell(11);
+                cell.setCellValue(excelRowWeka.getTn());
+                cell = row.createCell(12);
+                cell.setCellValue(excelRowWeka.getFn());
+                cell = row.createCell(13);
+                cell.setCellValue(excelRowWeka.getPrecision());
+                cell = row.createCell(14);
+                cell.setCellValue(excelRowWeka.getRecall());
+                cell = row.createCell(15);
+                cell.setCellValue(excelRowWeka.getAuc());
+                cell = row.createCell(16);
+                cell.setCellValue(excelRowWeka.getKappa());
+                start += 1;
+            }
+            this.wb.write(fileOut);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean createWekaTable(String project) {
+        this.wb = new HSSFWorkbook();
+
+        try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
+            Sheet sheet = wb.createSheet("weka");
+            Row titleRow = sheet.createRow(0);
+            Cell cell = titleRow.createCell(0);
+            cell.setCellValue("project");                  //project
+            cell = titleRow.createCell(1);
+            cell.setCellValue("numberTrainingRelease");                  //Release
+            cell = titleRow.createCell(2);
+            cell.setCellValue("percentTraining");                  //Name of the class
+            cell = titleRow.createCell(3);
+            cell.setCellValue("percentDefectiveTraining");                  //# revision
+            cell = titleRow.createCell(4);
+            cell.setCellValue("percentDefectiveTesting");                  //LOC ADDED
+            cell = titleRow.createCell(5);
+            cell.setCellValue("classifier");
+            cell = titleRow.createCell(6);
+            cell.setCellValue("balancing");
+            cell = titleRow.createCell(7);
+            cell.setCellValue("featureSelection");
+            cell = titleRow.createCell(8);
+            cell.setCellValue("sensitivity");
+            cell = titleRow.createCell(9);
+            cell.setCellValue("TP");
+            cell = titleRow.createCell(10);
+            cell.setCellValue("FP");
+            cell = titleRow.createCell(11);
+            cell.setCellValue("TN");
+            cell = titleRow.createCell(12);
+            cell.setCellValue("FN");
+            cell = titleRow.createCell(13);
+            cell.setCellValue("precision");
+            cell = titleRow.createCell(14);
+            cell.setCellValue("recall");
+            cell = titleRow.createCell(15);
+            cell.setCellValue("auc");
+            cell = titleRow.createCell(16);
+            cell.setCellValue("kappa");
+            sheet.setColumnWidth(0, 5000);
+            sheet.setColumnWidth(1, 6000);
+            sheet.setColumnWidth(2, 5000);
+            sheet.setColumnWidth(3, 7000);
+            sheet.setColumnWidth(4, 7000);
+            sheet.setColumnWidth(5, 5000);
+            sheet.setColumnWidth(6, 5000);
+            sheet.setColumnWidth(7, 5000);
+            sheet.setColumnWidth(8, 5000);
+            sheet.setColumnWidth(9, 5000);
+            sheet.setColumnWidth(10, 5000);
+            sheet.setColumnWidth(11, 5000);
+            sheet.setColumnWidth(12, 5000);
+            sheet.setColumnWidth(13, 5000);
+            sheet.setColumnWidth(14, 5000);
+            sheet.setColumnWidth(15, 5000);
+            sheet.setColumnWidth(16, 5000);
+            this.wb.write(fileOut);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        ExcelTools excelTools = new ExcelTools(null, null, null);
+        excelTools.writeWekaResult(null, "bookkeeper");
     }
 }

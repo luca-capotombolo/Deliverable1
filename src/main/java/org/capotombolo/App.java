@@ -8,20 +8,21 @@ import org.capotombolo.metrics.*;
 import org.capotombolo.proportion.Proportion;
 import org.capotombolo.utils.*;
 import org.capotombolo.weka.ArffFileCreator;
+import org.capotombolo.weka.ExcelRowWeka;
 import org.capotombolo.weka.WalkForward;
 import java.util.*;
 
 public class App 
 {
 
-    static final String PROJECT = "BOOKKEEPER";
+    static final String PROJECT = "ZOOKEEPER";
 
     public static void main(String[] args) throws Exception {
         final String PATH = "C:" +
                 "\\Users" +
                 "\\lucac" +
                 "\\ESAME FALESSI" +
-                "\\bookkeeper";
+                "\\zookeeper";
 
         //Get All Releases from JIRA
         List<Release> releaseList = Jira.getReleases(PROJECT);
@@ -104,6 +105,11 @@ public class App
         Execution.labelingTrainingSets(nRelease, releaseList, PROJECT, issueList, hashMapReleaseFiles, pSubGlobals, hashMapIssueCommits);
 
         WalkForward walkForward = new WalkForward();
-        walkForward.executeWalkForward(releaseList, PROJECT);
+        List<ExcelRowWeka> excelRowWekaList = walkForward.executeWalkForward(releaseList, PROJECT);
+
+        ExcelTools excelTools1 = new ExcelTools(null, null, null);
+        ret = excelTools1.writeWekaResult(excelRowWekaList, PROJECT);
+        if(!ret)
+            System.exit(-90);
     }
 }
