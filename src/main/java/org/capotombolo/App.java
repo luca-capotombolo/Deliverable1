@@ -1,6 +1,7 @@
 package org.capotombolo;
 
 import org.capotombolo.excel.ExcelTools;
+import org.capotombolo.excel.ExcelWeka;
 import org.capotombolo.flow.Execution;
 import org.capotombolo.git.GitSkills;
 import org.capotombolo.jira.Jira;
@@ -107,8 +108,8 @@ public class App
         WalkForward walkForward = new WalkForward();
         List<ExcelRowWeka> excelRowWekaList = walkForward.executeWalkForward(releaseList, PROJECT);
 
-        ExcelTools excelTools1 = new ExcelTools(null, null, null);
-        ret = excelTools1.writeWekaResult(excelRowWekaList, PROJECT);
+        ExcelWeka excelWeka = new ExcelWeka();
+        ret = excelWeka.writeWekaResult(excelRowWekaList, PROJECT);
         if(!ret)
             System.exit(-90);
     }
