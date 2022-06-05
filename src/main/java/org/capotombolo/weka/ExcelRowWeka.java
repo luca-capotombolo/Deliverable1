@@ -130,7 +130,7 @@ public class ExcelRowWeka {
     }
 
     private  int numberTrainingRelease;
-    private  float percentTraining;
+    private  float percentTraining = 0;
     private  double percentDefectiveTraining;
     private  double percentDefectiveTesting;
     private  String classifier;

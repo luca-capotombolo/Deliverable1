@@ -16,14 +16,14 @@ import java.util.*;
 public class App 
 {
 
-    static final String PROJECT = "BOOKKEEPER";
+    static final String PROJECT = "ZOOKEEPER";
 
     public static void main(String[] args) throws Exception {
         final String PATH = "C:" +
                 "\\Users" +
                 "\\lucac" +
                 "\\ESAME FALESSI" +
-                "\\bookkeeper";
+                "\\zookeeper";
 
         //Get All Releases from JIRA
         List<Release> releaseList = Jira.getReleases(PROJECT);
