@@ -56,6 +56,7 @@ public class ExcelTools {
         this.wb = new HSSFWorkbook();
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO + this.cell1 +  ".csv"))) {
+            /*
             Sheet sheet = wb.createSheet(this.sheetName);
             Row titleRow = sheet.createRow(0);
             Cell cell = titleRow.createCell(0);
@@ -97,7 +98,7 @@ public class ExcelTools {
             sheet.setColumnWidth(10, 5000);
             sheet.setColumnWidth(11, 5000);
             sheet.setColumnWidth(12, 3000);
-            this.wb.write(fileOut);
+            this.wb.write(fileOut);*/
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -112,7 +113,6 @@ public class ExcelTools {
         }
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO + this.cell1 +  ".csv"))) {
-            /*
             Sheet sheet = this.wb.getSheet(this.sheetName);
             int start = sheet.getLastRowNum();
             Row row;
@@ -147,7 +147,7 @@ public class ExcelTools {
                 cell.setCellValue(file.getState().toString());
                 start += 1;
             }
-            this.wb.write(fileOut);*/
+            this.wb.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
