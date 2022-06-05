@@ -77,11 +77,22 @@ public class ExcelWeka {
 
     private boolean createWekaTable(String project) {
         this.wb = new HSSFWorkbook();
+        int [] widths = {5000, 6000, 5000, 7000, 7000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
+        String [] titles = {"project", "numberTrainingRelease", "percentTraining", "percentDefectiveTraining", "percentDefectiveTesting",
+                "classifier", "balancing", "featureSelection", "sensitivity", "TP", "FP", "TN", "FN", "precision", "recall", "auc","kappa"};
+        int count = 0;
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
 
             Sheet sheet5 = wb.createSheet("weka");
             Row titleRow = sheet5.createRow(0);
+
+            for(;count<widths.length;count++){
+                Cell cellWT = titleRow.createCell(count);
+                cellWT.setCellValue(titles[count]);
+                sheet5.setColumnWidth(count, widths[count]);
+            }
+            /*
             Cell cellWT = titleRow.createCell(0);
             cellWT.setCellValue("project");                  //project
             sheet5.setColumnWidth(0, 5000);
@@ -132,7 +143,7 @@ public class ExcelWeka {
             sheet5.setColumnWidth(15, 5000);
             cellWT = titleRow.createCell(16);
             cellWT.setCellValue("kappa");
-            sheet5.setColumnWidth(16, 5000);
+            sheet5.setColumnWidth(16, 5000);*/
             this.wb.write(fileOut);
         } catch (Exception e) {
             e.printStackTrace();

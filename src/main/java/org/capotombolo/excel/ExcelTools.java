@@ -54,6 +54,7 @@ public class ExcelTools {
         this.wb = new HSSFWorkbook();
 
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(this.title + MACRO + this.cell1 +  ".csv"))) {
+
             Sheet sheet = wb.createSheet(this.sheetName);
             Row titleRow = sheet.createRow(0);
             Cell cell = titleRow.createCell(0);
