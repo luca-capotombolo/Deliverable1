@@ -77,7 +77,6 @@ public class WalkForward {
         Evaluation eval;
         Release youngerRelease;
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
-        ExcelRowWeka excelRowWekaFS;
 
         for (int count1 = 1; count1 <= releaseList.size() / 2; count1++) {
             youngerRelease = releaseList.get(count1 - 1);
@@ -120,26 +119,6 @@ public class WalkForward {
             String bestFirst = "BEST FIRST";
 
             writeExcelRowWeka(count1, NAIVE_BAYES, "NONE", bestFirst,0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaFS = new ExcelRowWeka();
-            excelRowWekaFS.setNumberTrainingRelease(count1);
-            excelRowWekaFS.setPercentTraining(-1);
-            excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaFS.setClassifier(NAIVE_BAYES);
-            excelRowWekaFS.setBalancing("NONE");
-            String bestFirst = "BEST FIRST";
-            excelRowWekaFS.setFeatureSelection(bestFirst);
-            excelRowWekaFS.setSensitivity(-1);
-            excelRowWekaFS.setTp(eval.numTruePositives(0));
-            excelRowWekaFS.setFp(eval.numFalsePositives(0));
-            excelRowWekaFS.setTn(eval.numTruePositives(1));
-            excelRowWekaFS.setFn(eval.numFalsePositives(1));
-            excelRowWekaFS.setPrecision(eval.precision(0));
-            excelRowWekaFS.setRecall(eval.recall(0));
-            excelRowWekaFS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaFS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaFS);*/
 
             //RANDOM FOREST
             classifierRandomForestFS = new RandomForest();
@@ -159,25 +138,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingFS, newTestingFS);
 
             writeExcelRowWeka(count1, RANDOM_FOREST, "NONE", bestFirst,0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaFS = new ExcelRowWeka();
-            excelRowWekaFS.setNumberTrainingRelease(count1);
-            excelRowWekaFS.setPercentTraining(-1);
-            excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaFS.setClassifier(RANDOM_FOREST);
-            excelRowWekaFS.setBalancing("NONE");
-            excelRowWekaFS.setFeatureSelection(bestFirst);
-            excelRowWekaFS.setSensitivity(-1);
-            excelRowWekaFS.setTp(eval.numTruePositives(0));
-            excelRowWekaFS.setFp(eval.numFalsePositives(0));
-            excelRowWekaFS.setTn(eval.numTruePositives(1));
-            excelRowWekaFS.setFn(eval.numFalsePositives(1));
-            excelRowWekaFS.setPrecision(eval.precision(0));
-            excelRowWekaFS.setRecall(eval.recall(0));
-            excelRowWekaFS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaFS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaFS);*/
+
 
 
             classifierIBKFS = new IBk();
@@ -197,25 +158,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingFS, newTestingFS);
 
             writeExcelRowWeka(count1, IBK, "NONE", bestFirst,0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaFS = new ExcelRowWeka();
-            excelRowWekaFS.setNumberTrainingRelease(count1);
-            excelRowWekaFS.setPercentTraining(-1);
-            excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaFS.setClassifier(IBK);
-            excelRowWekaFS.setBalancing("NONE");
-            excelRowWekaFS.setFeatureSelection(bestFirst);
-            excelRowWekaFS.setSensitivity(-1);
-            excelRowWekaFS.setTp(eval.numTruePositives(0));
-            excelRowWekaFS.setFp(eval.numFalsePositives(0));
-            excelRowWekaFS.setTn(eval.numTruePositives(1));
-            excelRowWekaFS.setFn(eval.numFalsePositives(1));
-            excelRowWekaFS.setPrecision(eval.precision(0));
-            excelRowWekaFS.setRecall(eval.recall(0));
-            excelRowWekaFS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaFS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaFS);*/
+
         }
         return excelRowWekaList;
     }
@@ -269,7 +212,6 @@ public class WalkForward {
         double [] bugs;
         Release youngerRelease;
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
-        ExcelRowWeka excelRowWekaUS;
         String underSampling = "UNDER SAMPLING";
 
 
@@ -308,25 +250,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingUS, testingUS);
 
             writeExcelRowWeka(count1, NAIVE_BAYES, underSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaUS = new ExcelRowWeka();
-            excelRowWekaUS.setNumberTrainingRelease(count1);
-            excelRowWekaUS.setPercentTraining(-1);
-            excelRowWekaUS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaUS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaUS.setClassifier(NAIVE_BAYES);
-            excelRowWekaUS.setBalancing(underSampling);
-            excelRowWekaUS.setFeatureSelection("NONE");
-            excelRowWekaUS.setSensitivity(-1);
-            excelRowWekaUS.setTp(eval.numTruePositives(0));
-            excelRowWekaUS.setFp(eval.numFalsePositives(0));
-            excelRowWekaUS.setTn(eval.numTruePositives(1));
-            excelRowWekaUS.setFn(eval.numFalsePositives(1));
-            excelRowWekaUS.setPrecision(eval.precision(0));
-            excelRowWekaUS.setRecall(eval.recall(0));
-            excelRowWekaUS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaUS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaUS);*/
+
 
 
             classifierRandomForestUS = new RandomForest();
@@ -345,25 +269,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingUS, testingUS);
 
             writeExcelRowWeka(count1, RANDOM_FOREST, underSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaUS = new ExcelRowWeka();
-            excelRowWekaUS.setNumberTrainingRelease(count1);
-            excelRowWekaUS.setPercentTraining(-1);
-            excelRowWekaUS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaUS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaUS.setClassifier(RANDOM_FOREST);
-            excelRowWekaUS.setBalancing(underSampling);
-            excelRowWekaUS.setFeatureSelection("NONE");
-            excelRowWekaUS.setSensitivity(-1);
-            excelRowWekaUS.setTp(eval.numTruePositives(0));
-            excelRowWekaUS.setFp(eval.numFalsePositives(0));
-            excelRowWekaUS.setTn(eval.numTruePositives(1));
-            excelRowWekaUS.setFn(eval.numFalsePositives(1));
-            excelRowWekaUS.setPrecision(eval.precision(0));
-            excelRowWekaUS.setRecall(eval.recall(0));
-            excelRowWekaUS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaUS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaUS);*/
+
 
 
             classifierIBKUS = new IBk();
@@ -382,25 +288,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingUS, testingUS);
 
             writeExcelRowWeka(count1, IBK, underSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
-/*
-            excelRowWekaUS = new ExcelRowWeka();
-            excelRowWekaUS.setNumberTrainingRelease(count1);
-            excelRowWekaUS.setPercentTraining(-1);
-            excelRowWekaUS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaUS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaUS.setClassifier(IBK);
-            excelRowWekaUS.setBalancing(underSampling);
-            excelRowWekaUS.setFeatureSelection("NONE");
-            excelRowWekaUS.setSensitivity(-1);
-            excelRowWekaUS.setTp(eval.numTruePositives(0));
-            excelRowWekaUS.setFp(eval.numFalsePositives(0));
-            excelRowWekaUS.setTn(eval.numTruePositives(1));
-            excelRowWekaUS.setFn(eval.numFalsePositives(1));
-            excelRowWekaUS.setPrecision(eval.precision(0));
-            excelRowWekaUS.setRecall(eval.recall(0));
-            excelRowWekaUS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaUS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaUS);*/
+
         }
         return excelRowWekaList;
     }
@@ -418,7 +306,6 @@ public class WalkForward {
         Evaluation eval;
         Release youngerRelease;
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
-        ExcelRowWeka excelRowWekaOS;
         double [] bugs;
         String overSampling = "OVER SAMPLING";
 
@@ -460,25 +347,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingOS, testingOS);
 
             writeExcelRowWeka(count1, NAIVE_BAYES, overSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaOS = new ExcelRowWeka();
-            excelRowWekaOS.setNumberTrainingRelease(count1);
-            excelRowWekaOS.setPercentTraining(-1);
-            excelRowWekaOS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaOS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaOS.setClassifier(NAIVE_BAYES);
-            excelRowWekaOS.setBalancing(overSampling);
-            excelRowWekaOS.setFeatureSelection("NONE");
-            excelRowWekaOS.setSensitivity(-1);
-            excelRowWekaOS.setTp(eval.numTruePositives(0));
-            excelRowWekaOS.setFp(eval.numFalsePositives(0));
-            excelRowWekaOS.setTn(eval.numTruePositives(1));
-            excelRowWekaOS.setFn(eval.numFalsePositives(1));
-            excelRowWekaOS.setPrecision(eval.precision(0));
-            excelRowWekaOS.setRecall(eval.recall(0));
-            excelRowWekaOS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaOS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaOS);*/
+
 
 
             classifierRandomForestOS = new RandomForest();
@@ -497,25 +366,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingOS, testingOS);
 
             writeExcelRowWeka(count1, RANDOM_FOREST, overSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaOS = new ExcelRowWeka();
-            excelRowWekaOS.setNumberTrainingRelease(count1);
-            excelRowWekaOS.setPercentTraining(-1);
-            excelRowWekaOS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaOS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaOS.setClassifier(RANDOM_FOREST);
-            excelRowWekaOS.setBalancing(overSampling);
-            excelRowWekaOS.setFeatureSelection("NONE");
-            excelRowWekaOS.setSensitivity(-1);
-            excelRowWekaOS.setTp(eval.numTruePositives(0));
-            excelRowWekaOS.setFp(eval.numFalsePositives(0));
-            excelRowWekaOS.setTn(eval.numTruePositives(1));
-            excelRowWekaOS.setFn(eval.numFalsePositives(1));
-            excelRowWekaOS.setPrecision(eval.precision(0));
-            excelRowWekaOS.setRecall(eval.recall(0));
-            excelRowWekaOS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaOS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaOS);*/
+
 
 
             classifierIBKOS = new IBk();
@@ -534,25 +385,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(newTrainingOS, testingOS);
 
             writeExcelRowWeka(count1, IBK, overSampling, "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWekaOS = new ExcelRowWeka();
-            excelRowWekaOS.setNumberTrainingRelease(count1);
-            excelRowWekaOS.setPercentTraining(-1);
-            excelRowWekaOS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWekaOS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaOS.setClassifier(IBK);
-            excelRowWekaOS.setBalancing(overSampling);
-            excelRowWekaOS.setFeatureSelection("NONE");
-            excelRowWekaOS.setSensitivity(-1);
-            excelRowWekaOS.setTp(eval.numTruePositives(0));
-            excelRowWekaOS.setFp(eval.numFalsePositives(0));
-            excelRowWekaOS.setTn(eval.numTruePositives(1));
-            excelRowWekaOS.setFn(eval.numFalsePositives(1));
-            excelRowWekaOS.setPrecision(eval.precision(0));
-            excelRowWekaOS.setRecall(eval.recall(0));
-            excelRowWekaOS.setAuc(eval.areaUnderROC(0));
-            excelRowWekaOS.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWekaOS);*/
+
         }
         return excelRowWekaList;
     }
@@ -569,7 +402,6 @@ public class WalkForward {
         Evaluation eval;
         Release youngerRelease;
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
-        ExcelRowWeka excelRowWeka;
         double [] bugs;
 
 
@@ -599,25 +431,7 @@ public class WalkForward {
             eval.evaluateModel(classifierBayes, testing);
 
             writeExcelRowWeka(count1, NAIVE_BAYES, "NONE", "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWeka = new ExcelRowWeka();
-            excelRowWeka.setNumberTrainingRelease(count1);
-            excelRowWeka.setPercentTraining(-1);
-            excelRowWeka.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWeka.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWeka.setClassifier(NAIVE_BAYES);
-            excelRowWeka.setBalancing("NONE");
-            excelRowWeka.setFeatureSelection("NONE");
-            excelRowWeka.setSensitivity(-1);
-            excelRowWeka.setTp(eval.numTruePositives(0));
-            excelRowWeka.setFp(eval.numFalsePositives(0));
-            excelRowWeka.setTn(eval.numTruePositives(1));
-            excelRowWeka.setFn(eval.numFalsePositives(1));
-            excelRowWeka.setPrecision(eval.precision(0));
-            excelRowWeka.setRecall(eval.recall(0));
-            excelRowWeka.setAuc(eval.areaUnderROC(0));
-            excelRowWeka.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWeka);*/
+
 
             classifierRandomForest = new RandomForest();
             classifierRandomForest.buildClassifier(training);
@@ -625,26 +439,6 @@ public class WalkForward {
             eval.evaluateModel(classifierRandomForest, testing);
 
             writeExcelRowWeka(count1, RANDOM_FOREST, "NONE", "NONE",0.5f,excelRowWekaList,bugs,eval);
-/*
-            excelRowWeka = new ExcelRowWeka();
-            excelRowWeka.setNumberTrainingRelease(count1);
-            excelRowWeka.setPercentTraining(-1);
-            excelRowWeka.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWeka.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWeka.setClassifier(RANDOM_FOREST);
-            excelRowWeka.setBalancing("NONE");
-            excelRowWeka.setFeatureSelection("NONE");
-            excelRowWeka.setSensitivity(-1);
-            excelRowWeka.setTp(eval.numTruePositives(0));
-            excelRowWeka.setFp(eval.numFalsePositives(0));
-            excelRowWeka.setTn(eval.numTruePositives(1));
-            excelRowWeka.setFn(eval.numFalsePositives(1));
-            excelRowWeka.setPrecision(eval.precision(0));
-            excelRowWeka.setRecall(eval.recall(0));
-            excelRowWeka.setAuc(eval.areaUnderROC(0));
-            excelRowWeka.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWeka);
-*/
 
             classifierIBK = new IBk();
             classifierIBK.buildClassifier(training);
@@ -652,25 +446,7 @@ public class WalkForward {
             eval.evaluateModel(classifierIBK, testing);
 
             writeExcelRowWeka(count1, IBK, "NONE", "NONE",0.5f,excelRowWekaList,bugs,eval);
-            /*
-            excelRowWeka = new ExcelRowWeka();
-            excelRowWeka.setNumberTrainingRelease(count1);
-            excelRowWeka.setPercentTraining(-1);
-            excelRowWeka.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
-            excelRowWeka.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWeka.setClassifier(IBK);
-            excelRowWeka.setBalancing("NONE");
-            excelRowWeka.setFeatureSelection("NONE");
-            excelRowWeka.setSensitivity(-1);
-            excelRowWeka.setTp(eval.numTruePositives(0));
-            excelRowWeka.setFp(eval.numFalsePositives(0));
-            excelRowWeka.setTn(eval.numTruePositives(1));
-            excelRowWeka.setFn(eval.numFalsePositives(1));
-            excelRowWeka.setPrecision(eval.precision(0));
-            excelRowWeka.setRecall(eval.recall(0));
-            excelRowWeka.setAuc(eval.areaUnderROC(0));
-            excelRowWeka.setKappa(eval.kappa());
-            excelRowWekaList.add(excelRowWeka);*/
+
         }
         return excelRowWekaList;
     }
