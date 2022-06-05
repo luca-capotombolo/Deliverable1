@@ -224,6 +224,7 @@ public class ExcelTools {
             Row rowWE;
             Cell cellWE;
             for(ExcelRowWeka excelRowWeka: excelRowWekaList){
+                /*
                 rowWE = sheet6.createRow(startWE + 1);
                 cellWE = rowWE.createCell(5);
                 cellWE.setCellValue(excelRowWeka.getClassifier());
@@ -259,7 +260,7 @@ public class ExcelTools {
                 cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
                 cellWE = rowWE.createCell(4);
                 cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
-                startWE += 1;
+                startWE += 1;*/
             }
             this.wb.write(fileOut);
         } catch (IOException e) {
