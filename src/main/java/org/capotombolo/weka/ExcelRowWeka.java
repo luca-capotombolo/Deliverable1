@@ -145,8 +145,4 @@ public class ExcelRowWeka {
     private  double recall;
     private  double auc;
     private  double kappa;
-
-
-    public ExcelRowWeka() {
-    }
 }

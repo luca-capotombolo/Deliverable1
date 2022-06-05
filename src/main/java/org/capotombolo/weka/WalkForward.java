@@ -20,6 +20,11 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class WalkForward {
+    private final String path = "C:" + "\\Users" + "\\lucac" + "\\MyJava" + "\\Deliverable1";
+    private final String est =".arff";
+    private final String rf = "Random Forest";
+    private final String nb = "Naive Bayes";
+    private final String ibk = "IBK";
 
     public List<ExcelRowWeka> executeWalkForward(List<Release> releaseList, String project) throws Exception {
         List<ExcelRowWeka> list1 = walkForwardStandard(releaseList, project);
@@ -50,15 +55,13 @@ public class WalkForward {
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
         ExcelRowWeka excelRowWekaFS;
 
-        for (int count1 = 0; count1 <= releaseList.size() / 2; count1++) {
-            if (count1 == 0)
-                continue;
+        for (int count1 = 1; count1 <= releaseList.size() / 2; count1++) {
             youngerRelease = releaseList.get(count1 - 1);
             testingReleaseFS = releaseList.get(count1);
 
-            sourceFS1 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\training_" + project + "_" + youngerRelease.name + ".arff");
+            sourceFS1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
             trainingFS = sourceFS1.getDataSet();
-            sourceFS2 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\testing_" + project + "_" + testingReleaseFS.name + ".arff");
+            sourceFS2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingReleaseFS.name + est);
             testingFS = sourceFS2.getDataSet();
 
             int numAttr = trainingFS.numAttributes();
@@ -96,9 +99,10 @@ public class WalkForward {
             excelRowWekaFS.setPercentTraining(-1);
             excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaFS.setClassifier("Naive Bayes");
+            excelRowWekaFS.setClassifier(nb);
             excelRowWekaFS.setBalancing("NONE");
-            excelRowWekaFS.setFeatureSelection("BEST FIRST");
+            String bestFirst = "BEST FIRST";
+            excelRowWekaFS.setFeatureSelection(bestFirst);
             excelRowWekaFS.setSensitivity(-1);
             excelRowWekaFS.setTp(eval.numTruePositives(0));
             excelRowWekaFS.setFp(eval.numFalsePositives(0));
@@ -132,9 +136,9 @@ public class WalkForward {
             excelRowWekaFS.setPercentTraining(-1);
             excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaFS.setClassifier("Random Forest");
+            excelRowWekaFS.setClassifier(rf);
             excelRowWekaFS.setBalancing("NONE");
-            excelRowWekaFS.setFeatureSelection("BEST FIRST");
+            excelRowWekaFS.setFeatureSelection(bestFirst);
             excelRowWekaFS.setSensitivity(-1);
             excelRowWekaFS.setTp(eval.numTruePositives(0));
             excelRowWekaFS.setFp(eval.numFalsePositives(0));
@@ -168,9 +172,9 @@ public class WalkForward {
             excelRowWekaFS.setPercentTraining(-1);
             excelRowWekaFS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaFS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaFS.setClassifier("IBK");
+            excelRowWekaFS.setClassifier(ibk);
             excelRowWekaFS.setBalancing("NONE");
-            excelRowWekaFS.setFeatureSelection("BEST FIRST");
+            excelRowWekaFS.setFeatureSelection(bestFirst);
             excelRowWekaFS.setSensitivity(-1);
             excelRowWekaFS.setTp(eval.numTruePositives(0));
             excelRowWekaFS.setFp(eval.numFalsePositives(0));
@@ -235,15 +239,16 @@ public class WalkForward {
         Release youngerRelease;
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
         ExcelRowWeka excelRowWekaUS;
+        String underSampling = "UNDER SAMPLING";
 
 
         for (int count1 = 1; count1 <= releaseList.size() / 2; count1++) {
             youngerRelease = releaseList.get(count1 - 1);
             testingReleaseUS = releaseList.get(count1);
 
-            sourceUnderSampling1 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\training_" + project + "_" + youngerRelease.name + ".arff");
+            sourceUnderSampling1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
             trainingUS = sourceUnderSampling1.getDataSet();
-            sourceUnderSampling2 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\testing_" + project + "_" + testingReleaseUS.name + ".arff");
+            sourceUnderSampling2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingReleaseUS.name + est);
             testingUS = sourceUnderSampling2.getDataSet();
 
             int numAttr = trainingUS.numAttributes();
@@ -277,8 +282,8 @@ public class WalkForward {
             excelRowWekaUS.setPercentTraining(-1);
             excelRowWekaUS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaUS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaUS.setClassifier("Naive Bayes");
-            excelRowWekaUS.setBalancing("UNDER SAMPLING");
+            excelRowWekaUS.setClassifier(nb);
+            excelRowWekaUS.setBalancing(underSampling);
             excelRowWekaUS.setFeatureSelection("NONE");
             excelRowWekaUS.setSensitivity(-1);
             excelRowWekaUS.setTp(eval.numTruePositives(0));
@@ -312,8 +317,8 @@ public class WalkForward {
             excelRowWekaUS.setPercentTraining(-1);
             excelRowWekaUS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaUS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaUS.setClassifier("Random Forest");
-            excelRowWekaUS.setBalancing("UNDER SAMPLING");
+            excelRowWekaUS.setClassifier(rf);
+            excelRowWekaUS.setBalancing(underSampling);
             excelRowWekaUS.setFeatureSelection("NONE");
             excelRowWekaUS.setSensitivity(-1);
             excelRowWekaUS.setTp(eval.numTruePositives(0));
@@ -347,8 +352,8 @@ public class WalkForward {
             excelRowWekaUS.setPercentTraining(-1);
             excelRowWekaUS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaUS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaUS.setClassifier("IBK");
-            excelRowWekaUS.setBalancing("UNDER SAMPLING");
+            excelRowWekaUS.setClassifier(ibk);
+            excelRowWekaUS.setBalancing(underSampling);
             excelRowWekaUS.setFeatureSelection("NONE");
             excelRowWekaUS.setSensitivity(-1);
             excelRowWekaUS.setTp(eval.numTruePositives(0));
@@ -379,15 +384,16 @@ public class WalkForward {
         List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
         ExcelRowWeka excelRowWekaOS;
         double [] bugs;
+        String overSampling = "OVER SAMPLING";
 
 
         for (int count1 = 1; count1 <= releaseList.size() / 2; count1++) {
             youngerRelease = releaseList.get(count1 - 1);
             testingRelease = releaseList.get(count1);
 
-            sourceOverSampling1 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\training_" + project + "_" + youngerRelease.name + ".arff");
+            sourceOverSampling1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
             trainingOS = sourceOverSampling1.getDataSet();
-            sourceOverSampling2 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\testing_" + project + "_" + testingRelease.name + ".arff");
+            sourceOverSampling2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingRelease.name + est);
             testingOS = sourceOverSampling2.getDataSet();
 
             int numAttr = trainingOS.numAttributes();
@@ -422,8 +428,8 @@ public class WalkForward {
             excelRowWekaOS.setPercentTraining(-1);
             excelRowWekaOS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaOS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaOS.setClassifier("Naive Bayes");
-            excelRowWekaOS.setBalancing("OVER SAMPLING");
+            excelRowWekaOS.setClassifier(nb);
+            excelRowWekaOS.setBalancing(overSampling);
             excelRowWekaOS.setFeatureSelection("NONE");
             excelRowWekaOS.setSensitivity(-1);
             excelRowWekaOS.setTp(eval.numTruePositives(0));
@@ -457,8 +463,8 @@ public class WalkForward {
             excelRowWekaOS.setPercentTraining(-1);
             excelRowWekaOS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaOS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaOS.setClassifier("Random Forest");
-            excelRowWekaOS.setBalancing("OVER SAMPLING");
+            excelRowWekaOS.setClassifier(rf);
+            excelRowWekaOS.setBalancing(overSampling);
             excelRowWekaOS.setFeatureSelection("NONE");
             excelRowWekaOS.setSensitivity(-1);
             excelRowWekaOS.setTp(eval.numTruePositives(0));
@@ -492,8 +498,8 @@ public class WalkForward {
             excelRowWekaOS.setPercentTraining(-1);
             excelRowWekaOS.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWekaOS.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWekaOS.setClassifier("IBK");
-            excelRowWekaOS.setBalancing("OVER SAMPLING");
+            excelRowWekaOS.setClassifier(ibk);
+            excelRowWekaOS.setBalancing(overSampling);
             excelRowWekaOS.setFeatureSelection("NONE");
             excelRowWekaOS.setSensitivity(-1);
             excelRowWekaOS.setTp(eval.numTruePositives(0));
@@ -516,7 +522,7 @@ public class WalkForward {
         Instances testing;
         Release testingRelease;
         NaiveBayes classifierBayes;
-        RandomForest classifierRandomWalker;
+        RandomForest classifierRandomForest;
         IBk classifierIBK;
         Evaluation eval;
         Release youngerRelease;
@@ -526,15 +532,13 @@ public class WalkForward {
 
 
         //count1 = 0 --> [1]    count = 1 --> [1;2]     count = 2 --> [1,2;3]...
-        for (int count1 = 0; count1 <= releaseList.size() / 2; count1++) {
-            if (count1 == 0)
-                continue;
+        for (int count1 = 1; count1 <= releaseList.size() / 2; count1++) {
             youngerRelease = releaseList.get(count1 - 1);
             testingRelease = releaseList.get(count1);
 
-            source1 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\training_" + project + "_" + youngerRelease.name + ".arff");
+            source1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
             training = source1.getDataSet();
-            source2 = new ConverterUtils.DataSource("C:\\Users\\lucac\\MyJava\\Deliverable1\\testing_" + project + "_" + testingRelease.name + ".arff");
+            source2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingRelease.name + est);
             testing = source2.getDataSet();
 
             int numAttr = training.numAttributes();
@@ -557,7 +561,7 @@ public class WalkForward {
             excelRowWeka.setPercentTraining(-1);
             excelRowWeka.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWeka.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWeka.setClassifier("Naive Bayes");
+            excelRowWeka.setClassifier(nb);
             excelRowWeka.setBalancing("NONE");
             excelRowWeka.setFeatureSelection("NONE");
             excelRowWeka.setSensitivity(-1);
@@ -571,17 +575,17 @@ public class WalkForward {
             excelRowWeka.setKappa(eval.kappa());
             excelRowWekaList.add(excelRowWeka);
 
-            classifierRandomWalker = new RandomForest();
-            classifierRandomWalker.buildClassifier(training);
+            classifierRandomForest = new RandomForest();
+            classifierRandomForest.buildClassifier(training);
             eval = new Evaluation(testing);
-            eval.evaluateModel(classifierRandomWalker, testing);
+            eval.evaluateModel(classifierRandomForest, testing);
 
             excelRowWeka = new ExcelRowWeka();
             excelRowWeka.setNumberTrainingRelease(count1);
             excelRowWeka.setPercentTraining(-1);
             excelRowWeka.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWeka.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWeka.setClassifier("Random Forest");
+            excelRowWeka.setClassifier(rf);
             excelRowWeka.setBalancing("NONE");
             excelRowWeka.setFeatureSelection("NONE");
             excelRowWeka.setSensitivity(-1);
@@ -606,7 +610,7 @@ public class WalkForward {
             excelRowWeka.setPercentTraining(-1);
             excelRowWeka.setPercentDefectiveTraining((bugs[0]/(bugs[1] + bugs[0])));
             excelRowWeka.setPercentDefectiveTesting((bugs[2]/(bugs[2] + bugs[3])));
-            excelRowWeka.setClassifier("IBK");
+            excelRowWeka.setClassifier(ibk);
             excelRowWeka.setBalancing("NONE");
             excelRowWeka.setFeatureSelection("NONE");
             excelRowWeka.setSensitivity(-1);
