@@ -12,8 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ExcelTools {
 
@@ -222,46 +220,46 @@ public class ExcelTools {
     private boolean writeEvaluation(List<ExcelRowWeka> excelRowWekaList, String project) {
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
             Sheet sheet6 = this.wb.getSheet("weka");
-            int start = sheet6.getLastRowNum();
-            Row row;
+            int startWE = sheet6.getLastRowNum();
+            Row rowWE;
             Cell cellWE;
             for(ExcelRowWeka excelRowWeka: excelRowWekaList){
-                row = sheet6.createRow(start + 1);
-                cellWE = row.createCell(0);
+                rowWE = sheet6.createRow(startWE + 1);
+                cellWE = rowWE.createCell(0);
                 cellWE.setCellValue(project);
-                cellWE = row.createCell(1);
+                cellWE = rowWE.createCell(1);
                 cellWE.setCellValue(excelRowWeka.getNumberTrainingRelease());
-                cellWE = row.createCell(2);
+                cellWE = rowWE.createCell(2);
                 cellWE.setCellValue(excelRowWeka.getPercentTraining());
-                cellWE = row.createCell(3);
+                cellWE = rowWE.createCell(3);
                 cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
-                cellWE = row.createCell(4);
+                cellWE = rowWE.createCell(4);
                 cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
-                cellWE = row.createCell(5);
+                cellWE = rowWE.createCell(5);
                 cellWE.setCellValue(excelRowWeka.getClassifier());
-                cellWE = row.createCell(6);
+                cellWE = rowWE.createCell(6);
                 cellWE.setCellValue(excelRowWeka.getBalancing());
-                cellWE = row.createCell(7);
+                cellWE = rowWE.createCell(7);
                 cellWE.setCellValue(excelRowWeka.getFeatureSelection());
-                cellWE = row.createCell(8);
+                cellWE = rowWE.createCell(8);
                 cellWE.setCellValue(excelRowWeka.getSensitivity());
-                cellWE = row.createCell(9);
+                cellWE = rowWE.createCell(9);
                 cellWE.setCellValue(excelRowWeka.getTp());
-                cellWE = row.createCell(10);
+                cellWE = rowWE.createCell(10);
                 cellWE.setCellValue(excelRowWeka.getFp());
-                cellWE = row.createCell(11);
+                cellWE = rowWE.createCell(11);
                 cellWE.setCellValue(excelRowWeka.getTn());
-                cellWE = row.createCell(12);
+                cellWE = rowWE.createCell(12);
                 cellWE.setCellValue(excelRowWeka.getFn());
-                cellWE = row.createCell(13);
+                cellWE = rowWE.createCell(13);
                 cellWE.setCellValue(excelRowWeka.getPrecision());
-                cellWE = row.createCell(14);
+                cellWE = rowWE.createCell(14);
                 cellWE.setCellValue(excelRowWeka.getRecall());
-                cellWE = row.createCell(15);
+                cellWE = rowWE.createCell(15);
                 cellWE.setCellValue(excelRowWeka.getAuc());
-                cellWE = row.createCell(16);
+                cellWE = rowWE.createCell(16);
                 cellWE.setCellValue(excelRowWeka.getKappa());
-                start += 1;
+                startWE += 1;
             }
             this.wb.write(fileOut);
         } catch (IOException e) {
@@ -273,35 +271,26 @@ public class ExcelTools {
 
     private boolean createWekaTable(String project) {
         this.wb = new HSSFWorkbook();
-        int count = 0;
-        Logger logger = Logger.getLogger(ExcelTools.class.getName());
+
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
             Sheet sheet5 = wb.createSheet("weka");
             Row titleRow = sheet5.createRow(0);
             Cell cellWT = titleRow.createCell(0);
             cellWT.setCellValue("project");                  //project
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(1);
             cellWT.setCellValue("numberTrainingRelease");                  //Release
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(2);
             cellWT.setCellValue("percentTraining");                  //Name of the class
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(3);
             cellWT.setCellValue("percentDefectiveTraining");                  //# revision
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(4);
             cellWT.setCellValue("percentDefectiveTesting");                  //LOC ADDED
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(5);
             cellWT.setCellValue("classifier");
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(6);
             cellWT.setCellValue("balancing");
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(7);
             cellWT.setCellValue("featureSelection");
-            logger.log(Level.INFO, String.valueOf(count));
             cellWT = titleRow.createCell(8);
             cellWT.setCellValue("sensitivity");
             cellWT = titleRow.createCell(9);
