@@ -222,43 +222,43 @@ public class ExcelTools {
             Sheet sheet6 = this.wb.getSheet("weka");
             int start = sheet6.getLastRowNum();
             Row row;
-            Cell cell6;
+            Cell cellWE;
             for(ExcelRowWeka excelRowWeka: excelRowWekaList){
                 row = sheet6.createRow(start + 1);
-                cell6 = row.createCell(0);
-                cell6.setCellValue(project);
-                cell6 = row.createCell(1);
-                cell6.setCellValue(excelRowWeka.getNumberTrainingRelease());
-                cell6 = row.createCell(2);
-                cell6.setCellValue(excelRowWeka.getPercentTraining());
-                cell6 = row.createCell(3);
-                cell6.setCellValue(excelRowWeka.getPercentDefectiveTraining());
-                cell6 = row.createCell(4);
-                cell6.setCellValue(excelRowWeka.getPercentDefectiveTesting());
-                cell6 = row.createCell(5);
-                cell6.setCellValue(excelRowWeka.getClassifier());
-                cell6 = row.createCell(6);
-                cell6.setCellValue(excelRowWeka.getBalancing());
-                cell6 = row.createCell(7);
-                cell6.setCellValue(excelRowWeka.getFeatureSelection());
-                cell6 = row.createCell(8);
-                cell6.setCellValue(excelRowWeka.getSensitivity());
-                cell6 = row.createCell(9);
-                cell6.setCellValue(excelRowWeka.getTp());
-                cell6 = row.createCell(10);
-                cell6.setCellValue(excelRowWeka.getFp());
-                cell6 = row.createCell(11);
-                cell6.setCellValue(excelRowWeka.getTn());
-                cell6 = row.createCell(12);
-                cell6.setCellValue(excelRowWeka.getFn());
-                cell6 = row.createCell(13);
-                cell6.setCellValue(excelRowWeka.getPrecision());
-                cell6 = row.createCell(14);
-                cell6.setCellValue(excelRowWeka.getRecall());
-                cell6 = row.createCell(15);
-                cell6.setCellValue(excelRowWeka.getAuc());
-                cell6 = row.createCell(16);
-                cell6.setCellValue(excelRowWeka.getKappa());
+                cellWE = row.createCell(0);
+                cellWE.setCellValue(project);
+                cellWE = row.createCell(1);
+                cellWE.setCellValue(excelRowWeka.getNumberTrainingRelease());
+                cellWE = row.createCell(2);
+                cellWE.setCellValue(excelRowWeka.getPercentTraining());
+                cellWE = row.createCell(3);
+                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
+                cellWE = row.createCell(4);
+                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
+                cellWE = row.createCell(5);
+                cellWE.setCellValue(excelRowWeka.getClassifier());
+                cellWE = row.createCell(6);
+                cellWE.setCellValue(excelRowWeka.getBalancing());
+                cellWE = row.createCell(7);
+                cellWE.setCellValue(excelRowWeka.getFeatureSelection());
+                cellWE = row.createCell(8);
+                cellWE.setCellValue(excelRowWeka.getSensitivity());
+                cellWE = row.createCell(9);
+                cellWE.setCellValue(excelRowWeka.getTp());
+                cellWE = row.createCell(10);
+                cellWE.setCellValue(excelRowWeka.getFp());
+                cellWE = row.createCell(11);
+                cellWE.setCellValue(excelRowWeka.getTn());
+                cellWE = row.createCell(12);
+                cellWE.setCellValue(excelRowWeka.getFn());
+                cellWE = row.createCell(13);
+                cellWE.setCellValue(excelRowWeka.getPrecision());
+                cellWE = row.createCell(14);
+                cellWE.setCellValue(excelRowWeka.getRecall());
+                cellWE = row.createCell(15);
+                cellWE.setCellValue(excelRowWeka.getAuc());
+                cellWE = row.createCell(16);
+                cellWE.setCellValue(excelRowWeka.getKappa());
                 start += 1;
             }
             this.wb.write(fileOut);
@@ -275,40 +275,40 @@ public class ExcelTools {
         try (OutputStream fileOut = Files.newOutputStream(Paths.get(project+"_wekaResults.csv"))) {
             Sheet sheet5 = wb.createSheet("weka");
             Row titleRow = sheet5.createRow(0);
-            Cell cell5 = titleRow.createCell(0);
-            cell5.setCellValue("project");                  //project
-            cell5 = titleRow.createCell(1);
-            cell5.setCellValue("numberTrainingRelease");                  //Release
-            cell5 = titleRow.createCell(2);
-            cell5.setCellValue("percentTraining");                  //Name of the class
-            cell5 = titleRow.createCell(3);
-            cell5.setCellValue("percentDefectiveTraining");                  //# revision
-            cell5 = titleRow.createCell(4);
-            cell5.setCellValue("percentDefectiveTesting");                  //LOC ADDED
-            cell5 = titleRow.createCell(5);
-            cell5.setCellValue("classifier");
-            cell5 = titleRow.createCell(6);
-            cell5.setCellValue("balancing");
-            cell5 = titleRow.createCell(7);
-            cell5.setCellValue("featureSelection");
-            cell5 = titleRow.createCell(8);
-            cell5.setCellValue("sensitivity");
-            cell5 = titleRow.createCell(9);
-            cell5.setCellValue("TP");
-            cell5 = titleRow.createCell(10);
-            cell5.setCellValue("FP");
-            cell5 = titleRow.createCell(11);
-            cell5.setCellValue("TN");
-            cell5 = titleRow.createCell(12);
-            cell5.setCellValue("FN");
-            cell5 = titleRow.createCell(13);
-            cell5.setCellValue("precision");
-            cell5 = titleRow.createCell(14);
-            cell5.setCellValue("recall");
-            cell5 = titleRow.createCell(15);
-            cell5.setCellValue("auc");
-            cell5 = titleRow.createCell(16);
-            cell5.setCellValue("kappa");
+            Cell cellWT = titleRow.createCell(0);
+            cellWT.setCellValue("project");                  //project
+            cellWT = titleRow.createCell(1);
+            cellWT.setCellValue("numberTrainingRelease");                  //Release
+            cellWT = titleRow.createCell(2);
+            cellWT.setCellValue("percentTraining");                  //Name of the class
+            cellWT = titleRow.createCell(3);
+            cellWT.setCellValue("percentDefectiveTraining");                  //# revision
+            cellWT = titleRow.createCell(4);
+            cellWT.setCellValue("percentDefectiveTesting");                  //LOC ADDED
+            cellWT = titleRow.createCell(5);
+            cellWT.setCellValue("classifier");
+            cellWT = titleRow.createCell(6);
+            cellWT.setCellValue("balancing");
+            cellWT = titleRow.createCell(7);
+            cellWT.setCellValue("featureSelection");
+            cellWT = titleRow.createCell(8);
+            cellWT.setCellValue("sensitivity");
+            cellWT = titleRow.createCell(9);
+            cellWT.setCellValue("TP");
+            cellWT = titleRow.createCell(10);
+            cellWT.setCellValue("FP");
+            cellWT = titleRow.createCell(11);
+            cellWT.setCellValue("TN");
+            cellWT = titleRow.createCell(12);
+            cellWT.setCellValue("FN");
+            cellWT = titleRow.createCell(13);
+            cellWT.setCellValue("precision");
+            cellWT = titleRow.createCell(14);
+            cellWT.setCellValue("recall");
+            cellWT = titleRow.createCell(15);
+            cellWT.setCellValue("auc");
+            cellWT = titleRow.createCell(16);
+            cellWT.setCellValue("kappa");
             sheet5.setColumnWidth(0, 5000);
             sheet5.setColumnWidth(1, 6000);
             sheet5.setColumnWidth(2, 5000);

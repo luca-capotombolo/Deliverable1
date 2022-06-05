@@ -20,11 +20,13 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class WalkForward {
-    private final String path = "C:" + "\\Users" + "\\lucac" + "\\MyJava" + "\\Deliverable1";
-    private final String est =".arff";
-    private final String rf = "Random Forest";
-    private final String nb = "Naive Bayes";
-    private final String ibk = "IBK";
+    private static final String path = "C:" + "\\Users" + "\\lucac" + "\\MyJava" + "\\Deliverable1";
+    private static final String est =".arff";
+    private static final String trainingString = "\\training_";
+    private static final String testingString = "\\testing_";
+    private static final String rf = "Random Forest";
+    private static final String nb = "Naive Bayes";
+    private static final String ibk = "IBK";
 
     public List<ExcelRowWeka> executeWalkForward(List<Release> releaseList, String project) throws Exception {
         List<ExcelRowWeka> list1 = walkForwardStandard(releaseList, project);
@@ -59,9 +61,9 @@ public class WalkForward {
             youngerRelease = releaseList.get(count1 - 1);
             testingReleaseFS = releaseList.get(count1);
 
-            sourceFS1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
+            sourceFS1 = new ConverterUtils.DataSource(path + trainingString + project + "_" + youngerRelease.name + est);
             trainingFS = sourceFS1.getDataSet();
-            sourceFS2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingReleaseFS.name + est);
+            sourceFS2 = new ConverterUtils.DataSource(path + testingString + project + "_" + testingReleaseFS.name + est);
             testingFS = sourceFS2.getDataSet();
 
             int numAttr = trainingFS.numAttributes();
@@ -246,9 +248,9 @@ public class WalkForward {
             youngerRelease = releaseList.get(count1 - 1);
             testingReleaseUS = releaseList.get(count1);
 
-            sourceUnderSampling1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
+            sourceUnderSampling1 = new ConverterUtils.DataSource(path + trainingString + project + "_" + youngerRelease.name + est);
             trainingUS = sourceUnderSampling1.getDataSet();
-            sourceUnderSampling2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingReleaseUS.name + est);
+            sourceUnderSampling2 = new ConverterUtils.DataSource(path + testingString + project + "_" + testingReleaseUS.name + est);
             testingUS = sourceUnderSampling2.getDataSet();
 
             int numAttr = trainingUS.numAttributes();
@@ -391,9 +393,9 @@ public class WalkForward {
             youngerRelease = releaseList.get(count1 - 1);
             testingRelease = releaseList.get(count1);
 
-            sourceOverSampling1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
+            sourceOverSampling1 = new ConverterUtils.DataSource(path + trainingString + project + "_" + youngerRelease.name + est);
             trainingOS = sourceOverSampling1.getDataSet();
-            sourceOverSampling2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingRelease.name + est);
+            sourceOverSampling2 = new ConverterUtils.DataSource(path + testingString + project + "_" + testingRelease.name + est);
             testingOS = sourceOverSampling2.getDataSet();
 
             int numAttr = trainingOS.numAttributes();
@@ -536,9 +538,9 @@ public class WalkForward {
             youngerRelease = releaseList.get(count1 - 1);
             testingRelease = releaseList.get(count1);
 
-            source1 = new ConverterUtils.DataSource(path + "\\training_" + project + "_" + youngerRelease.name + est);
+            source1 = new ConverterUtils.DataSource(path + trainingString + project + "_" + youngerRelease.name + est);
             training = source1.getDataSet();
-            source2 = new ConverterUtils.DataSource(path + "\\testing_" + project + "_" + testingRelease.name + est);
+            source2 = new ConverterUtils.DataSource(path + testingString + project + "_" + testingRelease.name + est);
             testing = source2.getDataSet();
 
             int numAttr = training.numAttributes();
