@@ -57,11 +57,11 @@ public class ExcelRowWeka {
         this.featureSelection = featureSelection;
     }
 
-    public float getSensitivity() {
+    public String getSensitivity() {
         return sensitivity;
     }
 
-    public void setSensitivity(float sensitivity) {
+    public void setSensitivity(String sensitivity) {
         this.sensitivity = sensitivity;
     }
 
@@ -136,7 +136,7 @@ public class ExcelRowWeka {
     private  String classifier;
     private  String balancing;
     private  String featureSelection;
-    private  float sensitivity;
+    private  String sensitivity;
     private  double tp;
     private  double fp;
     private  double tn;

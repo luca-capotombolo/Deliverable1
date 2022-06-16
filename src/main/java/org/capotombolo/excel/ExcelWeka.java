@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class ExcelWeka {
     private Workbook wb;
@@ -28,44 +29,49 @@ public class ExcelWeka {
             Sheet sheet6 = this.wb.getSheet("weka");
             int startWE = sheet6.getLastRowNum();
             Row rowWE;
+            String [] classifiers = {"Random Forest", "Naive Bayes", "IBK"};
             Cell cellWE;
-            for(ExcelRowWeka excelRowWeka: excelRowWekaList){
-                rowWE = sheet6.createRow(startWE + 1);
-                cellWE = rowWE.createCell(5);
-                cellWE.setCellValue(excelRowWeka.getClassifier());
-                cellWE = rowWE.createCell(6);
-                cellWE.setCellValue(excelRowWeka.getBalancing());
-                cellWE = rowWE.createCell(7);
-                cellWE.setCellValue(excelRowWeka.getFeatureSelection());
-                cellWE = rowWE.createCell(8);
-                cellWE.setCellValue(excelRowWeka.getSensitivity());
-                cellWE = rowWE.createCell(9);
-                cellWE.setCellValue(excelRowWeka.getTp());
-                cellWE = rowWE.createCell(10);
-                cellWE.setCellValue(excelRowWeka.getFp());
-                cellWE = rowWE.createCell(11);
-                cellWE.setCellValue(excelRowWeka.getTn());
-                cellWE = rowWE.createCell(12);
-                cellWE.setCellValue(excelRowWeka.getFn());
-                cellWE = rowWE.createCell(13);
-                cellWE.setCellValue(excelRowWeka.getPrecision());
-                cellWE = rowWE.createCell(14);
-                cellWE.setCellValue(excelRowWeka.getRecall());
-                cellWE = rowWE.createCell(15);
-                cellWE.setCellValue(excelRowWeka.getAuc());
-                cellWE = rowWE.createCell(16);
-                cellWE.setCellValue(excelRowWeka.getKappa());
-                cellWE = rowWE.createCell(0);
-                cellWE.setCellValue(project);
-                cellWE = rowWE.createCell(1);
-                cellWE.setCellValue(excelRowWeka.getNumberTrainingRelease());
-                cellWE = rowWE.createCell(2);
-                cellWE.setCellValue(excelRowWeka.getPercentTraining());
-                cellWE = rowWE.createCell(3);
-                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
-                cellWE = rowWE.createCell(4);
-                cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
-                startWE += 1;
+            for(String classifier: classifiers){
+                for(ExcelRowWeka excelRowWeka: excelRowWekaList){
+                    if(!Objects.equals(excelRowWeka.getClassifier(), classifier))
+                        continue;
+                    rowWE = sheet6.createRow(startWE + 1);
+                    cellWE = rowWE.createCell(5);
+                    cellWE.setCellValue(excelRowWeka.getClassifier());
+                    cellWE = rowWE.createCell(6);
+                    cellWE.setCellValue(excelRowWeka.getBalancing());
+                    cellWE = rowWE.createCell(7);
+                    cellWE.setCellValue(excelRowWeka.getFeatureSelection());
+                    cellWE = rowWE.createCell(8);
+                    cellWE.setCellValue(excelRowWeka.getSensitivity());
+                    cellWE = rowWE.createCell(9);
+                    cellWE.setCellValue(excelRowWeka.getTp());
+                    cellWE = rowWE.createCell(10);
+                    cellWE.setCellValue(excelRowWeka.getFp());
+                    cellWE = rowWE.createCell(11);
+                    cellWE.setCellValue(excelRowWeka.getTn());
+                    cellWE = rowWE.createCell(12);
+                    cellWE.setCellValue(excelRowWeka.getFn());
+                    cellWE = rowWE.createCell(13);
+                    cellWE.setCellValue(excelRowWeka.getPrecision());
+                    cellWE = rowWE.createCell(14);
+                    cellWE.setCellValue(excelRowWeka.getRecall());
+                    cellWE = rowWE.createCell(15);
+                    cellWE.setCellValue(excelRowWeka.getAuc());
+                    cellWE = rowWE.createCell(16);
+                    cellWE.setCellValue(excelRowWeka.getKappa());
+                    cellWE = rowWE.createCell(0);
+                    cellWE.setCellValue(project);
+                    cellWE = rowWE.createCell(1);
+                    cellWE.setCellValue(excelRowWeka.getNumberTrainingRelease());
+                    cellWE = rowWE.createCell(2);
+                    cellWE.setCellValue(excelRowWeka.getPercentTraining());
+                    cellWE = rowWE.createCell(3);
+                    cellWE.setCellValue(excelRowWeka.getPercentDefectiveTraining());
+                    cellWE = rowWE.createCell(4);
+                    cellWE.setCellValue(excelRowWeka.getPercentDefectiveTesting());
+                    startWE += 1;
+                }
             }
             this.wb.write(fileOut);
         } catch (IOException e) {
