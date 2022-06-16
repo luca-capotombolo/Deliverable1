@@ -29,6 +29,7 @@ public class WalkForward {
     private static final String RANDOM_FOREST = "Random Forest";
     private static final String NAIVE_BAYES = "Naive Bayes";
     private static final String IBK = "IBK";
+    private static final String SENSITIVE = "SENSITIVE LEARNING";
 
     public List<ExcelRowWeka> executeWalkForward(List<Release> releaseList, String project) throws Exception {
         List<ExcelRowWeka> list1 = walkForwardStandard(releaseList, project);
@@ -100,7 +101,7 @@ public class WalkForward {
             String [] args = {NAIVE_BAYES, "NONE", "NONE"};
             float percentTraining = (float)count1/(float) (releaseList.size()/2 + 1);
 
-            writeExcelRowWeka(count1, args,"SENSITIVE LEARNING",excelRowWekaList,bugs,eval, percentTraining);
+            writeExcelRowWeka(count1, args,SENSITIVE,excelRowWekaList,bugs,eval, percentTraining);
 
             //RANDOM FOREST
             classifierRandomForestSL = new RandomForest();
@@ -120,7 +121,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(trainingSL, testingSL);
 
             args = new String[]{RANDOM_FOREST, "NONE", "NONE"};
-            writeExcelRowWeka(count1, args,"SENSITIVE LEARNING",excelRowWekaList,bugs,eval, percentTraining);
+            writeExcelRowWeka(count1, args,SENSITIVE,excelRowWekaList,bugs,eval, percentTraining);
 
 
 
@@ -141,7 +142,7 @@ public class WalkForward {
             bugs = getCountBuggyNoBuggy(trainingSL, testingSL);
 
             args = new String[]{IBK, "NONE", "NONE"};
-            writeExcelRowWeka(count1, args,"SENSITIVE LEARNING",excelRowWekaList,bugs,eval, percentTraining);
+            writeExcelRowWeka(count1, args,SENSITIVE,excelRowWekaList,bugs,eval, percentTraining);
 
         }
         return excelRowWekaList;
