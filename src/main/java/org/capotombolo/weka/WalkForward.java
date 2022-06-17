@@ -29,7 +29,8 @@ public class WalkForward {
     private static final String RANDOM_FOREST = "Random Forest";
     private static final String NAIVE_BAYES = "Naive Bayes";
     private static final String IBK = "IBK";
-    private static final String SENSITIVE = "SENSITIVE LEARNING";
+    private static final String SENSITIVE_LEARNING = "SENSITIVE LEARNING";
+    private static final String SENSITIVE_THRESHOLD = "SENSITIVE THRESHOLD";
 
     public List<ExcelRowWeka> executeWalkForward(List<Release> releaseList, String project) throws Exception {
         List<ExcelRowWeka> list1 = walkForwardStandard(releaseList, project);
@@ -42,6 +43,8 @@ public class WalkForward {
         fullList.addAll(list4);
         List<ExcelRowWeka> list5 = walkForwardSensitiveLearning(releaseList, project);
         fullList.addAll(list5);
+        List<ExcelRowWeka> list6 = walkForwardSensitiveThreshold(releaseList, project);
+        fullList.addAll(list6);
 
         return fullList;
     }
@@ -83,16 +86,16 @@ public class WalkForward {
 
             //NAIVE BAYES
             classifierBayesSL = new NaiveBayes();
-            CostMatrix costMatrix = new CostMatrix(2);
-            costMatrix.setCell(0, 0, 0.0);
-            costMatrix.setCell(1, 0, 1.0);
-            costMatrix.setCell(0, 1, 10.0);
-            costMatrix.setCell(1, 1, 0.0);
+            CostMatrix costMatrixSL = new CostMatrix(2);
+            costMatrixSL.setCell(0, 0, 0.0);
+            costMatrixSL.setCell(1, 0, 1.0);
+            costMatrixSL.setCell(0, 1, 10.0);
+            costMatrixSL.setCell(1, 1, 0.0);
             CostSensitiveClassifier csc = new CostSensitiveClassifier();
             csc.setClassifier(classifierBayesSL);
-            csc.setCostMatrix(costMatrix);
+            csc.setCostMatrix(costMatrixSL);
             csc.buildClassifier(trainingSL);
-            csc.setMinimizeExpectedCost(true);
+            csc.setMinimizeExpectedCost(false);
             eval = new Evaluation(testingSL, csc.getCostMatrix());
             eval.evaluateModel(csc, testingSL);
 
@@ -101,48 +104,150 @@ public class WalkForward {
             String [] args = {NAIVE_BAYES, "NONE", "NONE"};
             float percentTraining = (float)count1/(float) (releaseList.size()/2 + 1);
 
-            writeExcelRowWeka(count1, args,SENSITIVE,excelRowWekaList,bugs,eval, percentTraining);
+            writeExcelRowWeka(count1, args, SENSITIVE_LEARNING,excelRowWekaList,bugs,eval, percentTraining);
 
             //RANDOM FOREST
             classifierRandomForestSL = new RandomForest();
-            costMatrix = new CostMatrix(2);
-            costMatrix.setCell(0, 0, 0.0);
-            costMatrix.setCell(1, 0, 1.0);
-            costMatrix.setCell(0, 1, 10.0);
-            costMatrix.setCell(1, 1, 0.0);
+            costMatrixSL = new CostMatrix(2);
+            costMatrixSL.setCell(0, 0, 0.0);
+            costMatrixSL.setCell(1, 0, 1.0);
+            costMatrixSL.setCell(0, 1, 10.0);
+            costMatrixSL.setCell(1, 1, 0.0);
             csc = new CostSensitiveClassifier();
             csc.setClassifier(classifierRandomForestSL);
-            csc.setCostMatrix(costMatrix);
+            csc.setCostMatrix(costMatrixSL);
             csc.buildClassifier(trainingSL);
-            csc.setMinimizeExpectedCost(true);
+            csc.setMinimizeExpectedCost(false);
             eval = new Evaluation(testingSL, csc.getCostMatrix());
             eval.evaluateModel(csc, testingSL);
 
             bugs = getCountBuggyNoBuggy(trainingSL, testingSL);
 
             args = new String[]{RANDOM_FOREST, "NONE", "NONE"};
-            writeExcelRowWeka(count1, args,SENSITIVE,excelRowWekaList,bugs,eval, percentTraining);
+            writeExcelRowWeka(count1, args, SENSITIVE_LEARNING,excelRowWekaList,bugs,eval, percentTraining);
 
 
 
             classifierIBKSL = new IBk();
-            costMatrix = new CostMatrix(2);
-            costMatrix.setCell(0, 0, 0.0);
-            costMatrix.setCell(1, 0, 1.0);
-            costMatrix.setCell(0, 1, 10.0);
-            costMatrix.setCell(1, 1, 0.0);
+            costMatrixSL = new CostMatrix(2);
+            costMatrixSL.setCell(0, 0, 0.0);
+            costMatrixSL.setCell(1, 0, 1.0);
+            costMatrixSL.setCell(0, 1, 10.0);
+            costMatrixSL.setCell(1, 1, 0.0);
             csc = new CostSensitiveClassifier();
             csc.setClassifier(classifierIBKSL);
-            csc.setCostMatrix(costMatrix);
+            csc.setCostMatrix(costMatrixSL);
             csc.buildClassifier(trainingSL);
-            csc.setMinimizeExpectedCost(true);
+            csc.setMinimizeExpectedCost(false);
             eval = new Evaluation(testingSL, csc.getCostMatrix());
             eval.evaluateModel(csc, testingSL);
 
             bugs = getCountBuggyNoBuggy(trainingSL, testingSL);
 
             args = new String[]{IBK, "NONE", "NONE"};
-            writeExcelRowWeka(count1, args,SENSITIVE,excelRowWekaList,bugs,eval, percentTraining);
+            writeExcelRowWeka(count1, args, SENSITIVE_LEARNING,excelRowWekaList,bugs,eval, percentTraining);
+
+        }
+        return excelRowWekaList;
+    }
+
+    private List<ExcelRowWeka> walkForwardSensitiveThreshold(List<Release> releaseList, String project) throws Exception {
+        ConverterUtils.DataSource sourceST1;
+        Instances trainingST;
+        ConverterUtils.DataSource sourceST2;
+        Instances testingST;
+        Release testingReleaseST;
+        NaiveBayes classifierBayesST;
+        RandomForest classifierRandomForestST;
+        IBk classifierIBKST;
+        Evaluation eval;
+        Release youngerRelease;
+        List<ExcelRowWeka> excelRowWekaList = new ArrayList<>();
+
+        for (int count1 = 1; count1 <= releaseList.size() / 2; count1++) {
+            youngerRelease = releaseList.get(count1 - 1);
+            testingReleaseST = releaseList.get(count1);
+
+            sourceST1 = new ConverterUtils.DataSource(PATH + TRAINING_STRING + project + "_" + youngerRelease.name + ARFF);
+            trainingST = sourceST1.getDataSet();
+            sourceST2 = new ConverterUtils.DataSource(PATH + TESTING_STRING + project + "_" + testingReleaseST.name + ARFF);
+            testingST = sourceST2.getDataSet();
+
+            int numAttr = trainingST.numAttributes();
+            trainingST.setClassIndex(numAttr - 1);
+            testingST.setClassIndex(numAttr - 1);
+
+            //check if there is at least one buggy
+            double [] bugs;
+            bugs = getCountBuggyNoBuggy(trainingST, null);
+
+            //tolgo i training set che non hanno alcuna classe buggy
+            if (bugs[0] == 0)
+                continue;
+
+
+            //NAIVE BAYES
+            classifierBayesST = new NaiveBayes();
+            CostMatrix costMatrixST = new CostMatrix(2);
+            costMatrixST.setCell(0, 0, 0.0);
+            costMatrixST.setCell(1, 0, 1.0);
+            costMatrixST.setCell(0, 1, 10.0);
+            costMatrixST.setCell(1, 1, 0.0);
+            CostSensitiveClassifier csc = new CostSensitiveClassifier();
+            csc.setClassifier(classifierBayesST);
+            csc.setCostMatrix(costMatrixST);
+            csc.buildClassifier(trainingST);
+            csc.setMinimizeExpectedCost(true);
+            eval = new Evaluation(testingST, csc.getCostMatrix());
+            eval.evaluateModel(csc, testingST);
+
+            bugs = getCountBuggyNoBuggy(trainingST, testingST);
+
+            String [] args = {NAIVE_BAYES, "NONE", "NONE"};
+            float percentTraining = (float)count1/(float) (releaseList.size()/2 + 1);
+
+            writeExcelRowWeka(count1, args, SENSITIVE_THRESHOLD,excelRowWekaList,bugs,eval, percentTraining);
+
+            //RANDOM FOREST
+            classifierRandomForestST = new RandomForest();
+            costMatrixST = new CostMatrix(2);
+            costMatrixST.setCell(0, 0, 0.0);
+            costMatrixST.setCell(1, 0, 1.0);
+            costMatrixST.setCell(0, 1, 10.0);
+            costMatrixST.setCell(1, 1, 0.0);
+            csc = new CostSensitiveClassifier();
+            csc.setClassifier(classifierRandomForestST);
+            csc.setCostMatrix(costMatrixST);
+            csc.buildClassifier(trainingST);
+            csc.setMinimizeExpectedCost(true);
+            eval = new Evaluation(testingST, csc.getCostMatrix());
+            eval.evaluateModel(csc, testingST);
+
+            bugs = getCountBuggyNoBuggy(trainingST, testingST);
+
+            args = new String[]{RANDOM_FOREST, "NONE", "NONE"};
+            writeExcelRowWeka(count1, args, SENSITIVE_THRESHOLD,excelRowWekaList,bugs,eval, percentTraining);
+
+
+
+            classifierIBKST = new IBk();
+            costMatrixST = new CostMatrix(2);
+            costMatrixST.setCell(0, 0, 0.0);
+            costMatrixST.setCell(1, 0, 1.0);
+            costMatrixST.setCell(0, 1, 10.0);
+            costMatrixST.setCell(1, 1, 0.0);
+            csc = new CostSensitiveClassifier();
+            csc.setClassifier(classifierIBKST);
+            csc.setCostMatrix(costMatrixST);
+            csc.buildClassifier(trainingST);
+            csc.setMinimizeExpectedCost(true);
+            eval = new Evaluation(testingST, csc.getCostMatrix());
+            eval.evaluateModel(csc, testingST);
+
+            bugs = getCountBuggyNoBuggy(trainingST, testingST);
+
+            args = new String[]{IBK, "NONE", "NONE"};
+            writeExcelRowWeka(count1, args, SENSITIVE_THRESHOLD,excelRowWekaList,bugs,eval, percentTraining);
 
         }
         return excelRowWekaList;
